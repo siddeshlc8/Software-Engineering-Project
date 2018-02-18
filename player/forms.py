@@ -1,9 +1,11 @@
 from django import forms
 from .models import Player
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 
 
 class PlayerSignUpForm(UserCreationForm):
+
     class Meta:
         model = Player
         fields = [
@@ -15,6 +17,12 @@ class PlayerSignUpForm(UserCreationForm):
             'state',
             'district',
             'player_type',
+            'username',
             'password1',
-            'password2'
+            'password2',
+            'email'
         ]
+
+        labels = {
+            'dob': _('Date of Birth'),
+        }
