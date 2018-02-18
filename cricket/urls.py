@@ -21,5 +21,6 @@ app_name = 'cricket'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('player/', include('player.urls'), name='player'),
+    path('organizer/',include('organizer.urls'),name='organizer'),
     path('', views.home_page, name='home_page'),
 ]
