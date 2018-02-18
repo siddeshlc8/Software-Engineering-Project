@@ -1,0 +1,40 @@
+{% extends 'player/base.html' %}
+
+{% block title %}{{ user.get_full_name }} | Edit | Profile{% endblock %}
+
+{% block body %}
+
+    {% if user.username %}
+
+       <div class="container">
+
+        <p><h1>Your Profile</h1></p>
+
+           <form  method="POST">
+
+            {% csrf_token %}
+                 {% for field in form %}
+
+                     <div class="form-group">
+
+                     {{ field.errors }}
+                     <b>{{ field.label_tag }}</b>
+                     <p> {{ field }}</p>
+
+                     </div>
+
+                 {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+
+          </form>
+        </div>
+
+    {% else %}
+
+            <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
+
+    {% endif %}
+
+
+{% endblock %}

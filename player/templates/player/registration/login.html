@@ -5,39 +5,43 @@
 
 {% block body %}
 
-
-
-       <head>
-
-
-       </head>
-
     <p>
      <div class="container">
-              <form method="POST">
+
+         {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+         {% endif %}
+
+
+
+
+
+
+         <form method="POST">
             {% csrf_token %}
 
                    <div class="form-group">
 
-                        <label><p><b>Username</b></p></label>
+                       <label><p><b>Username</b></p></label>
                        <p><input type="text" name="username"></p>
 
 
-                        <label><p><b>Password</b></p></label>
+                        <label><b>Password</b></label>
                         <p><input type="password" name="password"></p>
 
 
-                   </div>
+                    </div>
                  <button type="submit"><b>Login</b></button>
-        </form>
+                 <input type="hidden" name="next" value="{{ next }}" />
+         </form>
 
         <p><a href="#"><b>Lost password?</b></a></p>
-
-     </div>
 
         <p>
             <a href="{% url 'player:player_signup' %}"><h4>Don't have an account.Click here to SignUp</h4></a>
         </p>
+
+     </div>
 
     </p>
 

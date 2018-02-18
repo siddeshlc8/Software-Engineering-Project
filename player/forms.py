@@ -26,3 +26,18 @@ class PlayerSignUpForm(UserCreationForm):
         labels = {
             'dob': _('Date of Birth'),
         }
+
+
+class PlayerProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Player
+        fields = [
+            'first_name',
+            'last_name',
+            'phone_no',
+            'email',
+            'nationality',
+            'state',
+            'district'
+        ]

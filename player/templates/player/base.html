@@ -15,6 +15,14 @@
 
     <a href="{% url 'player:player_home' %}"><h4>Home</h4></a>
 
+    <p><h4>Profile</h4></p>
+
+    <div class="container-fluid">
+            <li> <a href="{% url 'player:player_view_profile' %}">View Profile</a> </li>
+            <li> <a href="{% url 'player:player_edit_profile'  %}">Edit Profile</a> </li>
+            <li> <a href="{% url 'player:player_change_password' %}">Change Password</a> </li>
+    </div>
+
     <a href="#"><h4>Performance</h4></a>
 
     <a href="{% url 'player:player_logout' %}"><h4>Logout</h4></a>

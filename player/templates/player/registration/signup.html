@@ -1,23 +1,17 @@
 {% extends 'player/registration/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Player | SignUp</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
+{% block title %}Player | SignUp{% endblock %}
 
 {% block body %}
 
-     <p>
+ <div class="container">
+
+    <p>
         <a href="{% url 'player:player_login' %}"><h4>Have an account?Click here to LogIn</h4></a>
     </p>
 
     <p><h3>SignUp to have an account</h3></p>
-    <p>
- <div class="container">
+
      <form  method="POST">
          {% csrf_token %}
          {% for field in form %}

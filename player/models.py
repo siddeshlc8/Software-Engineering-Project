@@ -16,6 +16,17 @@ class Player(User):
     district = models.CharField(max_length=20)
     dob = models.DateField()
 
+    def profile(self):
+        value = {
+            'First Name': getattr(self, 'first_name'),
+            'Last Name': getattr(self, 'last_name'),
+            'Phone Number': getattr(self, 'phone_no'),
+            'Email Address': getattr(self, 'email'),
+            'Nationality': getattr(self, 'nationality'),
+            'State': getattr(self, 'state'),
+            'District': getattr(self, 'district')}
+        return value
+
 
 
 
