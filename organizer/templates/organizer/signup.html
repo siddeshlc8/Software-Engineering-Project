@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+  <body>
+        {% if errors %}
+
+            {% for error in errors %}
+
+                <p>{{ error }}</p>
+
+            {% endfor%}
+
+        {% endif %}
+
+
+         <form action="{% url 'organizer:signup' %} " method="post">
+
+         {% csrf_token %}
+
+         {{ form.as_p }}
+
+         <input type="submit" value="SignUp">
+
+         </form>
+
+  </body>
+
+</html>

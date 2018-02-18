@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>organizers</title>
+</head>
+
+<body>
+
+<ul>
+      {% for organizer in all_organizers %}
+
+           <li>{{ organizer.id }}{{ organizer.username }}</li><br>
+
+      {% endfor %}
+
+</ul>
+
+   <a href="{% url 'organizer:signup' %}" >signup</a>
+
+</body>
+</html>
