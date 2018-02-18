@@ -5,7 +5,8 @@ from organizer.models import Organizer
 
 
 def organizers_page(request):
-    return render(request,'organizer/organizers_page.html')
+    all_organizers=Organizer.objects.all()
+    return render(request,'organizer/organizers_page.html',{'all_organizers':all_organizers})
 
 
 def signup(request):
@@ -22,3 +23,12 @@ def signup(request):
 def home(request,organizer_id):
     current_organizer=Organizer.objects.get(id=organizer_id)
     return render(request,'organizer/home.html',{'current_organizer':current_organizer})
+
+def view_profile(request,organizer_id):
+    current_organizer=Organizer.objects.get(id=organizer_id)
+    return render(request, 'organizer/profile/view_profile.html', {'current_organizer': current_organizer})
+
+def edit_profile(request,organizer_id):
+    
+    current_organizer=Organizer.objects.get(id=organizer_id)
+    return render(request, 'organizer/profile/edit_profile.html', {'current_organizer': current_organizer})
