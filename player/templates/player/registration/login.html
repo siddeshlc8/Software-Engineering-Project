@@ -1,0 +1,46 @@
+{% extends 'player/registration/base.html' %}
+
+{% block title %}Player | Login{% endblock %}
+
+
+{% block body %}
+
+
+
+       <head>
+
+
+       </head>
+
+    <p>
+     <div class="container">
+              <form method="POST">
+            {% csrf_token %}
+
+                   <div class="form-group">
+
+                        <label><p><b>Username</b></p></label>
+                       <p><input type="text" name="username"></p>
+
+
+                        <label><p><b>Password</b></p></label>
+                        <p><input type="password" name="password"></p>
+
+
+                   </div>
+                 <button type="submit"><b>Login</b></button>
+        </form>
+
+        <p><a href="#"><b>Lost password?</b></a></p>
+
+     </div>
+
+        <p>
+            <a href="{% url 'player:player_signup' %}"><h4>Don't have an account.Click here to SignUp</h4></a>
+        </p>
+
+    </p>
+
+
+{% endblock %}
+

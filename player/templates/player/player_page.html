@@ -1,0 +1,14 @@
+{% extends 'cricket/base.html' %}
+
+{% block title %}Players{% endblock %}
+
+{% block body %}
+
+
+    <a href="{% url 'player:player_login' %}"><h3>LogIn</h3></a>
+
+    <a href="{% url 'player:player_signup' %}"><h3>SignUp</h3></a>
+
+    <a href="#"><h3>Contact</h3></a>
+
+{% endblock %}

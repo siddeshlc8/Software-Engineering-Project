@@ -1,0 +1,25 @@
+
+    {% load staticfiles %}
+           <link rel="stylesheet" type="text/css" href="{% static 'player/registration/base.css' %}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>{% block title%}Accounts{% endblock %}</title>
+
+    <a href="{% url 'home_page' %}"><h4>Home Page</h4></a>
+
+    <a href="{% url 'player:players_page' %}"><h4>Player Page</h4></a>
+
+    <a href="#"><h4>Organizer Page</h4></a>
+
+    <a href="#"><h4>Contact</h4></a>
+
+{% block body %}
+
+{% endblock %}
+
