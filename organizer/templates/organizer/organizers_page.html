@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>organizers</title>
-</head>
+{% extends 'cricket/base.html' %}
 
-<body>
+{% block title %}Players{% endblock %}
 
-<ul>
+{% block body %}
+
+<div class="container">
+    <a href="{% url 'organizer:login' %}">Login</a><br><br>
+
+    <a href="{% url 'organizer:signup' %}" >signup</a>
+
 
       {% for organizer in all_organizers %}
 
@@ -15,10 +16,6 @@
 
       {% endfor %}
 
+</div>
 
-</ul>
-
-   <a href="{% url 'organizer:signup' %}" >signup</a>
-
-</body>
-</html>
+{% endblock %}

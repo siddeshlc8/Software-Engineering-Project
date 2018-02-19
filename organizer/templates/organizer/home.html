@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Organizer - Home</title>
-</head>
+{% extends 'organizer/base.html' %}
 
-<body>
+{% block title %}{{ user.get_full_name }} | Home{% endblock %}
 
-  <h1>{{ current_organizer.first_name }} {{ current_organizer.last_name }}</h1>
+{% block body %}
 
-</body>
+    {% if user.username %}
 
-</html>
+           <h1> {{ user.get_full_name}} </h1>
+
+    {% else %}
+
+            <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
+
+    {% endif %}
+
+
+{% endblock %}
