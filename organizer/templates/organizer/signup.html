@@ -1,9 +1,9 @@
-{% extends 'organizer/base.html' %}
+{% extends 'cricket/base.html' %}
 
 {% block title %}SignUP{% endblock %}
 
   {% block body %}
-        {% if errors %}
+     <br>   {% if errors %}
 
             {% for error in errors %}
 
@@ -13,7 +13,7 @@
 
         {% endif %}
 
-
+     <br> <p>
          <form action="{% url 'organizer:signup' %} " method="post">
 
          {% csrf_token %}
@@ -23,5 +23,6 @@
          <input type="submit" value="SignUp">
 
          </form>
+      </p>
 
   {% endblock %}

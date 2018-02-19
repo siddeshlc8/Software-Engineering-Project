@@ -5,15 +5,19 @@ from .models import Player
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, LoginView, LogoutView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, LoginView, LogoutView, TemplateView
 from django.views.generic import *
 
 
 # Create your views here.
-class PlayerPageView(ListView):
+class PlayerPageView(TemplateView):
+    template_name = 'player/player_page.html'
+
+
+class PlayerBrowseView(ListView):
     model = Player
     context_object_name = 'all_players'
-    template_name = 'player/player_page.html'
+    template_name = 'player/browse_player.html'
 
 
 def player_details(request, player_id):

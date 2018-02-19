@@ -1,0 +1,20 @@
+{% extends 'cricket/base.html' %}
+
+{% block title %}Player | Browse{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+<br>
+    <p><h2>List of Players:</h2></p>
+
+    {% for player in all_players %}
+
+        <a href="{% url 'player:player_details' player.id %}"><h3>{{ player.get_full_name }}</h3></a>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
