@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tournament.models import Team
 
 
 class Player(User):
@@ -15,6 +16,7 @@ class Player(User):
     state = models.CharField(max_length=20)
     district = models.CharField(max_length=20)
     dob = models.DateField()
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, null=True)
 
     def profile(self):
         value = {

@@ -16,7 +16,6 @@ def create_tournament(request):
         return render(request, 'tournament/create_tournament.html', context)
 
 
-
 def tournament(request):
     all_tournament = Tournament.objects.all()
     context = {'all_tournament': all_tournament}
