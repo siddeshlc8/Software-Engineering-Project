@@ -16,7 +16,7 @@ class Player(User):
     state = models.CharField(max_length=20)
     district = models.CharField(max_length=20)
     dob = models.DateField()
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, null=True)
+    team = models.ManyToManyField(Team, null=True)
 
     def profile(self):
         value = {

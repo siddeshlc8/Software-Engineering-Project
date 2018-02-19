@@ -12,10 +12,6 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        from django.urls import reverse
-        return reverse('tournament.views.tournament_teams', args=[str(self.id)])
-
 
 class Team(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -26,7 +22,4 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        from django.urls import reverse
-        return reverse('tournament.views.team_players', args=[str(self.id)])
 

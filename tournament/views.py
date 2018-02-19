@@ -61,4 +61,4 @@ def team_players_add(request, team_id, player_id):
     team_ = Team.objects.get(pk=team_id)
     player_ = Player.objects.get(pk=player_id)
     team_.player_set.add(player_)
-    return redirect('tournament:team')
+    return redirect('tournament:team_players', team_id)
