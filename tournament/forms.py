@@ -3,6 +3,7 @@ from .models import Team, Tournament
 
 
 class TeamCreationForm(forms.ModelForm):
+    logo = forms.ImageField(required=False)
 
     class Meta:
         model = Team

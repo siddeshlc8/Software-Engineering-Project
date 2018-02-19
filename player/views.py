@@ -74,15 +74,6 @@ def player_edit_profile(request):
         return redirect('player:player_login')
 
 
-class PlayerPasswordChange(PasswordChangeView):
-    template_name = 'player/change_password.html'
-    success_url = '/player/password-change-done/'
-
-
-class PlayerPasswordChangeDone(PasswordChangeDoneView):
-    template_name = 'player/change_password_done.html'
-
-
 def player_change_password(request):
     if request.user.username:
         if request.method == 'POST':

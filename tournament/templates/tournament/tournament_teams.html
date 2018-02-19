@@ -6,6 +6,8 @@
 
 <div class="container">
 
+    <a href="{% url 'tournament:create_team' current_tournament.id %}"><h2><b>Add Teams</b></h2></a>
+
     <p><h2>List of Teams:</h2></p>
 
     {% for team in teams %}
