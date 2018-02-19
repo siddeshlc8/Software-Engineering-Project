@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <p>
+     <div class="container">
+
+         {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+         {% endif %}
+
+
+
+
+
+
+         <form method="POST">
+            {% csrf_token %}
+
+                   <div class="form-group">
+
+                       <label><p><b>Username</b></p></label>
+                       <p><input type="text" name="username"></p>
+
+
+                        <label><b>Password</b></label>
+                        <p><input type="password" name="password"></p>
+
+
+                    </div>
+                 <button type="submit"><b>Login</b></button>
+                 <input type="hidden" name="next" value="{{ next }}" />
+         </form>
+
+        <p><a href="#"><b>Lost password?</b></a></p>
+
+        <p>
+            <a href="{% url 'organizer:signup' %}"><h4>Don't have an account.Click here to SignUp</h4></a>
+        </p>
+
+     </div>
+
+    </p>
+
+</body>
+</html>

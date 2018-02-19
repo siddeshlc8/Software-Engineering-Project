@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from organizer.form import OrganizerSignupForm
 # Create your views here.
@@ -6,7 +7,7 @@ from organizer.models import Organizer
 
 def organizers_page(request):
     all_organizers=Organizer.objects.all()
-    return render(request,'organizer/organizers_page.html',{'all_organizers':all_organizers})
+    return render(request,'organizer/organizers_page.html',{'all_organizers' : all_organizers})
 
 
 def signup(request):
@@ -29,6 +30,21 @@ def view_profile(request,organizer_id):
     return render(request, 'organizer/profile/view_profile.html', {'current_organizer': current_organizer})
 
 def edit_profile(request,organizer_id):
-    
+
     current_organizer=Organizer.objects.get(id=organizer_id)
     return render(request, 'organizer/profile/edit_profile.html', {'current_organizer': current_organizer})
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('organizer:home')
+    return render(request, 'organizer/login.html')
+
+
+def logout(request):
+    logout(request)
+    return redirect('organizer:login')
