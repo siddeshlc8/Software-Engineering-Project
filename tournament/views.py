@@ -1,13 +1,33 @@
 from django.shortcuts import render,redirect
-from .models import Team
+from .models import Team, Tournament
 from player.models import Player
+from .forms import TournamentCreationForm
 # Create your views here.
 
 
-def team(request):
-    teams = Team.objects.all()
-    context = {'teams': teams}
-    return render(request, 'tournament/team.html', context)
+def create_tournament(request):
+    form = TournamentCreationForm()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('tournament:tournament')
+    else:
+        context = {'form': form}
+        return render(request, 'tournament/create_tournament.html', context)
+
+
+
+def tournament(request):
+    all_tournament = Tournament.objects.all()
+    context = {'all_tournament': all_tournament}
+    return render(request, 'tournament/tournaments.html', context)
+
+
+def tournament_teams(request, tournament_id):
+    current_tournament = Tournament.objects.get(pk=tournament_id)
+    teams = current_tournament.team_set.all()
+    context = {'current_tournament': current_tournament, 'teams': teams}
+    return render(request, 'tournament/tournament_teams.html', context)
 
 
 def team_players(request, team_id):
