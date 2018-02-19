@@ -21,3 +21,16 @@ class OrganizerSignupForm(UserCreationForm):
             'email'
         ]
 
+
+class OrganizerProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Organizer
+        fields = [
+            'first_name',
+            'last_name',
+            'phone_no',
+            'email',
+            'nationality',
+            'state',
+            ]

@@ -7,10 +7,11 @@ urlpatterns=[
 
     path('',views.organizers_page,name='orgainzers_page'),
     path('signup/',views.signup,name='signup'),
-    path('<int:organizer_id>/home/',views.home,name='home'),
-    path('<int:organizer_id>/view_profile',views.view_profile,name='view_profile'),
-    path('<int:organizer_id>/edit_profile', views.edit_profile, name='edit_profile'),
-    path('login/',views.login,name='login'),
-    path('logout/',views.login,name='logout')
+    path('home/',views.home,name='home'),
+    path('view_profile/',views.view_profile,name='view_profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('login/',views.Org_login,name='login'),
+    path('logout/',views.Org_logout,name='logout'),
+    path('organizer_change_password/',views.organizer_change_password,name='change_password'),
 
 ]

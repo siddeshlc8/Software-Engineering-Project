@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'organizer/base.html' %}
 
-    <meta charset="UTF-8">
-    <title>Edit</title>
+{% block title %} Profile{% endblock %}
 
-</head>
+{% block body %}
 
-<body>
+    {% if user.username %}
 
-</body>
+       <div >
 
-</html>
+        <p><h1>Your Profile</h1></p>
+
+           <form  method="POST">
+
+            {% csrf_token %}
+                 {% for field in form %}
+
+                     <div class="form-group">
+
+                     {{ field.errors }}
+                     <b>{{ field.label_tag }}</b>
+                     <p> {{ field }}</p>
+
+                     </div>
+
+                 {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+
+          </form>
+        </div>
+
+    {% else %}
+
+            <p><a href="{% url 'organizer:login' %}">You are not logged in.Click here to login</a></p>
+
+    {% endif %}
+
+{% endblock %}
+
+
