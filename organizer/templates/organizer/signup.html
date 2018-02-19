@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Signup</title>
-</head>
-  <body>
+{% extends 'organizer/base.html' %}
+
+{% block title %}SignUP{% endblock %}
+
+  {% block body %}
         {% if errors %}
 
             {% for error in errors %}
@@ -26,6 +24,4 @@
 
          </form>
 
-  </body>
-
-</html>
+  {% endblock %}

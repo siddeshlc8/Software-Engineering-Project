@@ -74,7 +74,7 @@ def Org_login(request):
 
 def Org_logout(request):
     logout(request)
-    return redirect('organizer:orgainzers_page')
+    return redirect('organizer:organizers_page')
 
 def organizer_change_password(request):
     if request.user.username:
