@@ -41,3 +41,5 @@ class PlayerProfileForm(forms.ModelForm):
             'state',
             'district'
         ]
+
+

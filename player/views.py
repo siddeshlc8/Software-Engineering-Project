@@ -5,12 +5,28 @@ from .models import Player
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.views import PasswordChangeView,PasswordChangeDoneView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, LoginView, LogoutView
+from django.views.generic import ListView,DetailView
 
 
 # Create your views here.
+class PlayerPageView(ListView):
+    model = Player
+    context_object_name = 'all_players'
+    template_name = 'player/player_page.html'
+
+
 def players_page(request):
-    return render(request, 'player/player_page.html')
+    all_players = Player.objects.all()
+    context = {'all_players': all_players}
+    return render(request, 'player/player_page.html', context)
+
+
+def player_details(request, player_id):
+    player = Player.objects.get(pk=player_id)
+    all_details = player.details()
+    context = {'all_details': all_details}
+    return render(request, 'player/player_details.html', context)
 
 
 def player_home(request):
@@ -25,10 +41,19 @@ def player_signup(request):
         form = PlayerSignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'player/registration/signup.html')
+            return render(request, 'player/registration/login.html')
     else:
         form = PlayerSignUpForm()
     return render(request, 'player/registration/signup.html', {'form': form})
+
+
+class PlayerLoginView(LoginView):
+    template_name = 'player/registration/login.html'
+    extra_context = {'next': '/player/home/'}
+
+
+class PlayerLogoutView(LogoutView):
+    next_page = '/player/login/'
 
 
 def player_login(request):

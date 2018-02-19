@@ -27,6 +27,15 @@ class Player(User):
             'District': getattr(self, 'district')}
         return value
 
+    def details(self):
+        value = {
+            'First Name': getattr(self, 'first_name'),
+            'Last Name': getattr(self, 'last_name'),
+            'Player Type': getattr(self, 'player_type')}
+        return value
+
+
+
 
 
 
