@@ -1,0 +1,19 @@
+{% extends 'cricket/base.html' %}
+
+{% block title %}Teams{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <p><h2>List of Teams:</h2></p>
+
+    {% for team in teams %}
+
+        <a href="{% url 'tournament:team_players' team.id %}"><h3>{{ team.name }}</h3></a>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
