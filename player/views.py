@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, LoginView, LogoutView
-from django.views.generic import ListView,DetailView
+from django.views.generic import *
 
 
 # Create your views here.
@@ -16,12 +16,6 @@ class PlayerPageView(ListView):
     template_name = 'player/player_page.html'
 
 
-def players_page(request):
-    all_players = Player.objects.all()
-    context = {'all_players': all_players}
-    return render(request, 'player/player_page.html', context)
-
-
 def player_details(request, player_id):
     player = Player.objects.get(pk=player_id)
     all_details = player.details()
@@ -29,11 +23,8 @@ def player_details(request, player_id):
     return render(request, 'player/player_details.html', context)
 
 
-def player_home(request):
-    if request.user.username:
-        return render(request, 'player/home.html')
-    else:
-        return redirect('player:player_login')
+class PlayerHomeView(TemplateView):
+    template_name = 'player/home.html'
 
 
 def player_signup(request):
@@ -56,22 +47,6 @@ class PlayerLogoutView(LogoutView):
     next_page = '/player/login/'
 
 
-def player_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('player:player_home')
-    return render(request, 'player/registration/login.html')
-
-
-def player_logout(request):
-    logout(request)
-    return redirect('player:player_login')
-
-
 def player_view_profile(request):
     if request.user.username :
         user = Player.objects.get(pk=request.user)
@@ -87,7 +62,7 @@ def player_edit_profile(request):
     if request.user.username:
         player = Player.objects.get(pk=request.user.id)
         if request.method == 'POST':
-            form = PlayerProfileForm(request.POST,instance=player)
+            form = PlayerProfileForm(request.POST, instance=player)
             if form.is_valid():
                 form.save()
                 return redirect('player:player_view_profile')
@@ -131,3 +106,31 @@ def player_change_password_done(request):
         return render(request, 'player/change_password_done.html')
     return redirect('player:player_login')
 
+
+def players_page(request):
+    all_players = Player.objects.all()
+    context = {'all_players': all_players}
+    return render(request, 'player/player_page.html', context)
+
+
+def player_home(request):
+    if request.user.username:
+        return render(request, 'player/home.html')
+    else:
+        return redirect('player:player_login')
+
+
+def player_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('player:player_home')
+    return render(request, 'player/registration/login.html')
+
+
+def player_logout(request):
+    logout(request)
+    return redirect('player:player_login')
