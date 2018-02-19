@@ -1,0 +1,21 @@
+{% extends 'cricket/base.html' %}
+
+{% block title %}Tournaments{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <a href="{% url 'tournament:create_tournament' %}"><h2><b>Create Tournament</b></h2></a>
+
+    <p><h3>List of Tournaments:</h3></p>
+
+    {% for tournament in all_tournament %}
+
+        <a href={% url 'tournament:tournament_teams' tournament.id %}><h4>{{ tournament.name }}</h4></a>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
