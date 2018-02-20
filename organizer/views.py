@@ -5,6 +5,14 @@ from django.shortcuts import render, redirect
 from organizer.form import OrganizerSignupForm, OrganizerProfileForm
 # Create your views here.
 from organizer.models import Organizer
+from django.views.generic import *
+
+
+class OrganizerBrowseView(ListView):
+    model = Organizer
+    context_object_name = 'all_organizers'
+    template_name = 'organizer/browse_organizer.html'
+
 
 
 def organizers_page(request):
