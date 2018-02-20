@@ -27,8 +27,13 @@ def player_details(request, player_id):
     return render(request, 'player/player_details.html', context)
 
 
-class PlayerHomeView(TemplateView):
-    template_name = 'player/home.html'
+def player_home(request):
+    if request.user.username:
+        user = Player.objects.get(pk=request.user)
+        context = {'user': user}
+        return render(request, 'player/home.html', context)
+    else:
+        return redirect('player:player_login')
 
 
 class PlayerPerformanceView(TemplateView):
@@ -44,11 +49,6 @@ def player_signup(request):
     else:
         form = PlayerSignUpForm()
     return render(request, 'player/registration/signup.html', {'form': form})
-
-
-class PlayerLoginView(LoginView):
-    template_name = 'player/registration/login.html'
-    extra_context = {'next': '/player/home/'}
 
 
 class PlayerLogoutView(LogoutView):
@@ -112,13 +112,6 @@ def players_page(request):
     return render(request, 'player/player_page.html', context)
 
 
-def player_home(request):
-    if request.user.username:
-        return render(request, 'player/home.html')
-    else:
-        return redirect('player:player_login')
-
-
 def player_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -126,6 +119,10 @@ def player_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            try:
+                Player.objects.get(pk=request.user)
+            except Exception:
+                return redirect('player:player_login')
             return redirect('player:player_home')
     return render(request, 'player/registration/login.html')
 
