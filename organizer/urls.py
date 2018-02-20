@@ -1,7 +1,7 @@
 from django.urls import path
 
 from organizer import views
-
+###navbar navbar-expand-lg navbar-light bg-light
 app_name = 'organizer'
 urlpatterns=[
 
