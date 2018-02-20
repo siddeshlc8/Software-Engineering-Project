@@ -6,7 +6,11 @@
 
 {% block body %}
 
-       <div class="container">
+
+
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="container">
 
         <p><h1>Your Profile</h1></p>
 
@@ -22,6 +26,8 @@
            <p><a href="{% url 'player:player_edit_profile' %}"><h4>Edit Profile</h4></a></p>
 
         </div>
+
+     </main>
 
 {% endblock %}
 
