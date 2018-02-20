@@ -31,6 +31,10 @@ class PlayerHomeView(TemplateView):
     template_name = 'player/home.html'
 
 
+class PlayerPerformanceView(TemplateView):
+    template_name = 'player/performance.html'
+
+
 def player_signup(request):
     if request.method == 'POST':
         form = PlayerSignUpForm(request.POST)
