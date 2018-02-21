@@ -6,11 +6,12 @@
 
     {% if user.username %}
 
-           <h1> {{ user.get_full_name}} </h1>
+          <br> <h1> Hi, {{ user.get_full_name}} </h1>
+          <a href="{% url 'tournament:tournament' organizer.id %}">My Tournaments</a>
 
     {% else %}
 
-            <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
+            <br> <br> <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
 
     {% endif %}
 

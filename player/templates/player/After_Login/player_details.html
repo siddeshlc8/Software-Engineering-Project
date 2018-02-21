@@ -1,0 +1,25 @@
+{% extends 'player/After_Login/base.html' %}
+
+{% block title %}Player | Details{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+       <div class="container">
+
+      <br>  <p><h1>Player Details</h1></p>
+
+        {% for field_name, field in all_details.items %}
+
+            <div class="form-group">
+                <b>{{ field_name }}:</b>
+                 <p> {{ field }}</p>
+            </div>
+
+        {% endfor %}
+
+        </div>
+    </main>
+
+{% endblock %}
+

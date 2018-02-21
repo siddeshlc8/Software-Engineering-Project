@@ -1,0 +1,28 @@
+{% extends 'player/After_Login/base.html' %}
+
+{% block title %}{{ user.get_full_name }} | Search Tournaments{% endblock %}
+
+{% block body %}
+
+  {% if user.username %}
+
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+        {% for tournament in tournaments %}
+
+            <p><a href="{% url 'player:tournaments_details' tournament.id %}">{{ tournament.name }}</a></p>
+
+        {% endfor %}
+
+
+
+     </main>
+
+    {% else %}
+
+            <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
+
+    {% endif %}
+
+
+{% endblock %}

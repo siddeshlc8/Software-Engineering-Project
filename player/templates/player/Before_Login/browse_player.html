@@ -9,7 +9,7 @@
 <br>
     <p><h2>List of Players:</h2></p>
 
-    {% for player in all_players %}
+    {% for player in players %}
 
         <a href="{% url 'player:player_details' player.id %}"><h3>{{ player.get_full_name }}</h3></a>
 
