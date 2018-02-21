@@ -24,7 +24,7 @@ class PlayerSignUpForm(UserCreationForm):
         ]
 
         labels = {
-            'dob': _('Date of Birth'),
+           'dob': _('Date of Birth'),
         }
 
 

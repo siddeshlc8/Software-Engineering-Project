@@ -1,0 +1,13 @@
+{% extends 'tournament/base.html' %}
+
+{% block title %}Create Tournament{% endblock %}
+
+{% block body %}
+    <h2>MATCHES</h2>
+    <ul>
+        {% for match in matches %}
+            <li><a href="#">{{match }}</a></li>
+{% endfor %}
+    </ul>
+    <a href="{% url 'tournament:create_match' tournament.id %}">create match</a>
+{% endblock %}

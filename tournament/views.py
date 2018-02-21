@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Team, Tournament
+from .models import Team, Tournament, Match
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm
+from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm
 from django.contrib import messages
 # Create your views here.
 
@@ -62,3 +62,26 @@ def team_players_add(request, team_id, player_id):
     player_ = Player.objects.get(pk=player_id)
     team_.player_set.add(player_)
     return redirect('tournament:team_players', team_id)
+
+def matches(request, tournament_id):
+    tournament=Tournament.objects.get(id=tournament_id)
+    all_matches = tournament.match_set.all()
+    return render(request,'tournament/matches.html',{'tournament':tournament,'matches':all_matches})
+
+def create_match(request,tournament_id):
+    if request.method == 'POST':
+        form = MatchCreationForm(request.POST)
+        tournament = Tournament.objects.get(pk=tournament_id)
+        if form.is_valid():
+            match = form.save(commit=False)
+            match.tournament = tournament
+            match.winner=match.team_1
+            match.save()
+            return redirect('tournament:matches', tournament_id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return redirect('tournament:create_match', tournament_id)
+    else:
+        form = MatchCreationForm()
+        context = {'form': form}
+        return render(request, 'tournament/create_match.html', context)

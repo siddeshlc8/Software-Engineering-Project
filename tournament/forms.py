@@ -1,5 +1,5 @@
 from django import forms
-from .models import Team, Tournament
+from .models import Team, Tournament,Match
 
 
 class TeamCreationForm(forms.ModelForm):
@@ -35,3 +35,17 @@ class TournamentCreationForm(forms.ModelForm):
             'start_date': 'Tournament Starting Date',
             'end_date': 'Tournament Ending Date'
         }
+
+
+class MatchCreationForm(forms.ModelForm):
+
+
+    class Meta:
+        model = Match
+        fields = [
+
+            'team_1',
+            'team_2',
+            'overs'
+        ]
+
