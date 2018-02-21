@@ -16,7 +16,7 @@
         <a href="{% url 'tournament:team_players' team.id %}"><h3>{{ team.name }}</h3></a>
 
     {% endfor %}
-
+    <a href="{% url 'tournament:matches' current_tournament.id %}">Matches</a>
 </div>
 
 {% endblock %}
