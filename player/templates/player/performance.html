@@ -1,20 +1,13 @@
-{% extends 'player/After_Login/base.html' %}
+{% extends 'player/base.html' %}
 
-{% block title %}{{ user.get_full_name }} | Search Teams{% endblock %}
+{% block title %}{{ user.get_full_name }} | Home{% endblock %}
 
 {% block body %}
 
   {% if user.username %}
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
-        {% for team in teams %}
-
-            <p><a href="{% url 'player:teams_details' team.id %}">{{ team.name }}</a></p>
-
-        {% endfor %}
-
-
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 
      </main>
 

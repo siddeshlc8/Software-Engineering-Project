@@ -12,39 +12,35 @@ from tournament.models import Team, Tournament
 
 # Create your views here.
 class PlayerPageView(TemplateView):
-    template_name = 'player/Before_Login/player_page.html'
-
-
-class PlayerBrowseView(ListView):
-    model = Player
-    context_object_name = 'all_players'
-    template_name = 'player/Before_Login/browse_player.html'
+    template_name = 'player/player_page.html'
 
 
 def player_details(request, player_id):
-    if request.user.username:
-        player = Player.objects.get(pk=player_id)
-        all_details = player.details()
-        context = {'all_details': all_details}
-        return render(request, 'player/After_Login/player_details.html', context)
-    else:
-        player = Player.objects.get(pk=player_id)
-        all_details = player.details()
-        context = {'all_details': all_details}
-        return render(request, 'player/Before_Login/player_details.html', context)
+    try:
+        P = Player.objects.get(pk=request.user.id)
+    except Exception:
+        P=None
+    player = Player.objects.get(pk=player_id)
+    all_details = player.details()
+    context = {'all_details': all_details, 'P': P}
+    return render(request, 'player/player_details.html', context)
 
 
 def player_home(request):
     if request.user.username:
         user = Player.objects.get(pk=request.user)
-        context = {'user': user}
-        return render(request, 'player/After_Login/home.html', context)
+        context = {'P': user}
+        return render(request, 'player/home.html', context)
     else:
         return redirect('player:player_login')
 
 
-class PlayerPerformanceView(TemplateView):
-    template_name = 'player/After_Login/performance.html'
+def player_performance(request):
+    if request.user.username:
+        context = {'P': Player.objects.get(pk=request.user.id)}
+        return render(request, 'player/performance.html', context)
+    else:
+        return redirect('player:player_login')
 
 
 def player_signup(request):
@@ -52,10 +48,10 @@ def player_signup(request):
         form = PlayerSignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'player/registration/login.html')
+            return render(request, 'player/login.html')
     else:
         form = PlayerSignUpForm()
-    return render(request, 'player/registration/signup.html', {'form': form})
+    return render(request, 'player/signup.html', {'form': form})
 
 
 class PlayerLogoutView(LogoutView):
@@ -67,8 +63,8 @@ def player_view_profile(request):
         user = Player.objects.get(pk=request.user)
         # player = vars(user) to list all attributes
         player = user.profile()
-        context = {'player': player}
-        return render(request, 'player/After_Login/view_profile.html', context)
+        context = {'player': player, 'P': user}
+        return render(request, 'player/view_profile.html', context)
     else:
         return redirect('player:player_login')
 
@@ -83,10 +79,11 @@ def player_edit_profile(request):
                 return redirect('player:player_view_profile')
         else:
             form = PlayerProfileForm(instance=player)
-            context = {'form': form}
-            return render(request, 'player/After_Login/edit_profile.html', context)
+            context = {'form': form, 'P': player}
+            return render(request, 'player/edit_profile.html', context)
     else:
         return redirect('player:player_login')
+
 
 
 def player_change_password(request):
@@ -102,63 +99,64 @@ def player_change_password(request):
                 return redirect('player:player_change_password')
         else:
             form = PasswordChangeForm(user=request.user)
-            return render(request, 'player/After_Login/change_password.html', {'form': form})
+            context = {'form': form, 'P': Player.objects.get(pk=request.user.id)}
+            return render(request, 'player/change_password.html', context)
     else:
         return redirect('player:player_login')
 
 
 def player_change_password_done(request):
     if request.user.username:
-        return render(request, 'player/After_Login/change_password_done.html')
+        context = {'P': Player.objects.get(pk=request.user.id)}
+        return render(request, 'player/change_password_done.html', context)
     return redirect('player:player_login')
 
 
 def search(request):
     tournaments = Tournament.objects.all()
     teams = Team.objects.all()
-    context = {'tournaments': tournaments, 'teams': teams}
-    return render(request, 'player/After_Login/search.html', context)
+    context = {'tournaments': tournaments, 'teams': teams, 'P': Player.objects.get(pk=request.user.id)}
+    return render(request, 'player/search.html', context)
 
 
 def search_tournaments(request):
     tournaments = Tournament.objects.all()
-    context = {'tournaments': tournaments}
-    return render(request, 'player/After_Login/search_tournaments.html', context)
+    context = {'tournaments': tournaments, 'P': Player.objects.get(pk=request.user.id)}
+    return render(request, 'player/search_tournaments.html', context)
 
 
 def search_teams(request):
     teams = Team.objects.all()
-    context = {'teams': teams}
-    return render(request, 'player/After_Login/search_teams.html', context)
+    context = {'teams': teams, 'P': Player.objects.get(pk=request.user.id)}
+    return render(request, 'player/search_teams.html', context)
 
 
 def search_players(request):
-    if request.user.username:
-        players = Player.objects.all()
-        context = {'players': players}
-        return render(request, 'player/After_Login/search_players.html', context)
-    else:
-        players = Player.objects.all()
-        context = {'players': players}
-        return render(request, 'player/Before_Login/browse_player.html', context)
+    try:
+        player = Player.objects.get(pk=request.user.id)
+    except Exception:
+        player = None
+    players = Player.objects.all()
+    context = {'players': players, 'P': player}
+    return render(request, 'player/search_players.html', context)
 
 
 def tournaments_details(request, tournament_id):
     tournament = Tournament.objects.get(pk=tournament_id)
-    context = {'tournament': tournament}
-    return render(request, 'player/After_Login/tournaments_details.html', context)
+    context = {'tournament': tournament, 'P': Player.objects.get(pk=request.user.id)}
+    return render(request, 'player/tournaments_details.html', context)
 
 
 def teams_details(request, team_id):
     team = Team.objects.get(pk=team_id)
-    context = {'team': team}
-    return render(request, 'player/After_Login/teams_details.html', context)
+    context = {'team': team, 'P': Player.objects.get(pk=request.user.id)}
+    return render(request, 'player/teams_details.html', context)
 
 
 def players_page(request):
     all_players = Player.objects.all()
     context = {'all_players': all_players}
-    return render(request, 'player/Before_Login/player_page.html', context)
+    return render(request, 'player/player_page.html', context)
 
 
 def player_login(request):
@@ -173,7 +171,7 @@ def player_login(request):
             except Exception:
                 return redirect('player:player_login')
             return redirect('player:player_home')
-    return render(request, 'player/registration/login.html')
+    return render(request, 'player/login.html')
 
 
 def player_logout(request):
