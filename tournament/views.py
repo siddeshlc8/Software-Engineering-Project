@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Team, Tournament, Match
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm
+from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm
 from django.contrib import messages
 from organizer.models import Organizer
 # Create your views here.
@@ -69,10 +69,10 @@ def team_players_add(request, team_id, player_id):
     team_.player_set.add(player_)
     return redirect('tournament:team_players', team_id)
 
-def matches(request, tournament_id):
+def all_matches(request, tournament_id):
     tournament=Tournament.objects.get(id=tournament_id)
-    all_matches = tournament.match_set.all()
-    return render(request,'tournament/matches.html',{'tournament':tournament,'matches':all_matches})
+    al_matches = tournament.match_set.all()
+    return render(request,'tournament/matches.html',{'tournament':tournament,'matches':al_matches})
 
 def create_match(request,tournament_id):
     if request.method == 'POST':
@@ -83,7 +83,7 @@ def create_match(request,tournament_id):
             match.tournament = tournament
             match.winner=match.team_1
             match.save()
-            return redirect('tournament:matches', tournament_id)
+            return redirect('tournament:all_matches', tournament_id)
         else:
             messages.error(request, 'Please correct the error below.')
             return redirect('tournament:create_match', tournament_id)
@@ -91,3 +91,33 @@ def create_match(request,tournament_id):
         form = MatchCreationForm()
         context = {'form': form}
         return render(request, 'tournament/create_match.html', context)
+
+def enter_score(request,tournament_id,match_id):
+    if request.method == 'POST':
+        form = ScoreForm(request.POST)
+        match = Match.objects.get(pk=match_id)
+        if form.is_valid():
+            score = form.save(commit=False)
+            score.match = match
+
+            score.save()
+            return redirect('tournament:scores', tournament_id,match_id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return redirect('tournament:enter_score', tournament_id,match_id)
+    else:
+        form = ScoreForm()
+        context = {'form': form}
+        return render(request, 'tournament/enter_score.html', context)
+
+
+def  scores(request, tournament_id,match_id):
+    match=Match.objects.get(id=match_id)
+
+    all_scores =match.score_set.all()
+    return render(request,'tournament/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id})
+
+def  match(request, tournament_id,match_id):
+    match=Match.objects.get(id=match_id)
+    tournament=Tournament.objects.get(id=tournament_id)
+    return render(request,'tournament/match.html',{'tournament':tournament,'match':match})

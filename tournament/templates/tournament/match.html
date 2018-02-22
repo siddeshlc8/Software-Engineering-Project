@@ -1,0 +1,13 @@
+{% extends 'tournament/base.html' %}
+{% block title %}Match{% endblock %}
+
+{% block body %}
+    <br>
+    <h1> {{  match.team_1 }}vs {{match.team_2}}</h1>
+    <br><br>
+       <div class="container">
+           <a href="{% url 'tournament:scores' tournament.id match.id %}">Maintain scores of the match</a>
+
+        </div>
+
+{% endblock %}
