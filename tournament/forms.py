@@ -1,5 +1,5 @@
 from django import forms
-from .models import Team, Tournament,Match
+from .models import Team, Tournament, Match, Score
 
 
 class TeamCreationForm(forms.ModelForm):
@@ -49,3 +49,20 @@ class MatchCreationForm(forms.ModelForm):
             'overs'
         ]
 
+class ScoreForm(forms.ModelForm):
+
+    class Meta:
+        model = Score
+        fields = [
+
+            'innings',
+            'batting_team',
+            'bowling_team' ,
+            'ball_number' ,
+            'over_number',
+            'run',
+            'extra_type',
+            'extra_run',
+            'is_wicket',
+            'wicket_type'
+        ]

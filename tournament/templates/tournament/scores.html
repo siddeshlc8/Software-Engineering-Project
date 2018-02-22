@@ -1,0 +1,18 @@
+{% extends 'tournament/base.html' %}
+
+{% block title %}{{ organizer.get_full_name }}  scores{% endblock %}
+
+{% block body %}
+    <br><br><br>
+
+       <div class="container">
+       <ul>
+           {% for  score in all_scores %}
+           <li> {{ score }}</li>
+           {% endfor %}
+       </ul>
+       <br><br>
+          <a href="{% url 'tournament:enter_score' tournament_id match.id %}">enter_score</a>
+        </div>
+
+{% endblock %}
