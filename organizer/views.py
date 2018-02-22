@@ -44,14 +44,13 @@ def signup(request):
 
 
 def home(request):
-    if request.user.username:
-        user = Organizer.objects.get(pk=request.user)
-        # player = vars(user) to list all attributes
-
-        context = {'organizer': user}
+    try:
+        o = Organizer.objects.get(pk=request.user.id)
+        context = {'O': o}
         return render(request, 'organizer/home.html', context)
-    else:
+    except Exception:
         return redirect('organizer:login')
+
 
 
 def view_profile(request):

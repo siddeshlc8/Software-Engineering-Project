@@ -1,13 +1,13 @@
-{% extends 'tournament/base.html' %}
+{% extends 'player/base.html' %}
 
 {% block title %}{{ current_tournament.name }} | Teams{% endblock %}
 
 {% block body %}
-<br><br>
+
 <div class="container">
+<br><br><br><br>
 
-
-    <br><br><a href="{% url 'tournament:create_team' organizer.id current_tournament.id %}"><h2><b>Add Teams</b></h2></a>
+    <a href="{% url 'tournament:create_team' O.id current_tournament.id %}"><h2><b>Add Teams</b></h2></a>
 
     <p><h2>List of Teams:</h2></p>
 

@@ -120,14 +120,61 @@
 
     </div>
 
+
     {% elif O.username %}
 
 
 
 
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+
+  <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="{% url 'organizer:home' %}"><h4>Home</h4></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'player:search' %}"><h5>Search </h5><span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'tournament:tournament' O.id %}"><h5>My Tournaments</h5></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#"><h5>Profile</h5></a>
+            </li>
+          </ul>
+                  <ul>
+      <li class="nav navbar-nav  dropdown align-right ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Profile
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <a href="{% url 'organizer:view_profile' %}">View Profile</a>
+
+                  <a href="{% url 'organizer:edit_profile'  %}">Edit Profile</a>
+
+                  <a href="{% url 'organizer:change_password' %}">Change Password</a>
+            <div class="dropdown-divider"></div>
+                    <a href="{% url 'organizer:logout' %}">Logout</a>
+        </div>
+      </li>
+    </ul>
+
+
+        </div>
+      </nav>
+    </header>
 
 
     {% else %}
@@ -191,6 +238,8 @@
 
 
   {% endif %}
+
+
 
   {% block body %}
 

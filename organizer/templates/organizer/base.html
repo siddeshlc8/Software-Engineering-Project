@@ -11,20 +11,20 @@
 
   <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="# "><h4>Cricky</h4></a>
+        <a class="navbar-brand" href="{% url 'organizer:home' %}"><h4>Home</h4></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link" href="#"><h5>All Players </h5><span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'player:search' %}"><h5>Search </h5><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><h5>All Tournaments</h5></a>
+              <a class="nav-link" href="#"><h5>My Tournaments</h5></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#"><h5> My Tournaments</h5></a>
+              <a class="nav-link disabled" href="#"><h5>Profile</h5></a>
             </li>
           </ul>
                   <ul>
