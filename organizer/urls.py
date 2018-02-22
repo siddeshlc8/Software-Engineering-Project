@@ -6,7 +6,7 @@ app_name = 'organizer'
 urlpatterns=[
 
     path('',views.organizers_page,name='organizers_page'),
-    path('organizer-browse/', views.OrganizerBrowseView.as_view(), name='organizer_browse'),
+    path('organizer-browse/', views.search_organizers, name='organizer_browse'),
     path('signup/',views.signup,name='signup'),
     path('home/',views.home,name='home'),
     path('view_profile/',views.view_profile,name='view_profile'),

@@ -8,6 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, LoginView, LogoutView, TemplateView
 from django.views.generic import *
 from tournament.models import Team, Tournament
+from .filters import PlayerFilter, TournamentFilter, TeamFilter
 
 
 # Create your views here.
@@ -85,7 +86,6 @@ def player_edit_profile(request):
         return redirect('player:player_login')
 
 
-
 def player_change_password(request):
     if request.user.username:
         if request.method == 'POST':
@@ -120,14 +120,24 @@ def search(request):
 
 
 def search_tournaments(request):
+    try:
+        player = Player.objects.get(pk=request.user.id)
+    except Exception:
+        player = None
     tournaments = Tournament.objects.all()
-    context = {'tournaments': tournaments, 'P': Player.objects.get(pk=request.user.id)}
+    tournaments_filter = TournamentFilter(request.GET, queryset=tournaments)
+    context = {'P': player, 'filter': tournaments_filter}
     return render(request, 'player/search_tournaments.html', context)
 
 
 def search_teams(request):
+    try:
+        player = Player.objects.get(pk=request.user.id)
+    except Exception:
+        player = None
     teams = Team.objects.all()
-    context = {'teams': teams, 'P': Player.objects.get(pk=request.user.id)}
+    teams_filter = TeamFilter(request.GET, queryset=teams)
+    context = {'P': player, 'filter': teams_filter}
     return render(request, 'player/search_teams.html', context)
 
 
@@ -137,7 +147,8 @@ def search_players(request):
     except Exception:
         player = None
     players = Player.objects.all()
-    context = {'players': players, 'P': player}
+    players_filter = PlayerFilter(request.GET, queryset=players)
+    context = {'players': players, 'P': player, 'filter': players_filter}
     return render(request, 'player/search_players.html', context)
 
 

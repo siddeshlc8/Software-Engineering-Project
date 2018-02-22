@@ -1,25 +1,53 @@
 {% extends 'player/base.html' %}
 
-{% block title %}{{ user.get_full_name }} | Search Players{% endblock %}
+{% block title %}{{ P.get_full_name }} | Search Players{% endblock %}
 
 {% block body %}
 
+<br><br>
 
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-        <p><h2>List of Players:</h2></p>
+      <form method="get">
 
-        {% for player in players %}
+       {{ filter.form.as_p }}
+        <button type="submit">Search</button>
 
-            <p><a href="{% url 'player:player_details' player.id %}"><h4>{{ player.get_full_name }}</h4></a></p>
+      </form>
 
-        {% endfor %}
+    <p><h3>Your Search Results:</h3></p>
 
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Type</th>
+              <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for player in filter.qs %}
+            <tr>
+              <td>{{ player.first_name }}</td>
+              <td>{{ player.last_name }}</td>
+              <td>{{ player.player_type }}</td>
+              <td><a href="{% url 'player:player_details' player.id %}">Details</a></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No data</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-
-     </main>
-
-
-
+      </main>
 {% endblock %}
+
+
+
+
+
+

@@ -10,6 +10,7 @@ class Tournament(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(default=None)
     organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -26,13 +27,15 @@ class Team(models.Model):
 
 
 class Match(models.Model):
-    tournament=models.ForeignKey(Tournament,on_delete=models.CASCADE)
-    team_1=models.ForeignKey('Team',related_name='team_1',on_delete=models.DO_NOTHING)
-    team_2=models.ForeignKey('Team',related_name='team_2',on_delete=models.DO_NOTHING)
-    overs=models.IntegerField()
-    winner=models.ForeignKey('Team',related_name='winner',on_delete=models.DO_NOTHING)
+    tournament = models.ForeignKey(Tournament,on_delete=models.CASCADE)
+    team_1 = models.ForeignKey('Team', related_name='team_1',on_delete=models.DO_NOTHING)
+    team_2 = models.ForeignKey('Team', related_name='team_2',on_delete=models.DO_NOTHING)
+    overs = models.IntegerField()
+    status = models.BooleanField(default=False)
+    winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
+
     def __str__(self):
-        return '  '+ self.team_1.name + '  vs  ' +self.team_2.name
+        return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
 
 
 class Score(models.Model):

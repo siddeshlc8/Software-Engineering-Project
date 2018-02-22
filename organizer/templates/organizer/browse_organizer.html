@@ -1,20 +1,45 @@
-{% extends 'cricket/base.html' %}
+{% extends 'player/base.html' %}
 
-{% block title %}Player | Browse{% endblock %}
+{% block title %}Organizer | Browse{% endblock %}
 
 {% block body %}
 
+<br><br>
 
-<div class="container">
-<br>
-    <p><h2>List of Organizers:</h2></p>
 
-    {% for organizer in all_organizers %}
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-        <a href="#"><h3>{{ organizer.get_full_name }}</h3></a>
+      <form method="get">
 
-    {% endfor %}
+       {{ filter.form.as_p }}
+        <button type="submit">Search</button>
 
-</div>
+      </form>
 
+    <p><h3>Your Search Results:</h3></p>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+              <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for organizer in filter.qs %}
+            <tr>
+              <td>{{ organizer.first_name }}</td>
+              <td>{{ organizer.last_name }}</td>
+              <td><a href="#">Details</a></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No data</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      </main>
 {% endblock %}

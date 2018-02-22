@@ -1,21 +1,46 @@
+
 {% extends 'player/base.html' %}
 
-{% block title %}{{ user.get_full_name }} | Search Tournaments{% endblock %}
+{% block title %}{{ P.get_full_name }} | Search Tournaments{% endblock %}
 
 {% block body %}
+
+<br><br>
 
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-        {% for tournament in tournaments %}
+      <form method="get">
 
-            <p><a href="{% url 'player:tournaments_details' tournament.id %}">{{ tournament.name }}</a></p>
+       {{ filter.form.as_p }}
+        <button type="submit">Search</button>
 
-        {% endfor %}
+      </form>
 
+    <p><h3>Your Search Results:</h3></p>
 
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Place</th>
+              <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tournament in filter.qs %}
+            <tr>
+              <td>{{ tournament.name }}</td>
+              <td>{{ tournament.place }}</td>
+              <td><a href="{% url 'player:tournaments_details' tournament.id %}">Details</a></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No data</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-     </main>
-
-
+      </main>
 {% endblock %}
