@@ -1,19 +1,10 @@
-{% extends 'organizer/base.html' %}
+{% extends 'player/base.html' %}
 
-{% block title %}{{ user.get_full_name }} | Home{% endblock %}
+{% block title %}{{ O.get_full_name }} | Home{% endblock %}
 
 {% block body %}
+    <br><br>
 
-    {% if user.username %}
-
-          <br> <h1> Hi, {{ user.get_full_name}} </h1>
-          <a href="{% url 'tournament:tournament' organizer.id %}">My Tournaments</a>
-
-    {% else %}
-
-            <br> <br> <p><a href="{% url 'organizer:login' %}">You are not logged in.Click here to login</a></p>
-
-    {% endif %}
-
+          <br> <h1> Hi, {{ O.get_full_name}} </h1>
 
 {% endblock %}

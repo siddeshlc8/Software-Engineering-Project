@@ -10,7 +10,6 @@ class Tournament(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(default=None)
     organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
