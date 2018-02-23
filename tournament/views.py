@@ -19,7 +19,7 @@ def create_tournament(request, organizer_id):
     else:
         form = TournamentCreationForm()
         context = {'form': form, 'organizer': organizer}
-        return render(request, 'tournament/create_tournament.html', context)
+        return render(request, 'tournament/tournament_templates/create_tournament.html', context)
 
 
 def create_team(request, organizer_id, tournament_id):
@@ -37,14 +37,14 @@ def create_team(request, organizer_id, tournament_id):
     else:
         form = TeamCreationForm()
         context = {'form': form}
-        return render(request, 'tournament/create_tournament.html', context)
+        return render(request, 'tournament/team_templates/create_team.html', context)
 
 
 def tournament(request, organizer_id):
     organizer = Organizer.objects.get(pk=organizer_id)
     all_tournament = Tournament.objects.filter(organizer=organizer)
     context = {'all_tournament': all_tournament, 'organizer':organizer}
-    return render(request, 'tournament/tournaments.html', context)
+    return render(request, 'tournament/tournament_templates/tournaments.html', context)
 
 
 def tournament_teams(request, organizer_id, tournament_id):
@@ -52,7 +52,7 @@ def tournament_teams(request, organizer_id, tournament_id):
     current_tournament = Tournament.objects.get(pk=tournament_id)
     teams = current_tournament.team_set.all()
     context = {'current_tournament': current_tournament, 'teams': teams, 'organizer': organizer}
-    return render(request, 'tournament/tournament_teams.html', context)
+    return render(request, 'tournament/team_templates/tournament_teams.html', context)
 
 
 def team_players(request, team_id):
@@ -60,7 +60,7 @@ def team_players(request, team_id):
     current_players = current_team.player_set.all()
     available_players = Player.objects.exclude(team__pk=team_id)
     context = {'current_players': current_players, 'team': current_team, 'available_players': available_players}
-    return render(request, 'tournament/team_players.html', context)
+    return render(request, 'tournament/team_templates/team_players.html', context)
 
 
 def team_players_add(request, team_id, player_id):
@@ -72,7 +72,7 @@ def team_players_add(request, team_id, player_id):
 def all_matches(request, tournament_id):
     tournament=Tournament.objects.get(id=tournament_id)
     al_matches = tournament.match_set.all()
-    return render(request,'tournament/matches.html',{'tournament':tournament,'matches':al_matches})
+    return render(request,'tournament/match_templates/matches.html',{'tournament':tournament,'matches':al_matches})
 
 def create_match(request,tournament_id):
     if request.method == 'POST':
@@ -90,7 +90,7 @@ def create_match(request,tournament_id):
     else:
         form = MatchCreationForm()
         context = {'form': form}
-        return render(request, 'tournament/create_match.html', context)
+        return render(request, 'tournament/match_templates/create_match.html', context)
 
 def enter_score(request,tournament_id,match_id):
     if request.method == 'POST':
@@ -108,16 +108,16 @@ def enter_score(request,tournament_id,match_id):
     else:
         form = ScoreForm()
         context = {'form': form}
-        return render(request, 'tournament/enter_score.html', context)
+        return render(request, 'tournament/score_templates/enter_score.html', context)
 
 
 def  scores(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
 
     all_scores =match.score_set.all()
-    return render(request,'tournament/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
     tournament=Tournament.objects.get(id=tournament_id)
-    return render(request,'tournament/match.html',{'tournament':tournament,'match':match})
+    return render(request,'tournament/match_templates/current_match.html',{'tournament':tournament,'match':match})
