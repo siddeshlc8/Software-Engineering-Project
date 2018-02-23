@@ -1,10 +1,10 @@
 {% extends 'player/base.html' %}
 
-{% block title %}Organizer | Browse{% endblock %}
+{% block title %}{{ P.get_full_name }} | Search Players{% endblock %}
 
 {% block body %}
 
-<br><br>
+<br><br><br><br>
 
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
@@ -23,15 +23,17 @@
           <tr>
             <th>First name</th>
             <th>Last name</th>
+            <th>Type</th>
               <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          {% for organizer in filter.qs %}
+          {% for player in filter.qs %}
             <tr>
-              <td>{{ organizer.first_name }}</td>
-              <td>{{ organizer.last_name }}</td>
-              <td><a href="#">Details</a></td>
+              <td>{{ player.first_name }}</td>
+              <td>{{ player.last_name }}</td>
+              <td>{{ player.player_type }}</td>
+              <td><a href="{% url 'player:player_details' player.id %}">Details</a></td>
             </tr>
           {% empty %}
             <tr>
@@ -43,3 +45,9 @@
 
       </main>
 {% endblock %}
+
+
+
+
+
+

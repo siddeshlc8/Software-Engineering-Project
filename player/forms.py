@@ -28,6 +28,7 @@ class PlayerSignUpForm(UserCreationForm):
         }
 
 
+
 class PlayerProfileForm(forms.ModelForm):
 
     class Meta:

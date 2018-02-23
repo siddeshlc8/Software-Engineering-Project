@@ -6,12 +6,24 @@ from organizer.form import OrganizerSignupForm, OrganizerProfileForm
 # Create your views here.
 from organizer.models import Organizer
 from django.views.generic import *
+from .filters import OrganizerFilter
 
 
 class OrganizerBrowseView(ListView):
     model = Organizer
     context_object_name = 'all_organizers'
     template_name = 'organizer/browse_organizer.html'
+
+
+def search_organizers(request):
+    try:
+        organizer = Organizer.objects.get(pk=request.user.id)
+    except Exception:
+        organizer = None
+    organizers = Organizer.objects.all()
+    organizers_filter = OrganizerFilter(request.GET, queryset=organizers)
+    context = {'O': organizer, 'filter': organizers_filter}
+    return render(request, 'organizer/browse_organizer.html', context)
 
 
 
@@ -32,14 +44,13 @@ def signup(request):
 
 
 def home(request):
-    if request.user.username:
-        user = Organizer.objects.get(pk=request.user)
-        # player = vars(user) to list all attributes
-
-        context = {'organizer': user}
+    try:
+        o = Organizer.objects.get(pk=request.user.id)
+        context = {'O': o}
         return render(request, 'organizer/home.html', context)
-    else:
+    except Exception:
         return redirect('organizer:login')
+
 
 
 def view_profile(request):

@@ -1,10 +1,9 @@
-{% extends 'player/After_Login/base.html' %}
+{% extends 'player/base.html' %}
 
 {% block title %}{{ user.get_full_name }} | Tournaments{% endblock %}
 
 {% block body %}
-
-  {% if user.username %}
+<br><br>
 
       <p>Tournament Details:</p>
 
@@ -15,11 +14,6 @@
 
      </main>
 
-    {% else %}
-
-            <p><a href="{% url 'player:player_login' %}">You are not logged in.Click here to login</a></p>
-
-    {% endif %}
 
 
 {% endblock %}
