@@ -3,6 +3,7 @@
 {% block title %}SignUP{% endblock %}
 
   {% block body %}
+       <div class="container">
      <br>   {% if errors %}
 
             {% for error in errors %}
@@ -14,7 +15,7 @@
         {% endif %}
 
      <br> <p>
-         <form action="{% url 'organizer:signup' %} " method="post">
+         <form  method="post">
 
          {% csrf_token %}
 
@@ -24,5 +25,6 @@
 
          </form>
       </p>
+       </div>
 
   {% endblock %}

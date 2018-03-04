@@ -1,10 +1,11 @@
-{% extends 'player/base.html' %}
+{% extends 'organizer/base.html' %}
 
-{% block title %}{{ O.get_full_name }} | Home{% endblock %}
+{% block title %}{{ request.user.get_full_name }} | Home{% endblock %}
 
 {% block body %}
     <br><br>
 
-          <br> <h1> Hi, {{ O.get_full_name}} </h1>
+        <br> <h1> Hi, {{ request.user.get_full_name}} </h1>
+
 
 {% endblock %}

@@ -1,11 +1,10 @@
+{% extends 'search/base.html' %}
 
-{% extends 'player/base.html' %}
-
-{% block title %}{{ P.get_full_name }} | Search Teams{% endblock %}
+{% block title %}Search Players{% endblock %}
 
 {% block body %}
 
-<br><br><br><br><br>
+<br><br><br><br>
 
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
@@ -22,15 +21,19 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Type</th>
               <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          {% for team in filter.qs %}
+          {% for player in filter.qs %}
             <tr>
-              <td>{{ team.name }}</td>
-              <td><a href="{% url 'player:teams_details' team.id %}">Details</a></td>
+              <td>{{ player.first_name }}</td>
+              <td>{{ player.last_name }}</td>
+              <td>{{ player.player_type }}</td>
+              <td><a href="{% url 'search:player_details' player.id %}">Details</a></td>
             </tr>
           {% empty %}
             <tr>
@@ -42,3 +45,9 @@
 
       </main>
 {% endblock %}
+
+
+
+
+
+

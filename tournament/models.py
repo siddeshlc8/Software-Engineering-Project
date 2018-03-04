@@ -30,7 +30,7 @@ class Match(models.Model):
     team_1 = models.ForeignKey('Team', related_name='team_1',on_delete=models.DO_NOTHING)
     team_2 = models.ForeignKey('Team', related_name='team_2',on_delete=models.DO_NOTHING)
     overs = models.IntegerField()
-    status = models.BooleanField(default=False)
+    #status = models.BooleanField(default=False)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
 
     def __str__(self):

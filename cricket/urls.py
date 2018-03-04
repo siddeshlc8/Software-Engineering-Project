@@ -19,6 +19,13 @@ from . import views
 
 app_name = 'cricket'
 urlpatterns = [
+    path('player_page/', views.players_page, name='players_page'),
+    path('player_signup/', views.player_signup, name='player_signup'),
+    path('organizer_signup/', views.organizer_signup, name='organizer_signup'),
+    path('login/', views.signin, name='login'),
+    path('logout/', views.signout, name='logout'),
+    path('organizer_page/', views.organizers_page, name='organizers_page'),
+    path('search/', include('search.urls'), name='search'),
     path('admin/', admin.site.urls),
     path('player/', include('player.urls'), name='player'),
     path('organizer/',include('organizer.urls'),name='organizer'),

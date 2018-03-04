@@ -1,4 +1,5 @@
-from .models import Player
+from player.models import Player
+from organizer.models import Organizer
 from tournament.models import Tournament, Team
 import django_filters
 
@@ -27,3 +28,11 @@ class TeamFilter(django_filters.FilterSet):
         model = Team
         fields = {
             'name': ['icontains']}
+
+
+class OrganizerFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Organizer
+        fields = {
+            'first_name': ['icontains']}

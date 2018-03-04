@@ -1,0 +1,30 @@
+{% extends 'cricket/base.html' %}
+
+{% block title %}SignUP{% endblock %}
+
+  {% block body %}
+       <div class="container">
+     <br>   {% if errors %}
+
+            {% for error in errors %}
+
+                <p>{{ error }}</p>
+
+            {% endfor%}
+
+        {% endif %}
+
+     <br> <p>
+         <form method="post">
+
+         {% csrf_token %}
+
+         {{ form.as_p }}
+
+         <input type="submit" value="SignUp">
+
+         </form>
+      </p>
+       </div>
+
+  {% endblock %}

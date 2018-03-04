@@ -1,4 +1,4 @@
-{% extends 'player/base.html' %}
+{% extends 'organizer/base.html' %}
 
 {% block title %}Tournaments{% endblock %}
 
@@ -7,13 +7,13 @@
 
 <div class="container">
 
-    <a href="{% url 'tournament:create_tournament' O.id %}"><h2><b>Create Tournament</b></h2></a>
+    <a href="{% url 'tournament:create_tournament' %}"><h2><b>Create Tournament</b></h2></a>
 
     <p><h3>List of Tournaments:</h3></p>
 
     {% for tournament in all_tournament %}
 
-        <a href={% url 'tournament:tournament_teams' O.id tournament.id %}><h4>{{ tournament.name }}</h4></a>
+        <a href={% url 'tournament:tournament_teams' tournament.id %}><h4>{{ tournament.name }}</h4></a>
 
     {% endfor %}
 
