@@ -17,7 +17,32 @@
 table, td, th {
     border: 1px solid black;
 }
-.shreyas{
 
-    color: black;
+.enter_score {
+
+     display: flex;
+     background-color: lightgray;
+}
+.score_details {
+    background-color: white;
+    width: 500px;
+    margin: 20px;
+}
+.score_pad{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 20px;
+    background-color:  lavender;
+}
+
+ .run_pad , .wicket_type_pad , .extra_type_pad{
+    display: flex;
+
+    margin: 20px;
+  justify-content: space-between;
+    background-color:  white;
+}
+.run_button{
+    width: 50px;
 }
