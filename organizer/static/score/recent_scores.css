@@ -1,0 +1,23 @@
+.recent_overs {
+     display: flex;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+
+  background-color: gainsboro;
+}
+
+
+.scoretable{
+    width: 200px;
+      margin: 30px;
+     border-collapse: collapse;
+}
+table, td, th {
+    border: 1px solid black;
+}
+.shreyas{
+
+    color: black;
+}
