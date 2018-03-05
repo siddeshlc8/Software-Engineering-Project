@@ -130,8 +130,12 @@ def enter_score(request,tournament_id,match_id):
             messages.error(request, 'Please correct the error below.')
             return redirect('tournament:enter_score', tournament_id,match_id)
     else:
+        match = Match.objects.get(pk=match_id)
+        score=match.score_set.all()
+
         form = ScoreForm()
-        context = {'form': form}
+        context = {'form': form ,
+                   'score':score}
         return render(request, 'tournament/score_templates/enter_score.html', context)
 
 

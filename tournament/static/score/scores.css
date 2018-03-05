@@ -1,0 +1,15 @@
+.recent_overs {
+    overflow-x: scroll; /* Hide horizontal scrollbar */
+    overflow-y: hidden; /* Add vertical scrollbar */
+}
+.scoretable{
+
+    display: inline;
+}
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
