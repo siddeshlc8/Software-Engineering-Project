@@ -4,11 +4,15 @@
 {% block title %}ALL MATCHES{% endblock %}
 
 {% block body %}
-    <h2>MATCHES</h2>
+    <br><br><br>
+    <div class="container">
+        <p><a href="{% url 'tournament:create_match' tournament.id %}"><h2>Create match</h2> </a></p>
+        <h2><b>MATCHES</b></h2>
     <ul>
         {% for match in matches %}
             <li><a href={% url 'tournament:match' tournament.id match.id %}>{{match }}</a></li>
-{% endfor %}
+        {% endfor %}
     </ul>
-    <a href="{% url 'tournament:create_match' tournament.id %}">create match</a>
+
+    </div>
 {% endblock %}

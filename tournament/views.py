@@ -94,29 +94,29 @@ def all_matches(request, tournament_id):
 
 
 def create_match(request, tournament_id):
-    try:
+    #try:
         Organizer.objects.get(pk=request.user.id)
         if request.method == 'POST':
-            form = MatchCreationForm(request.POST)
             tournament = Tournament.objects.get(pk=tournament_id)
+            form = MatchCreationForm(tournament, request.POST)
             if form.is_valid():
                 match = form.save(commit=False)
                 match.tournament = tournament
-                match.winner=match.team_1
+                match.winner = match.team_1
                 match.save()
                 return redirect('tournament:all_matches', tournament_id)
             else:
                 messages.error(request, 'Please correct the error below.')
                 return redirect('tournament:create_match', tournament_id)
         else:
-            form = MatchCreationForm()
+            form = MatchCreationForm(Tournament.objects.get(pk=tournament_id))
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
-    except Exception:
-        return redirect('organizer:login')
+    #except Exception:
+    #    return redirect('login')
 
 
-def enter_score(request,tournament_id,match_id):
+def enter_score(request, tournament_id, match_id):
     if request.method == 'POST':
         form = ScoreForm(request.POST)
         match = Match.objects.get(pk=match_id)

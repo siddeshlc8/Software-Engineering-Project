@@ -7,7 +7,7 @@
 <div class="container">
 <br><br><br><br>
 
-     <br> <a href="{%  url 'tournament:create_match' current_tournament.id  %}"> create match </a>
+    <a href="{% url 'tournament:all_matches' current_tournament.id %}"><h2><b>Matches</b></h2></a>
 
     <a href="{% url 'tournament:create_team' current_tournament.id %}"><h2><b>Add Teams</b></h2></a>
 
@@ -18,7 +18,7 @@
         <a href="{% url 'tournament:team_players' team.id %}"><h3>{{ team.name }}</h3></a>
 
     {% endfor %}
-    <a href="{% url 'tournament:all_matches' current_tournament.id %}">Matches</a>
+
 </div>
 
 {% endblock %}
