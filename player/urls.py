@@ -5,7 +5,6 @@ app_name = 'player'
 urlpatterns = [
 
     path('home/', views.player_home, name='player_home'),
-    path('logout/', views.PlayerLogoutView.as_view(), name='player_logout'),
     path('view-profile/', views.player_view_profile, name='player_view_profile'),
     path('edit-profile/', views.player_edit_profile, name='player_edit_profile'),
     path('view-performance/',views.player_performance, name='player_view_performance'),

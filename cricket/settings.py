@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'performance',
     'search',
     'widget_tweaks',
     'tournament',

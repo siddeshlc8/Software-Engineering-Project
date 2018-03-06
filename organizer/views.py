@@ -12,7 +12,7 @@ def home(request):
         Organizer.objects.get(pk=request.user.id)
         return render(request, 'organizer/home.html')
     except Exception:
-        return redirect('organizer:login')
+        return redirect('login')
 
 
 def view_profile(request):
@@ -23,7 +23,7 @@ def view_profile(request):
         context = {'organizer': organizer}
         return render(request, 'organizer//view_profile.html', context)
     else:
-        return redirect('organizer:login')
+        return redirect('login')
 
 
 def edit_profile(request):
@@ -39,7 +39,7 @@ def edit_profile(request):
             context = {'form': form}
             return render(request, 'organizer/edit_profile.html', context)
     else:
-        return redirect('organizer:login')
+        return redirect('login')
 
 
 def organizer_change_password(request):
@@ -57,6 +57,6 @@ def organizer_change_password(request):
             form = PasswordChangeForm(user=request.user)
             return render(request, 'organizer/change_password.html', {'form': form})
     else:
-        return redirect('organizer:login')
+        return redirect('login')
 
 

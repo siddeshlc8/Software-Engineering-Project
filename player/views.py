@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import PlayerSignUpForm, PlayerProfileForm
-from django.contrib.auth import authenticate, login, logout
+from .forms import PlayerProfileForm
 from .models import Player
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.views import LogoutView
+from performance.models import PerformanceMatchWise
 
 
 def player_home(request):
@@ -18,15 +17,18 @@ def player_home(request):
 
 
 def player_performance(request):
-    if request.user.username:
-        context = {'P': Player.objects.get(pk=request.user.id)}
+    try:
+        player = Player.objects.get(pk=request.user.id)
+        data = PerformanceMatchWise.objects.filter(player=player).order_by('name')
+        labels = []
+        values = []
+        for key in data:
+            labels.append(key.name)
+            values.append(key.batting_runs)
+        context = {'labels': labels, 'values': values}
         return render(request, 'player/performance.html', context)
-    else:
-        return redirect('player:player_login')
-
-
-class PlayerLogoutView(LogoutView):
-    next_page = '/player/login/'
+    except Exception:
+        return redirect('login')
 
 
 def player_view_profile(request):
@@ -37,7 +39,7 @@ def player_view_profile(request):
         context = {'player': player, 'P': user}
         return render(request, 'player/view_profile.html', context)
     else:
-        return redirect('player:player_login')
+        return redirect('login')
 
 
 def player_edit_profile(request):
@@ -53,7 +55,7 @@ def player_edit_profile(request):
             context = {'form': form, 'P': player}
             return render(request, 'player/edit_profile.html', context)
     else:
-        return redirect('player:player_login')
+        return redirect('login')
 
 
 def player_change_password(request):
@@ -72,13 +74,13 @@ def player_change_password(request):
             context = {'form': form, 'P': Player.objects.get(pk=request.user.id)}
             return render(request, 'player/change_password.html', context)
     else:
-        return redirect('player:player_login')
+        return redirect('login')
 
 
 def player_change_password_done(request):
     if request.user.username:
         context = {'P': Player.objects.get(pk=request.user.id)}
         return render(request, 'player/change_password_done.html', context)
-    return redirect('player:player_login')
+    return redirect('login')
 
 
