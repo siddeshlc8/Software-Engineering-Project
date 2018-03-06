@@ -9,6 +9,8 @@ from collections import defaultdict
 # Create your views here.
 
 
+
+
 def create_tournament(request):
     try:
         organizer = Organizer.objects.get(pk=request.user.id)
