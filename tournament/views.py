@@ -46,7 +46,7 @@ def create_team(request, tournament_id):
             context = {'form': form}
             return render(request, 'tournament/tournament_templates/create_tournament.html', context)
     except Exception:
-        return redirect('organizer:login')
+        return redirect('organizer_login')
 
 
 def tournament(request):
@@ -75,7 +75,7 @@ def team_players(request, team_id):
         o = Organizer.objects.get(pk=request.user.id)
         current_team = Team.objects.get(pk=team_id)
         current_players = current_team.player_set.all()
-        available_players = Player.objects.exclude(team__pk=team_id)
+        available_players = Player.objects.exclude(team__pk=team_id, active=False)
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
@@ -85,6 +85,7 @@ def team_players(request, team_id):
 def team_players_add(request, team_id, player_id):
     team_ = Team.objects.get(pk=team_id)
     player_ = Player.objects.get(pk=player_id)
+    player_.active = True
     team_.player_set.add(player_)
     return redirect('tournament:team_players', team_id)
 
@@ -98,9 +99,9 @@ def all_matches(request, tournament_id):
 def create_match(request, tournament_id):
     try:
         Organizer.objects.get(pk=request.user.id)
+        tournament = Tournament.objects.get(pk=tournament_id)
         if request.method == 'POST':
-            form = MatchCreationForm(request.POST)
-            tournament = Tournament.objects.get(pk=tournament_id)
+            form = MatchCreationForm(tournament, request.POST)
             if form.is_valid():
                 match = form.save(commit=False)
                 match.tournament = tournament
@@ -111,16 +112,17 @@ def create_match(request, tournament_id):
                 messages.error(request, 'Please correct the error below.')
                 return redirect('tournament:create_match', tournament_id)
         else:
-            form = MatchCreationForm()
+            form = MatchCreationForm(tournament)
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
     except Exception:
         return redirect('organizer:login')
 
 
-def enter_score(request,tournament_id,match_id):
+def enter_score(request, tournament_id, match_id):
+    tournament = Tournament.objects.get(pk=tournament_id)
     if request.method == 'POST':
-        form = ScoreForm(request.POST)
+        form = ScoreForm(request.POST, tournament)
         match = Match.objects.get(pk=match_id)
         if form.is_valid():
             score = form.save(commit=False)
@@ -151,8 +153,7 @@ def enter_score(request,tournament_id,match_id):
             target_dict[max][balls.ball_number] = balls.run
           max=max-1
 
-
-        form = ScoreForm()
+        form = ScoreForm(tournament)
         context = {'form': form ,
                    'score':score,
 

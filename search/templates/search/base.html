@@ -14,7 +14,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{ user.get_full_name }}</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap active">
-          <a class="nav-link" href="{% url 'player:player_logout' %}">Sign out</a>
+          <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
         </li>
       </ul>
     </nav>
@@ -150,7 +150,7 @@
 
                   <a href="{% url 'organizer:change_password' %}">Change Password</a>
             <div class="dropdown-divider"></div>
-                    <a href="{% url 'organizer:logout' %}">Logout</a>
+                    <a href="{% url 'logout' %}">Logout</a>
         </div>
       </li>
     </ul>

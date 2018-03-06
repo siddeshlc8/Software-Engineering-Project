@@ -44,7 +44,7 @@ class Score(models.Model):
         ('Second', 'Second'),
 
     ]
-    innings = models.CharField(max_length=11,choices=innings_choice,default=None)
+    innings = models.CharField(max_length=11,choices=innings_choice)
     batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING)
     bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING)
     ball_number = models.IntegerField()
@@ -57,7 +57,7 @@ class Score(models.Model):
         ('NoBall', 'NoBall'),
         ('DeadBall', 'DeadBall')
     ]
-    extra_type = models.CharField(max_length=11,choices=extra_type_choice)
+    extra_type = models.CharField(max_length=11, choices=extra_type_choice)
     extra_run = models.IntegerField()
     is_wicket = models.BooleanField(default=False)
 
@@ -69,7 +69,7 @@ class Score(models.Model):
         ('Stumps', 'Stumps'),
         ('HitWicket', 'HitWicket')
     ]
-    wicket_type = models.CharField(max_length=11,choices=wicket_type_choice)
+    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice)
 
 
     def __str__(self):
