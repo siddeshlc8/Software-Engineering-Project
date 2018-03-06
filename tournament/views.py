@@ -1,9 +1,11 @@
+from django.db.models import Max
 from django.shortcuts import render, redirect
 from .models import Team, Tournament, Match
 from player.models import Player
 from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm
 from django.contrib import messages
 from organizer.models import Organizer
+from collections import defaultdict
 # Create your views here.
 
 
@@ -131,19 +133,42 @@ def enter_score(request,tournament_id,match_id):
             return redirect('tournament:enter_score', tournament_id,match_id)
     else:
         match = Match.objects.get(pk=match_id)
-        score=match.score_set.all()
+        score=match.score_set.filter(match_id=match_id)
+
+
+        target_dict = {}
+        if score.exists():
+            overs = score.aggregate(Max('over_number'))
+
+            max = overs['over_number__max']
+        else:
+            max=0
+
+        while max!=0:
+          over_score=match.score_set.filter(over_number=max)
+          target_dict[max] = {}
+          for balls in  over_score:
+            target_dict[max][balls.ball_number] = balls.run
+          max=max-1
+
 
         form = ScoreForm()
         context = {'form': form ,
-                   'score':score}
+                   'score':score,
+
+                   'target_dict' :target_dict
+                   }
         return render(request, 'tournament/score_templates/enter_score.html', context)
 
 
 def  scores(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
-
+    team1=match.team_1
+    team2=match.team_2
+    players_team1=team1.player_set.all()
+    players_team2=team2.player_set.all()
     all_scores =match.score_set.all()
-    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)

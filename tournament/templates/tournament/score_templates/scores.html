@@ -6,7 +6,23 @@
 {% block body %}
     <br><br><br>
 <br><br><br><br>
+
+
        <div class="container">
+       <table>
+       {% for player in players_team1 %}
+
+              <tr>
+                  <td> {{ player.first_name }} ..{{ player.last_name}}</td>
+                  <td> runs  </td>
+                  <td> is_out </td>
+              </tr>
+              {% endfor %}
+          </table>
+       </div>
+
+
+      <div class="container">
        <ul>
            {% for  score in all_scores %}
            <li> {{ score }}</li>
