@@ -17,6 +17,7 @@ class Player(User):
     district = models.CharField(max_length=20)
     dob = models.DateField()
     team = models.ManyToManyField(Team, null=True)
+    active = models.BooleanField(default=False)
 
     def profile(self):
         value = {

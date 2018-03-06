@@ -39,8 +39,8 @@ class TournamentCreationForm(forms.ModelForm):
 
 class MatchCreationForm(forms.ModelForm):
 
-    def __init__(self, tournament, *args, **kwargs):
-        super(MatchCreationForm, self).__init__(*args, **kwargs)
+    def __init__(self, tournament):
+        super(MatchCreationForm, self).__init__()
         self.fields['team_1'] = forms.ModelChoiceField(
             queryset=Team.objects.filter(tournament=tournament)
         )
@@ -51,13 +51,22 @@ class MatchCreationForm(forms.ModelForm):
     class Meta:
         model = Match
         fields = [
+
             'team_1',
             'team_2',
             'overs'
         ]
 
-
 class ScoreForm(forms.ModelForm):
+
+    def __init__(self, tournament):
+        super(ScoreForm, self).__init__()
+        self.fields['batting_team'] = forms.ModelChoiceField(
+            queryset=Team.objects.filter(tournament=tournament)
+        )
+        self.fields['bowling_team'] = forms.ModelChoiceField(
+            queryset=Team.objects.filter(tournament=tournament)
+        )
 
     class Meta:
         model = Score

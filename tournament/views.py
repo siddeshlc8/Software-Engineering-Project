@@ -1,10 +1,14 @@
+from django.db.models import Max
 from django.shortcuts import render, redirect
 from .models import Team, Tournament, Match
 from player.models import Player
 from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm
 from django.contrib import messages
 from organizer.models import Organizer
+from collections import defaultdict
 # Create your views here.
+
+
 
 
 def create_tournament(request):
@@ -44,7 +48,7 @@ def create_team(request, tournament_id):
             context = {'form': form}
             return render(request, 'tournament/tournament_templates/create_tournament.html', context)
     except Exception:
-        return redirect('organizer:login')
+        return redirect('organizer_login')
 
 
 def tournament(request):
@@ -73,7 +77,7 @@ def team_players(request, team_id):
         o = Organizer.objects.get(pk=request.user.id)
         current_team = Team.objects.get(pk=team_id)
         current_players = current_team.player_set.all()
-        available_players = Player.objects.exclude(team__pk=team_id)
+        available_players = Player.objects.exclude(team__pk=team_id, active=False)
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
@@ -83,6 +87,7 @@ def team_players(request, team_id):
 def team_players_add(request, team_id, player_id):
     team_ = Team.objects.get(pk=team_id)
     player_ = Player.objects.get(pk=player_id)
+    player_.active = True
     team_.player_set.add(player_)
     return redirect('tournament:team_players', team_id)
 
@@ -93,32 +98,35 @@ def all_matches(request, tournament_id):
     return render(request,'tournament/match_templates/matches.html',{'tournament':tournament,'matches':al_matches})
 
 
+
+
 def create_match(request, tournament_id):
-    #try:
+    try:
         Organizer.objects.get(pk=request.user.id)
+        tournament = Tournament.objects.get(pk=tournament_id)
         if request.method == 'POST':
-            tournament = Tournament.objects.get(pk=tournament_id)
             form = MatchCreationForm(tournament, request.POST)
             if form.is_valid():
                 match = form.save(commit=False)
                 match.tournament = tournament
-                match.winner = match.team_1
+                match.winner=match.team_1
                 match.save()
                 return redirect('tournament:all_matches', tournament_id)
             else:
                 messages.error(request, 'Please correct the error below.')
                 return redirect('tournament:create_match', tournament_id)
         else:
-            form = MatchCreationForm(Tournament.objects.get(pk=tournament_id))
+            form = MatchCreationForm(tournament)
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
-    #except Exception:
-    #    return redirect('login')
+    except Exception:
+        return redirect('organizer:login')
 
 
 def enter_score(request, tournament_id, match_id):
+    tournament = Tournament.objects.get(pk=tournament_id)
     if request.method == 'POST':
-        form = ScoreForm(request.POST)
+        form = ScoreForm(request.POST, tournament)
         match = Match.objects.get(pk=match_id)
         if form.is_valid():
             score = form.save(commit=False)
@@ -131,19 +139,41 @@ def enter_score(request, tournament_id, match_id):
             return redirect('tournament:enter_score', tournament_id,match_id)
     else:
         match = Match.objects.get(pk=match_id)
-        score=match.score_set.all()
+        score=match.score_set.filter(match_id=match_id)
 
-        form = ScoreForm()
+
+        target_dict = {}
+        if score.exists():
+            overs = score.aggregate(Max('over_number'))
+
+            max = overs['over_number__max']
+        else:
+            max=0
+
+        while max!=0:
+          over_score=match.score_set.filter(over_number=max)
+          target_dict[max] = {}
+          for balls in  over_score:
+            target_dict[max][balls.ball_number] = balls.run
+          max=max-1
+
+        form = ScoreForm(tournament)
         context = {'form': form ,
-                   'score':score}
+                   'score':score,
+
+                   'target_dict' :target_dict
+                   }
         return render(request, 'tournament/score_templates/enter_score.html', context)
 
 
 def  scores(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
-
+    team1=match.team_1
+    team2=match.team_2
+    players_team1=team1.player_set.all()
+    players_team2=team2.player_set.all()
     all_scores =match.score_set.all()
-    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
