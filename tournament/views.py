@@ -90,10 +90,6 @@ def team_players_add(request, team_id, player_id):
     return redirect('tournament:team_players', team_id)
 
 
-
-
-
-
 def all_matches(request, tournament_id):
     tournament=Tournament.objects.get(id=tournament_id)
     al_matches = tournament.match_set.all()
