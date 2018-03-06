@@ -96,6 +96,8 @@ def all_matches(request, tournament_id):
     return render(request,'tournament/match_templates/matches.html',{'tournament':tournament,'matches':al_matches})
 
 
+
+
 def create_match(request, tournament_id):
     try:
         Organizer.objects.get(pk=request.user.id)
