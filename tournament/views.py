@@ -77,7 +77,7 @@ def team_players(request, team_id):
         o = Organizer.objects.get(pk=request.user.id)
         current_team = Team.objects.get(pk=team_id)
         current_players = current_team.player_set.all()
-        available_players = Player.objects.exclude(team__pk=team_id, active=False)
+        available_players = Player.objects.filter(active=False).exclude(team__pk=team_id)
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
@@ -88,6 +88,7 @@ def team_players_add(request, team_id, player_id):
     team_ = Team.objects.get(pk=team_id)
     player_ = Player.objects.get(pk=player_id)
     player_.active = True
+    player_.save()
     team_.player_set.add(player_)
     return redirect('tournament:team_players', team_id)
 
@@ -96,8 +97,6 @@ def all_matches(request, tournament_id):
     tournament=Tournament.objects.get(id=tournament_id)
     al_matches = tournament.match_set.all()
     return render(request,'tournament/match_templates/matches.html',{'tournament':tournament,'matches':al_matches})
-
-
 
 
 def create_match(request, tournament_id):
@@ -120,18 +119,17 @@ def create_match(request, tournament_id):
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
     except Exception:
-        return redirect('organizer:login')
+        return redirect('login')
 
 
 def enter_score(request, tournament_id, match_id):
     tournament = Tournament.objects.get(pk=tournament_id)
     if request.method == 'POST':
-        form = ScoreForm(request.POST, tournament)
+        form = ScoreForm(tournament, request.POST)
         match = Match.objects.get(pk=match_id)
         if form.is_valid():
             score = form.save(commit=False)
             score.match = match
-
             score.save()
             return redirect('tournament:scores', tournament_id,match_id)
         else:
