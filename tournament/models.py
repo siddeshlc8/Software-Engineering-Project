@@ -58,8 +58,8 @@ class Score(models.Model):
         ('NoBall', 'NoBall'),
         ('DeadBall', 'DeadBall')
     ]
-    extra_type = models.CharField(max_length=11, choices=extra_type_choice)
-    extra_run = models.IntegerField()
+    extra_type = models.CharField(max_length=11, choices=extra_type_choice,null=True,blank=True)
+    extra_run = models.IntegerField(default=0)
     is_wicket = models.BooleanField(default=False)
 
     wicket_type_choice = [
@@ -70,8 +70,17 @@ class Score(models.Model):
         ('Stumps', 'Stumps'),
         ('HitWicket', 'HitWicket')
     ]
-    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice)
+    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice,null=True,blank=True)
 
 
     def __str__(self):
         return '  ball =>  '+ str(self.ball_number) + '  runs => ' + str(self.run)
+
+
+
+
+
+
+
+
+

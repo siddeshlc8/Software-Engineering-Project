@@ -31,6 +31,9 @@
        <br><br>
       <p>enter score</p>
           <a href="{% url 'tournament:enter_score' tournament_id match.id  team1.id team2.id %}">first innings</a>
+
+           <br><br>
+
              <a href="{%  url 'tournament:enter_score' tournament_id  match.id team2.id team1.id %}">second innings</a>
 
         </div>
