@@ -1,6 +1,7 @@
 from django.db import models
 from organizer.models import Organizer
 
+
 # Create your models here.
 
 
@@ -49,8 +50,8 @@ class Score(models.Model):
     bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING)
     ball_number = models.IntegerField()
     over_number = models.IntegerField()
-    # bowler=models.ForeignKey('Player',related_name='bowler',on_delete=models.DO_NOTHING)
-    #batsman=models.ForeignKey('Player',related_name='batsman',on_delete=models.DO_NOTHING)
+    bowler = models.ForeignKey('player.Player',related_name='bowler',null=True , on_delete=models.DO_NOTHING)
+    batsman=models.ForeignKey('player.Player', related_name='batsman',null=True ,on_delete=models.DO_NOTHING)
     run=models.IntegerField()
     extra_type_choice =[
         ('Wide', 'Wide'),

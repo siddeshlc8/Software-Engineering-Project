@@ -29,7 +29,10 @@
            {% endfor %}
        </ul>
        <br><br>
-          <a href="{% url 'tournament:enter_score' tournament_id match.id %}">enter_score</a>
+      <p>enter score</p>
+          <a href="{% url 'tournament:enter_score' tournament_id match.id  team1.id team2.id %}">first innings</a>
+             <a href="{%  url 'tournament:enter_score' tournament_id  match.id team2.id team1.id %}">second innings</a>
+
         </div>
 
 {% endblock %}

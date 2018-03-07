@@ -122,10 +122,13 @@ def create_match(request, tournament_id):
         return redirect('login')
 
 
-def enter_score(request, tournament_id, match_id):
+def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id):
     tournament = Tournament.objects.get(pk=tournament_id)
+    batting_team=Team.objects.get(pk=batting_team_id)
+    bowling_team=Team.objects.get(pk=bowling_team_id)
     if request.method == 'POST':
-        form = ScoreForm(tournament, request.POST)
+
+        form = ScoreForm(tournament, batting_team,bowling_team,request.POST)
         match = Match.objects.get(pk=match_id)
         if form.is_valid():
             score = form.save(commit=False)
@@ -155,7 +158,7 @@ def enter_score(request, tournament_id, match_id):
             target_dict[max][balls.ball_number] = balls.run
           max=max-1
 
-        form = ScoreForm(tournament)
+        form = ScoreForm(tournament, batting_team,bowling_team)
         context = {'form': form ,
                    'score':score,
 
@@ -171,7 +174,7 @@ def  scores(request, tournament_id,match_id):
     players_team1=team1.player_set.all()
     players_team2=team2.player_set.all()
     all_scores =match.score_set.all()
-    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2 ,'team1':team1,'team2':team2})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)

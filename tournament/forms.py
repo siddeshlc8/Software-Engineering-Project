@@ -1,5 +1,7 @@
 from django import forms
 from .models import Team, Tournament, Match, Score
+from player.models import Player
+
 
 
 class TeamCreationForm(forms.ModelForm):
@@ -59,13 +61,19 @@ class MatchCreationForm(forms.ModelForm):
 
 class ScoreForm(forms.ModelForm):
 
-    def __init__(self, tournament,*args, **kwargs):
+    def __init__(self, tournament,batting,bowling,*args, **kwargs):
         super(ScoreForm, self).__init__(*args, **kwargs)
         self.fields['batting_team'] = forms.ModelChoiceField(
             queryset=Team.objects.filter(tournament=tournament)
         )
         self.fields['bowling_team'] = forms.ModelChoiceField(
             queryset=Team.objects.filter(tournament=tournament)
+        )
+        self.fields['batsman'] = forms.ModelChoiceField(
+            queryset=Player.objects.filter(team=batting)
+        )
+        self.fields['bowler'] = forms.ModelChoiceField(
+            queryset=Player.objects.filter(team=bowling)
         )
 
     class Meta:
@@ -77,6 +85,8 @@ class ScoreForm(forms.ModelForm):
             'bowling_team' ,
             'ball_number' ,
             'over_number',
+            'batsman',
+            'bowler',
             'run',
             'extra_type',
             'extra_run',

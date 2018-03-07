@@ -36,9 +36,9 @@ def signin(request):
                     Organizer.objects.get(pk=request.user)
                     return redirect('organizer:home')
                 except Exception:
-                        return redirect('cricket:login')
-    else:
-       return render(request, 'cricket/login.html')
+                        return redirect('login')
+
+    return render(request, 'cricket/login.html')
 
 
 def player_signup(request):
