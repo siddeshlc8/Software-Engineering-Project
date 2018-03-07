@@ -4,6 +4,13 @@
 
 {% if P.username %}
 
+    <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
 
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +18,7 @@
     <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{ user.get_full_name }}</a>
+      <nav class="navbar-brand col-sm-3 col-md-2 mr-0">{{ user.get_full_name }}</nav>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap active">
           <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
@@ -27,7 +34,7 @@
               <li class="nav-item">
                 <a class="nav-link active" href="{% url 'player:player_home' %}">
                   <span data-feather="home"></span>
-                  Home <span class="sr-only">(current)</span>
+                  Home <span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -56,6 +63,7 @@
               </li>
             </ul>
 
+
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Additional</span>
               <a class="d-flex align-items-center text-muted" href="#">
@@ -64,13 +72,13 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'player:my_tournaments' %}">
                   <span data-feather="alert-circle"></span>
                   My Tournaments
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'player:my_matches' %}">
                   <span data-feather="alert-circle"></span>
                   My Matches
                 </a>

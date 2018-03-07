@@ -10,5 +10,7 @@ urlpatterns = [
     path('view-performance/',views.player_performance, name='player_view_performance'),
     path('password-change/', views.player_change_password, name='player_change_password'),
     path('password-change-done/', views.player_change_password_done, name='player_change_password_done'),
+    path('my-tournaments/', views.my_tournaments, name='my_tournaments'),
+    path('my-matches/', views.my_matches, name='my_matches'),
 
 ]

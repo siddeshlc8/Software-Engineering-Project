@@ -4,7 +4,7 @@ from .models import Player
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from performance.models import PerformanceMatchWise
+from performance.models import PerformanceMatchWise, PerformanceTotal
 
 
 def player_home(request):
@@ -13,7 +13,7 @@ def player_home(request):
         context = {'P': user}
         return render(request, 'player/home.html', context)
     else:
-        return redirect('player:player_login')
+        return redirect('login')
 
 
 def player_performance(request):
@@ -23,9 +23,10 @@ def player_performance(request):
         labels = []
         values = []
         for key in data:
-            labels.append(key.name)
+            labels.append(key.id)
             values.append(key.batting_runs)
-        context = {'labels': labels, 'values': values}
+        total_data = PerformanceTotal.objects.get(player=player)
+        context = {'labels': labels, 'values': values, 'total_data': total_data}
         return render(request, 'player/performance.html', context)
     except Exception:
         return redirect('login')
@@ -82,5 +83,21 @@ def player_change_password_done(request):
         context = {'P': Player.objects.get(pk=request.user.id)}
         return render(request, 'player/change_password_done.html', context)
     return redirect('login')
+
+
+def my_tournaments(request):
+    try:
+        player = Player.objects.get(pk=request.user.id)
+        return render(request, 'player/my_tournaments.html')
+    except Exception:
+        return redirect('login')
+
+
+def my_matches(request):
+    try:
+        player = Player.objects.get(pk=request.user.id)
+        return render(request, 'player/my_matches.html')
+    except Exception:
+        return redirect('login')
 
 
