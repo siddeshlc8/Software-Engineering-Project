@@ -50,6 +50,7 @@ def player_edit_profile(request):
             form = PlayerProfileForm(request.POST, instance=player)
             if form.is_valid():
                 form.save()
+                messages.success(request,'successfully edited your profile !')
                 return redirect('player:player_view_profile')
         else:
             form = PlayerProfileForm(instance=player)
@@ -66,7 +67,8 @@ def player_change_password(request):
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
-                return redirect('player:player_change_password_done')
+                messages.success(request, 'successfully changed your password !')
+                return redirect('player:player_home')
             else:
                 messages.error(request, 'Please correct the error below.')
                 return redirect('player:player_change_password')
