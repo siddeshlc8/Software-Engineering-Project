@@ -17,6 +17,7 @@
 
     {% endfor %}
 
+   {% if tournament.tournament_status == 0 %}
     <p><h2>List of Players You can Add:</h2></p>
 
     {% for player in available_players %}
@@ -24,7 +25,7 @@
         <a href="{% url 'tournament:team_players_add' team.id  player.id %}"><h3>{{ player.get_full_name }}</h3></a>
 
     {% endfor %}
-
+   {% endif %}
 </div>
 
 {% endblock %}

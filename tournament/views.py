@@ -2,7 +2,7 @@ from django.db.models import Max
 from django.shortcuts import render, redirect
 from .models import Team, Tournament, Match
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm
+from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm,Submit_match_form,Submit_tournament_form
 from django.contrib import messages
 from organizer.models import Organizer
 from collections import defaultdict
@@ -132,7 +132,9 @@ def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id
         form = ScoreForm(tournament, batting_team,bowling_team,request.POST)
         match = Match.objects.get(pk=match_id)
         match.match_status=1
+        match.save()
         tournament.tournament_status=1
+        tournament.save()
         if form.is_valid():
             score = form.save(commit=False)
             score.match = match
@@ -185,16 +187,41 @@ def  match(request, tournament_id,match_id):
     return render(request,'tournament/match_templates/current_match.html',{'tournament':tournament,'match':match})
 
 def  submit_match(request, tournament_id,match_id):
-     match=Match.objects.get(id=match_id)
-     #making  match status as  "finished"
-     match.match_status=2
-     tournament=Tournament.objects.get(id=tournament_id)
-     return render(request,'tournament/match_templates/submit_match.html',{'tournament':tournament,'match':match})
+    current_tournament = Tournament.objects.get(pk=tournament_id)
+    match = Match.objects.get(pk=match_id)
+    if request.method == 'POST':
+        form=Submit_match_form(request.POST)
+        team1=match.team_1
+        team2=match.team_2
+
+        if form['team1'].value()==team1.name and  form['team2'].value()==team2.name :
+            match.match_status=2
+            match.save()
+            return redirect('tournament:match', tournament_id,match_id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return redirect('tournament:submit_match', tournament_id,match_id)
+    else:
+        form=Submit_match_form()
+        return render(request, 'tournament/match_templates/submit_match.html',{'form' :form,'tournament':current_tournament,'match':match})
+
+
 
 
 def submit_tournament(request, tournament_id):
-    tournament = Tournament.objects.get(id=tournament_id)
-    # making  match status as  "finished"
-    tournament.tournament_status = 2
+    current_tournament = Tournament.objects.get(pk=tournament_id)
+    if request.method == 'POST':
+        form = Submit_tournament_form(request.POST)
 
-    return render(request, 'tournament/tournament_templates/submit_tournament.html', {'tournament': tournament})
+        if form['tournament_name'].value() == current_tournament.name :
+            current_tournament.tournament_status = 2
+            current_tournament.save()
+            return redirect('tournament:tournament_teams', tournament_id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return redirect('tournament:submit_tournament', tournament_id)
+    else:
+        form = Submit_tournament_form()
+        return render(request, 'tournament/tournament_templates/submit_tournament.html',
+                      {'form': form, 'tournament': current_tournament})
+

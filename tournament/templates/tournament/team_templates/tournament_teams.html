@@ -7,9 +7,13 @@
 <div class="container">
 <br><br><br><br>
 
-    <a href="{% url 'tournament:all_matches' current_tournament.id %}"><h2><b>Matches</b></h2></a>
+    <a href="{% url 'tournament:all_matches' current_tournament.id %}"><h2><b> Matches </b></h2></a>
+
+{% if tournament.tournament_status == 0 %}
 
     <a href="{% url 'tournament:create_team' current_tournament.id %}"><h2><b>Add Teams</b></h2></a>
+
+{% endif %}
 
     <p><h2>List of Teams:</h2></p>
 
@@ -18,7 +22,10 @@
         <a href="{% url 'tournament:team_players' team.id %}"><h3>{{ team.name }}</h3></a>
 
     {% endfor %}
-
+   <br><br><br>
+   <div>
+       <a href="{% url 'tournament:submit_tournament' current_tournament.id %}">submit tournament</a>
+   </div>
 </div>
 
 {% endblock %}

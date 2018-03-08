@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>submit match</title>
+</head>
+<body>
+    <div>
+        <form action="{% url 'tournament:submit_match' tournament.id match.id %} " method="post">
+
+            {% csrf_token %}
+             {{ form.as_p }}
+              <button type="submit" value="submit"></button>
+        </form>
+    </div>
+</body>
+</html>

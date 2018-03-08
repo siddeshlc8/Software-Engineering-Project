@@ -93,3 +93,15 @@ class ScoreForm(forms.ModelForm):
             'is_wicket',
             'wicket_type'
         ]
+
+
+
+class Submit_match_form(forms.Form):
+     team1 = forms.CharField(label='team1 name', max_length=100)
+     team2 = forms.CharField(label='team2 name', max_length=100)
+
+
+class Submit_tournament_form(forms.Form):
+    tournament_name = forms.CharField(label='tournament name', max_length=100)
+
+

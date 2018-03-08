@@ -8,7 +8,11 @@
     <br>
     <br>
     <div class="container">
+
+       {% if tournament.tournament_status != 2 %}
         <p><a href="{% url 'tournament:create_match' tournament.id %}"><h2>Create match</h2> </a></p>
+
+      {% endif %}
         <h2><b>MATCHES</b></h2>
     <ul>
         {% for match in matches %}
