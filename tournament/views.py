@@ -30,7 +30,7 @@ def create_tournament(request):
             context = {'form': form}
             return render(request, 'tournament/tournament_templates/create_tournament.html', context)
     except Exception:
-        return redirect('cricket:login')
+        return redirect('login')
 
 
 def create_team(request, tournament_id):
@@ -44,16 +44,16 @@ def create_team(request, tournament_id):
                 team.tournament = current_tournament
                 team.save()
                 messages.success(request,'team sucessfully created')
-                return redirect('tournament:tournament_teams', tournament_id)
+                return redirect('tournament:current_tournament', tournament_id)
             else:
                 messages.error(request, 'Please provide proper details')
-                return redirect('tournament:tournament_teams',  tournament_id)
+                return redirect('tournament:current_tournament',  tournament_id)
         else:
             form = TeamCreationForm()
             context = {'form': form}
             return render(request, 'tournament/tournament_templates/create_tournament.html', context)
     except Exception:
-        return redirect('cricket:login')
+               return redirect('login')
 
 
 def tournament(request):
@@ -63,18 +63,18 @@ def tournament(request):
         context = {'all_tournament': all_tournament}
         return render(request, 'tournament/tournament_templates/tournaments.html', context)
     except Exception:
-        return redirect('cricket:login')
+        return redirect('login')
 
 
-def tournament_teams(request, tournament_id):
+def current_tournament(request, tournament_id):
     try:
         Organizer.objects.get(pk=request.user.id)
         current_tournament = Tournament.objects.get(pk=tournament_id)
         teams = current_tournament.team_set.all()
         context = {'current_tournament': current_tournament, 'teams': teams}
-        return render(request, 'tournament/team_templates/tournament_teams.html', context)
+        return render(request, 'tournament/tournament_templates/current_tournament.html', context)
     except Exception:
-        return redirect('cricket:login')
+        return redirect('login')
 
 
 def team_players(request, team_id):
@@ -86,7 +86,7 @@ def team_players(request, team_id):
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
-        return redirect('cricket:login')
+        return redirect('login')
 
 
 def team_players_add(request, team_id, player_id):
@@ -126,7 +126,7 @@ def create_match(request, tournament_id):
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
     except Exception:
-        return redirect('cricket:login')
+        return redirect()
 
 
 def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id):
@@ -225,7 +225,7 @@ def submit_tournament(request, tournament_id):
             current_tournament.tournament_status = 2
             current_tournament.save()
             messages.success(request,'tournament sucessfully submitted')
-            return redirect('tournament:tournament_teams', tournament_id)
+            return redirect('tournament:current_tournament', tournament_id)
         else:
             messages.error(request, 'Please correct the error below.')
             return redirect('tournament:submit_tournament', tournament_id)
