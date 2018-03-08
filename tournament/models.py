@@ -11,6 +11,7 @@ class Tournament(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(default=None)
     organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    tournament_status=models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -31,7 +32,7 @@ class Match(models.Model):
     team_1 = models.ForeignKey('Team', related_name='team_1',on_delete=models.DO_NOTHING)
     team_2 = models.ForeignKey('Team', related_name='team_2',on_delete=models.DO_NOTHING)
     overs = models.IntegerField()
-    #status = models.BooleanField(default=False)
+    match_status = models.IntegerField(default=0)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
 
     def __str__(self):

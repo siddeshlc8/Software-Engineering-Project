@@ -13,6 +13,8 @@
 
     {% for tournament in all_tournament %}
 
+
+
         <a href={% url 'tournament:tournament_teams' tournament.id %}><h4>{{ tournament.name }}</h4></a>
 
     {% endfor %}

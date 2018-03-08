@@ -123,6 +123,7 @@ def create_match(request, tournament_id):
 
 
 def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id):
+
     tournament = Tournament.objects.get(pk=tournament_id)
     batting_team=Team.objects.get(pk=batting_team_id)
     bowling_team=Team.objects.get(pk=bowling_team_id)
@@ -130,6 +131,8 @@ def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id
 
         form = ScoreForm(tournament, batting_team,bowling_team,request.POST)
         match = Match.objects.get(pk=match_id)
+        match.match_status=1
+        tournament.tournament_status=1
         if form.is_valid():
             score = form.save(commit=False)
             score.match = match
@@ -180,3 +183,18 @@ def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
     tournament=Tournament.objects.get(id=tournament_id)
     return render(request,'tournament/match_templates/current_match.html',{'tournament':tournament,'match':match})
+
+def  submit_match(request, tournament_id,match_id):
+     match=Match.objects.get(id=match_id)
+     #making  match status as  "finished"
+     match.match_status=2
+     tournament=Tournament.objects.get(id=tournament_id)
+     return render(request,'tournament/match_templates/submit_match.html',{'tournament':tournament,'match':match})
+
+
+def submit_tournament(request, tournament_id):
+    tournament = Tournament.objects.get(id=tournament_id)
+    # making  match status as  "finished"
+    tournament.tournament_status = 2
+
+    return render(request, 'tournament/tournament_templates/submit_tournament.html', {'tournament': tournament})
