@@ -17,6 +17,11 @@
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <nav class="navbar-brand col-sm-3 col-md-2 mr-0">{{ user.get_full_name }}</nav>
+
+        <form  class="form-inline w-100 my-2 my-lg-0" method="GET" action="{% url 'search:nav_search_players' %}">
+        <input  class="form-control form-control-dark w-100" type="text" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+        </form>
+
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap active">
           <a class="nav-link" href="{% url 'logout' %}">Sign out</a>

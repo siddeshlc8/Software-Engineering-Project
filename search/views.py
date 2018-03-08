@@ -5,6 +5,44 @@ from .filters import PlayerFilter, TournamentFilter, TeamFilter, OrganizerFilter
 from organizer.models import Organizer
 
 
+def nav_search_count(request):
+    query = request.GET.get("q")
+    players = Player.objects.filter(first_name__icontains=query)
+    context = {'count': players.__len__()}
+    return render(request, 'search/nav_search_count.html', context)
+
+
+def nav_search_matches(request):
+    if request.method == 'GET':
+        try:
+            p = Player.objects.get(pk=request.user.id)
+            context = {'P': p}
+        except Exception:
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'O': o}
+            except Exception:
+                context = {'P': None}
+        return render(request, 'search/nav_search_base.html', context)
+
+
+def nav_search_players(request):
+    if request.method == 'GET':
+        try:
+            p = Player.objects.get(pk=request.user.id)
+            context = {'P': p}
+        except Exception:
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'O': o}
+            except Exception:
+                context = {'P': None}
+        query = request.GET.get("q")
+        players = Player.objects.filter(first_name__icontains=query)
+        context.update({'players': players})
+        return render(request, 'search/nav_search_players.html', context)
+
+
 def search(request):
     try:
         p = Player.objects.get(pk=request.user.id)
@@ -49,18 +87,18 @@ def search_teams(request):
 
 
 def search_players(request):
-    players = Player.objects.all()
-    players_filter = PlayerFilter(request.GET, queryset=players)
-    try:
-        player = Player.objects.get(pk=request.user.id)
-        context = {'players': players, 'P': player, 'filter': players_filter}
-    except Exception:
+        players = Player.objects.all()
+        players_filter = PlayerFilter(request.GET, queryset=players)
         try:
-            o = Organizer.objects.get(pk=request.user.id)
-            context = {'players': players, 'O': o, 'filter': players_filter}
+            player = Player.objects.get(pk=request.user.id)
+            context = {'players': players, 'P': player, 'filter': players_filter}
         except Exception:
-            context ={'players': players, 'P': None, 'filter': players_filter}
-    return render(request, 'search/search_players.html', context)
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'players': players, 'O': o, 'filter': players_filter}
+            except Exception:
+                context ={'players': players, 'P': None, 'filter': players_filter}
+        return render(request, 'search/search_players.html', context)
 
 
 def search_organizers(request):

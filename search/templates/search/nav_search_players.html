@@ -1,19 +1,12 @@
-{% extends 'search/base.html' %}
 
-{% block title %} Search {% endblock %}
+
+{% block title %} Search | Results | Players {% endblock %}
 
 {% block body %}
+
 <br><br><br>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-       <div class="container">
-
-           <p><a href="{% url 'search:search_tournaments' %}">Tournaments</a></p>
-           <p><a href="{% url 'search:search_teams' %}">Teams</a></p>
-           <p><a href="{% url 'search:search_players' %}">Players</a></p>
-           <p><a href="{% url 'search:search_organizers' %}">Organizers</a></p>
-
-        </div>
-
+    <div class="container">
 
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-a4bf54bef6fb.css" integrity="sha512-pL9Uvvb7LMqGC8jv/AyqZ7Ya6/HTgkhZzKwEsHOdsfaW2pr3fgzqjgKUSJfYkZ/klxwHrcu+tZwtNDTuw8vH6Q==" media="all" rel="stylesheet" />
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-d5aa84dde2d5.css" integrity="sha512-1aqE3eLVo8QJ3AfkPFnOFkzBmHnOY5YYQ89j1V4ke28LRSpxHMVQecd6/XxAp5lGLPPSEaFNhLyGKHQHiFXT7w==" media="all" rel="stylesheet" />
@@ -26,13 +19,11 @@
     <div class="columns">
       <div class="column one-fourth">
         <nav class="menu border" data-pjax>
-            <a href="#" class="menu-item selected">Repositories</a>
-            <a href="#" class="menu-item ">Code</a>
-            <a href="#" class="menu-item ">Commits</a>
-            <a href="#" class="menu-item ">Issues</a>
-            <a href="#" class="menu-item ">Topics</a>
-            <a href="#" class="menu-item ">Wikis</a>
-            <a href="#" class="menu-item ">Users</a>
+            <a href="#" class="menu-item ">Matches</a>
+            <a href="#" class="menu-item ">Tournaments</a>
+            <a href="#" class="menu-item ">Teams</a>
+            <a href="{% url 'search:nav_search_players' %}?q={{ request.GET.q }}" class="menu-item ">Players<include-fragment src="{% url 'search:nav_search_count' %}?q={{ request.GET.q }}"></include-fragment></a>
+            <a href="#" class="menu-item ">Organizers</a>
         </nav>
       </div>
 
@@ -57,6 +48,18 @@
     <script crossorigin="anonymous" integrity="sha512-6oz7cTsS3E5enQjh4gWKU23tC78zIZqVJ1o5zMLCsAv5EEnmNsopwszDz7zx5IGWXU+H+sqeC5pHbt1Yxmh+sw==" src="https://assets-cdn.github.com/assets/frameworks-ea8cfb713b12.js" type="application/javascript"></script>
 
     <script async="async" crossorigin="anonymous" integrity="sha512-SsUEjbGrTRVSGbfHg8hhB1U/Jyih1v+8Jl6rUrikVcnM00g2Xk4QxHcU/4EGw2R1MlxyLTLUR+d+iEVoV4yr/w==" src="https://assets-cdn.github.com/assets/github-4ac5048db1ab.js" type="application/javascript"></script>
+        </div>
 
-    </main>
+    <p><h3>Your Search Results:</h3></p>
+
+          {% for player in players %}
+              <a href="{% url 'search:player_details' player.id %}"> <h3>{{ player.get_full_name }}</h3></a>
+
+          {% empty %}
+
+              No data
+
+          {% endfor %}
+
+      </main>
 {% endblock %}
