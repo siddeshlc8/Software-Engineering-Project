@@ -58,8 +58,8 @@ def create_team(request, tournament_id):
 
 def tournament(request):
     try:
-        Organizer.objects.get(pk=request.user.id)
-        all_tournament = Tournament.objects.filter(organizer=request.user.id)
+        o=Organizer.objects.get(pk=request.user.id)
+        all_tournament = Tournament.objects.filter(organizer=o)
         context = {'all_tournament': all_tournament}
         return render(request, 'tournament/tournament_templates/tournaments.html', context)
     except Exception:
@@ -72,7 +72,7 @@ def current_tournament(request, tournament_id):
         current_tournament = Tournament.objects.get(pk=tournament_id)
         teams = current_tournament.team_set.all()
         context = {'current_tournament': current_tournament, 'teams': teams}
-        return render(request, 'tournament/tournament_templates/current_tournament.html', context)
+        return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
     except Exception:
         return redirect('login')
 

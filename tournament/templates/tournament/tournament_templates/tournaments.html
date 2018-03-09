@@ -37,7 +37,7 @@
 
 
 
-        <a href={% url 'tournament:tournament_teams' tournament.id %}><h4>{{ tournament.name }}</h4></a>
+        <a href="{% url 'tournament:current_tournament' tournament.id %}  "><h4>{{ tournament.name }}</h4></a>
 
     {% endfor %}
 
