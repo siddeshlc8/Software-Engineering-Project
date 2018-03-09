@@ -1,15 +1,8 @@
 from django.shortcuts import render
 from player.models import Player
-from tournament.models import Team, Tournament
+from tournament.models import Team, Tournament, Match
 from .filters import PlayerFilter, TournamentFilter, TeamFilter, OrganizerFilter
 from organizer.models import Organizer
-
-
-def nav_search_count(request):
-    query = request.GET.get("q")
-    players = Player.objects.filter(first_name__icontains=query)
-    context = {'count': players.__len__()}
-    return render(request, 'search/nav_search_count.html', context)
 
 
 def nav_search_matches(request):
@@ -23,7 +16,10 @@ def nav_search_matches(request):
                 context = {'O': o}
             except Exception:
                 context = {'P': None}
-        return render(request, 'search/nav_search_base.html', context)
+        query = request.GET.get("q")
+        matches = Match.objects.filter(score__batsman__first_name=query)
+        context.update({'matches': matches})
+        return render(request, 'search/nav_search_matches.html', context)
 
 
 def nav_search_players(request):
@@ -38,9 +34,60 @@ def nav_search_players(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        players = Player.objects.filter(first_name__icontains=query)
+        players = Player.objects.filter(first_name__contains=query)
         context.update({'players': players})
         return render(request, 'search/nav_search_players.html', context)
+
+
+def nav_search_organizers(request):
+    if request.method == 'GET':
+        try:
+            p = Player.objects.get(pk=request.user.id)
+            context = {'P': p}
+        except Exception:
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'O': o}
+            except Exception:
+                context = {'P': None}
+        query = request.GET.get("q")
+        organizers = Organizer.objects.filter(first_name__contains=query)
+        context.update({'organizers': organizers})
+        return render(request, 'search/nav_search_organizers.html', context)
+
+
+def nav_search_teams(request):
+    if request.method == 'GET':
+        try:
+            p = Player.objects.get(pk=request.user.id)
+            context = {'P': p}
+        except Exception:
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'O': o}
+            except Exception:
+                context = {'P': None}
+        query = request.GET.get("q")
+        teams = Team.objects.filter(name__contains= query)
+        context.update({'teams': teams})
+        return render(request, 'search/nav_search_teams.html', context)
+
+
+def nav_search_tournaments(request):
+    if request.method == 'GET':
+        try:
+            p = Player.objects.get(pk=request.user.id)
+            context = {'P': p}
+        except Exception:
+            try:
+                o = Organizer.objects.get(pk=request.user.id)
+                context = {'O': o}
+            except Exception:
+                context = {'P': None}
+        query = request.GET.get("q")
+        tournaments = Tournament.objects.filter(name__contains= query)
+        context.update({'tournaments': tournaments})
+        return render(request, 'search/nav_search_tournaments.html', context)
 
 
 def search(request):

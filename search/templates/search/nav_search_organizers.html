@@ -6,12 +6,12 @@
 
 <br><br><br>
 
+
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-a4bf54bef6fb.css" integrity="sha512-pL9Uvvb7LMqGC8jv/AyqZ7Ya6/HTgkhZzKwEsHOdsfaW2pr3fgzqjgKUSJfYkZ/klxwHrcu+tZwtNDTuw8vH6Q==" media="all" rel="stylesheet" />
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-d5aa84dde2d5.css" integrity="sha512-1aqE3eLVo8QJ3AfkPFnOFkzBmHnOY5YYQ89j1V4ke28LRSpxHMVQecd6/XxAp5lGLPPSEaFNhLyGKHQHiFXT7w==" media="all" rel="stylesheet" />
 
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
 
 
   <div role="main" class="application-main ">
@@ -22,20 +22,20 @@
     <div class="columns">
       <div class="column one-fourth">
         <nav class="menu border" data-pjax>
-            <a href="javascript:window.location.reload()" class="menu-item selected ">Matches</a>
+            <a href="{% url 'search:nav_search_matches' %}?q={{ request.GET.q }}" class="menu-item ">Matches</a>
             <a href="{% url 'search:nav_search_tournaments' %}?q={{ request.GET.q }}" class="menu-item ">Tournaments</a>
             <a href="{% url 'search:nav_search_teams' %}?q={{ request.GET.q }}" class="menu-item ">Teams</a>
             <a href="{% url 'search:nav_search_players' %}?q={{ request.GET.q }}" class="menu-item ">Players</a>
-            <a href="{% url 'search:nav_search_organizers' %}?q={{ request.GET.q }}" class="menu-item ">Organizers</a>
+            <a href="javascript:window.location.reload()" class="menu-item selected">Organizers</a>
         </nav>
       </div>
 
       <div class="column three-fourths ">
         <div class="pl-2">
 
-          {% for match in matches %}
+          {% for organizer in organizers %}
 
-              <a href="#"> <h3>{{ match }}</h3></a>
+              <a href="#"> <h3>{{ organizer.get_full_name }}</h3></a>
 
           {% empty %}
 

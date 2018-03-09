@@ -41,6 +41,11 @@
         </div>
       </li>
     </ul>
+              <ul>
+                <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control mr-sm-2" type="text"name="q" placeholder="Search" aria-label="Search">                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
         </div>
       </nav>
     </header>

@@ -20,7 +20,7 @@
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <nav class="navbar-brand col-sm-3 col-md-2 mr-0">{{ user.get_full_name }}</nav>
 
-        <form  class="form-inline w-100 my-2 my-lg-0" method="GET" action="{% url 'search:nav_search_players' %}">
+        <form  class="form-inline w-100 my-2 my-lg-0" method="GET" action="{% url 'search:nav_search_matches' %}">
         <input  class="form-control form-control-dark w-100" type="text" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
         </form>
 
@@ -168,6 +168,12 @@
       </li>
     </ul>
 
+             <ul>
+                <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control mr-sm-2" type="text"name="q" placeholder="Search" aria-label="Search">                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
+
 
         </div>
       </nav>
@@ -176,14 +182,11 @@
 
     {% else %}
 
-
-
 <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/carousel/carousel.css" rel="stylesheet">
-
 
 
 
@@ -218,6 +221,11 @@
         </div>
       </li>
     </ul>
+              <ul>
+                <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control mr-sm-2" type="text"name="q" placeholder="Search" aria-label="Search">                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
         </div>
       </nav>
     </header>

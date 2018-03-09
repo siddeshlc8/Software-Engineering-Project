@@ -6,7 +6,10 @@ urlpatterns = [
 
     path('', views.search, name='search'),
     path('nav-search-players/', views.nav_search_players, name='nav_search_players'),
-    path('nav-search-count/', views.nav_search_count, name='nav_search_count'),
+    path('nav-search-matches/', views.nav_search_matches, name='nav_search_matches'),
+    path('nav-search-organizers/', views.nav_search_organizers, name='nav_search_organizers'),
+    path('nav-search-teams/', views.nav_search_teams, name='nav_search_teams'),
+    path('nav-search-tournaments/', views.nav_search_tournaments, name='nav_search_tournaments'),
     path('tournaments/', views.search_tournaments, name='search_tournaments'),
     path('tournaments/details/<int:tournament_id>/', views.tournaments_details, name='tournaments_details'),
     path('teams/', views.search_teams, name='search_teams'),

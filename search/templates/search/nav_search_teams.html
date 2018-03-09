@@ -1,13 +1,19 @@
+{% extends 'search/base.html' %}
 
-{% block title %} Search {% endblock %}
+{% block title %} Search | Results | Players {% endblock %}
 
+{% block body %}
 
 <br><br><br>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <div class="container">
+
 
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-a4bf54bef6fb.css" integrity="sha512-pL9Uvvb7LMqGC8jv/AyqZ7Ya6/HTgkhZzKwEsHOdsfaW2pr3fgzqjgKUSJfYkZ/klxwHrcu+tZwtNDTuw8vH6Q==" media="all" rel="stylesheet" />
   <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-d5aa84dde2d5.css" integrity="sha512-1aqE3eLVo8QJ3AfkPFnOFkzBmHnOY5YYQ89j1V4ke28LRSpxHMVQecd6/XxAp5lGLPPSEaFNhLyGKHQHiFXT7w==" media="all" rel="stylesheet" />
+
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+
 
   <div role="main" class="application-main ">
 
@@ -17,24 +23,30 @@
     <div class="columns">
       <div class="column one-fourth">
         <nav class="menu border" data-pjax>
-            <a href="#" class="menu-item ">Matches</a>
-            <a href="#" class="menu-item ">Tournaments</a>
-            <a href="#" class="menu-item ">Teams</a>
+            <a href="{% url 'search:nav_search_matches' %}?q={{ request.GET.q }}" class="menu-item ">Matches</a>
+            <a href="{% url 'search:nav_search_tournaments' %}?q={{ request.GET.q }}" class="menu-item ">Tournaments</a>
+            <a href="javascript:window.location.reload()" class="menu-item selected ">Teams</a>
             <a href="{% url 'search:nav_search_players' %}?q={{ request.GET.q }}" class="menu-item ">Players</a>
-            <a href="#" class="menu-item ">Organizers</a>
+            <a href="{% url 'search:nav_search_organizers' %}?q={{ request.GET.q }}" class="menu-item ">Organizers</a>
         </nav>
       </div>
 
       <div class="column three-fourths ">
         <div class="pl-2">
+
+          {% for team in teams %}
+
+              <a href="#"> <h3>{{ team.name }}</h3></a>
+
+          {% empty %}
+
               <div class="blankslate">
               <svg aria-hidden="true" class="octicon octicon-search blankslate-icon" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
-                <h3>
-                  No data found
-                </h3>
+                <h3>No data found</h3>
+              <a href="{% url 'search:search' %}">Click here for advanced search</a>
+              </div>
+          {% endfor %}
 
-
-        </div>
       </div>
     </div>
 </div>
@@ -43,12 +55,8 @@
       </div>
   </div>
 
-    <script crossorigin="anonymous" integrity="sha512-6oz7cTsS3E5enQjh4gWKU23tC78zIZqVJ1o5zMLCsAv5EEnmNsopwszDz7zx5IGWXU+H+sqeC5pHbt1Yxmh+sw==" src="https://assets-cdn.github.com/assets/frameworks-ea8cfb713b12.js" type="application/javascript"></script>
 
-    <script async="async" crossorigin="anonymous" integrity="sha512-SsUEjbGrTRVSGbfHg8hhB1U/Jyih1v+8Jl6rUrikVcnM00g2Xk4QxHcU/4EGw2R1MlxyLTLUR+d+iEVoV4yr/w==" src="https://assets-cdn.github.com/assets/github-4ac5048db1ab.js" type="application/javascript"></script>
-        </div>
-    </main>
 
-{% block body %}
 
+      </main>
 {% endblock %}
