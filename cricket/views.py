@@ -1,3 +1,5 @@
+from django.contrib import messages
+
 from player.forms import PlayerSignUpForm
 from django.contrib.auth import authenticate, login, logout
 from player.models import Player
@@ -34,9 +36,13 @@ def signin(request):
             except Exception:
                 try:
                     Organizer.objects.get(pk=request.user)
+                    messages.success(request, 'You have  successfully logged in!')
                     return redirect('organizer:home')
                 except Exception:
                         return redirect('login')
+        else:
+            messages.warning(request, 'Incorrect username or password !')
+            render(request, 'cricket/login.html')
 
     return render(request, 'cricket/login.html')
 
@@ -58,6 +64,8 @@ def organizer_signup(request):
         if form.is_valid():
             form.save()
             return redirect('organizer:home')
+        else:
+            return render(request, 'cricket/organizer_signup.html', {'form': form,'errors':form.errors})
     else:
          form=OrganizerSignupForm()
     return render(request, 'cricket/organizer_signup.html', {'form':form})
@@ -65,6 +73,8 @@ def organizer_signup(request):
 
 def signout(request):
     logout(request)
+    messages.success(request, 'You have  successfully logged out!')
+
     return redirect('login')
 
 

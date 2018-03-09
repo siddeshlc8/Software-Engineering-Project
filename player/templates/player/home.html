@@ -3,11 +3,34 @@
 {% block title %}{{ P.get_full_name }} | Home{% endblock %}
 
 {% block body %}
+<br><br><br>
+    {% if messages %}
 
+       {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+
+              <strong> {{ message }}  </strong>
+
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+              </button>
+
+        </div>
+
+
+       {% endfor %}
+
+
+    {% endif %}
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
             <h1 class="h2">Hi, {{ P.get_full_name}}</h1>
+
+
 
           </div>
 

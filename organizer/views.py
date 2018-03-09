@@ -33,6 +33,7 @@ def edit_profile(request):
             form = OrganizerProfileForm(request.POST, instance=organizer)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'You have  successfully edited your profile!')
                 return redirect('organizer:view_profile')
         else:
             form = OrganizerProfileForm(instance=organizer)
@@ -49,6 +50,7 @@ def organizer_change_password(request):
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
+                messages.success(request, 'You have  successfully changed your password!')
                 return redirect('organizer:home')
             else:
                 messages.error(request, 'Please correct the error below.')
