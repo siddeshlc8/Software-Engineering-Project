@@ -31,15 +31,117 @@
 
     <a href="{% url 'tournament:create_tournament' %}"><h2><b>Create Tournament</b></h2></a>
 
-    <p><h3>List of Tournaments:</h3></p>
+    <h2 style="text-align: center">Ongoing Tournaments:</h2><br>
 
-    {% for tournament in all_tournament %}
+ <!-----------------
+ -->
+<div class="container">
+ <div class="row">
 
 
 
-        <a href="{% url 'tournament:current_tournament' tournament.id %}  "><h4>{{ tournament.name }}</h4></a>
+        <div class=" portfolio-item" >
 
-    {% endfor %}
+             <div class="container"  >
+
+                   {% for tournament in all_tournament %}
+
+                     {% if tournament.tournament_status == 2 %}
+
+                            <div class="row">
+                              <div class="col-md-8">
+
+                                  <a href="#">
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                  </a>
+
+                             </div>
+
+                            <div class="col-md-4">
+
+                              <h3>{{ tournament.name }}</h3>
+
+                              <h6>{{ tournament.place }}</h6>
+
+                                <h6>{{ tournament.start_date }}</h6>
+
+                                <h6>{{ tournament.end_date }}</h6>
+                              <a class="btn btn-primary" href="{% url 'tournament:current_tournament' tournament.id %}">View Tournament</a>
+
+                            </div>
+
+                          </div>
+
+                               <hr>
+
+                   {% endif %}
+
+                {% endfor %}
+          </div>
+
+        </div>
+
+      <!-- /.row -->
+
+    </div>
+</div>
+
+<hr>
+    <h2 style="text-align: center">Recent tournaments</h2><br>
+
+   <div class="container">
+     <div class="row">
+
+
+
+        <div class=" portfolio-item" >
+
+             <div class="container"  >
+
+                   {% for tournament in all_tournament %}
+
+                        {% if tournament.tournament_status != 2 %}
+
+                            <div class="row">
+
+                                <div class="col-md-8">
+
+                                  <a href="#">
+
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+
+                                  </a>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                  <h3>{{ tournament.name }}</h3>
+
+                                  <h6>{{ tournament.place }}</h6>
+
+                                    <h6>{{ tournament.start_date }}</h6>
+
+                                    <h6>{{ tournament.end_date }}</h6>
+
+                                  <a class="btn btn-primary" href="{% url 'tournament:current_tournament' tournament.id %}">View Tournament</a>
+
+                                </div>
+
+                          </div>
+
+                           <hr>
+                   {% endif %}
+
+                {% endfor %}
+          </div>
+
+        </div>
+
+      <!-- /.row -->
+
+    </div>
+
 
 </div>
 
