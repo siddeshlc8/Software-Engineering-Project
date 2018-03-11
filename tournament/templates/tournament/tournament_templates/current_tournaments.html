@@ -47,7 +47,7 @@
 
             <p> <b>Start-date </b> :{{ current_tournament.start_date}}</p>
 
-          <a class="btn btn-primary btn-lg" href="#">Edit tournament info</a>
+          <a class="btn btn-primary btn-lg" href="{% url 'tournament:tournament_info_edit'  current_tournament.id%}">Edit tournament info</a>
 
         </div>
         <!-- /.col-md-4 -->

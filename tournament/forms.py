@@ -105,3 +105,4 @@ class Submit_tournament_form(forms.Form):
     tournament_name = forms.CharField(label='tournament name', max_length=100)
 
 
+

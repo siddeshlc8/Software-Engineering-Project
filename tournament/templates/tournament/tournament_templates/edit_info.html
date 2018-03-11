@@ -1,0 +1,38 @@
+{% extends 'organizer/base.html' %}
+
+{% block title %} EDIT_INFO{% endblock %}
+
+{% block body %}
+
+
+       <div class="container">
+
+        <p><h1>EDIT</h1></p>
+
+           <form  method="POST">
+
+            {% csrf_token %}
+                 {% for field in form %}
+
+                     <div class="form-group">
+
+                     {{ field.errors }}
+                     <b>{{ field.label_tag }}</b>
+                     <p> {{ field }}</p>
+
+                     </div>
+
+                 {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+
+          </form>
+        </div>
+
+
+
+
+
+
+
+{% endblock %}
