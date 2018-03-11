@@ -17,7 +17,7 @@ def nav_search_matches(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        matches = Match.objects.filter(score__batsman__first_name=query)
+        matches = Match.objects.filter(name__icontains=query)
         context.update({'matches': matches})
         return render(request, 'search/nav_search_matches.html', context)
 

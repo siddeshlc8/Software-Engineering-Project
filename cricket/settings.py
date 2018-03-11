@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'performance',
     'search',
-    'widget_tweaks',
+    #'widget_tweaks',
     'tournament',
     'player',
     'cricket',

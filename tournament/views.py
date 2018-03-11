@@ -6,6 +6,7 @@ from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,Sc
 from django.contrib import messages
 from organizer.models import Organizer
 from collections import defaultdict
+from .utils import rr_schedule
 # Create your views here.
 
 
@@ -126,7 +127,7 @@ def create_match(request, tournament_id):
             context = {'form': form}
             return render(request, 'tournament/match_templates/create_match.html', context)
     except Exception:
-        return redirect()
+        return redirect('login')
 
 
 def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id):
@@ -233,4 +234,49 @@ def submit_tournament(request, tournament_id):
         form = Submit_tournament_form()
         return render(request, 'tournament/tournament_templates/submit_tournament.html',
                       {'form': form, 'tournament': current_tournament})
+
+
+def create_schedule(request, tournament_id):
+    try:
+        o = Organizer.objects.get(id=request.user.id)
+        tournament = Tournament.objects.get(pk=tournament_id)
+        if tournament.tournament_schedule == 0:
+            teams = Team.objects.filter(tournament=Tournament.objects.get(id=tournament_id))
+            n = teams.__len__()
+            if n%2 !=0 :
+                messages.success(request, 'No of teams should be even')
+                return redirect('tournament:all_matches', tournament_id)
+            result = rr_schedule(n/2)
+            for i in result:
+                for j in i:
+                    #print(i)
+                    team_1 = teams[j[0]-1]
+                    team_2 = teams[j[1]-1]
+                    create_match1(request, tournament_id, team_1.id, team_2.id)
+            tournament.tournament_schedule = 1
+            tournament.save()
+            messages.success(request, 'Schedule successfully created')
+            return redirect('tournament:all_matches', tournament_id)
+        else:
+            messages.success(request, 'Schedule Already created')
+            return redirect('tournament:all_matches', tournament_id)
+    except Exception:
+        return redirect('login')
+
+
+def create_match1(request, tournament_id, team_1_id, team_2_id):
+        Organizer.objects.get(pk=request.user.id)
+        tournament = Tournament.objects.get(pk=tournament_id)
+        team_1 = Team.objects.get(id=team_1_id)
+        team_2 = Team.objects.get(id=team_2_id)
+        match = Match()
+        match.tournament = tournament
+        match.team_1 = team_1
+        match.team_2 = team_2
+        match.winner = match.team_1
+        match.overs = 4
+        match.name = match
+        match.save()
+
+
 
