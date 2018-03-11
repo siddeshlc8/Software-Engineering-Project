@@ -32,18 +32,45 @@
 
      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-            <div class="container">
+            <div class="container col-md-6">
 
-        <p><h1>Your Profile</h1></p>
 
-        {% for field_name, field in player.items %}
 
-            <div class="form-group">
-                <b>{{ field_name }}:</b>
-                 <p> {{ field }}</p>
-            </div>
+            <div class="card my-5" >
+                        <div class="card-header "><h2 class="center">Your Profile</h2></div>
+                        <div class="card-body">
+                          <div class="row">
 
-        {% endfor %}
+                                {% for field_name, field in player.items %}
+                                    <div class=" col-md-2">
+
+
+                                    </div>
+                                   <div class="col-md-4">
+
+                                        <b>{{ field_name }}:</b>
+
+                                    </div>
+                                   <div class="col-md-5">
+
+
+                                         <p> {{ field }}</p>
+                                    </div>
+                                     <div class="col-md-1">
+
+
+                                    </div>
+
+                                {% endfor %}
+                          </div>
+                      </div>
+                      </div>
+
+
+
+
+
+
 
            <p><a href="{% url 'player:player_edit_profile' %}"><h4>Edit Profile</h4></a></p>
 
