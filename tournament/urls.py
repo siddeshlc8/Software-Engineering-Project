@@ -14,6 +14,7 @@ urlpatterns = [
     path('<int:tournament_id>/matches', views.all_matches, name='all_matches'),
     path('<int:tournament_id>/<int:match_id>/match', views.match, name='match'),
     path('<int:tournament_id>/<int:match_id>/<int:batting_team_id>/<int:bowling_team_id>/enter_score', views.enter_score, name='enter_score'),
+    path('<int:tournament_id>/<int:match_id>/<int:batting_team_id>/<int:bowling_team_id>/enter_score1', views.enter_score1, name='enter_score1'),
     path('<int:tournament_id>/<int:match_id>/score', views.scores, name='scores'),
     path('<int:tournament_id>/<int:match_id>/submit_match', views.submit_match, name='submit_match'),
     path('<int:tournament_id>/submit_tournament', views.submit_tournament, name='submit_tournament'),

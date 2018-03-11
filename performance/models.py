@@ -31,14 +31,14 @@ class PerformanceMatchWise(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     batting_runs = models.BigIntegerField()
-    strike_rate = models.FloatField()
-    sixes = models.IntegerField()
-    fours = models.IntegerField()
-    bowling_runs = models.BigIntegerField()
-    bowling_overs = models.BigIntegerField()
-    wickets = models.BigIntegerField()
-    bowling_avg = models.FloatField()
-    economy = models.FloatField()
+    strike_rate = models.FloatField(null=True)
+    sixes = models.IntegerField(null=True)
+    fours = models.IntegerField(null=True)
+    bowling_runs = models.BigIntegerField(null=True)
+    bowling_overs = models.BigIntegerField(null=True)
+    wickets = models.BigIntegerField(null=True)
+    bowling_avg = models.FloatField(null=True)
+    economy = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
