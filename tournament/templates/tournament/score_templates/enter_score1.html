@@ -1,0 +1,31 @@
+
+
+{% extends 'organizer/base.html' %}
+
+
+
+{% block title %}{{ organizer.get_full_name }} | Enter Score{% endblock %}
+
+{% block body %}
+    <br><br><br>
+    <br><br><br>
+
+
+       <div class="container">
+
+                   <form  method="POST">
+
+                       {% csrf_token %}
+                        {{ form.as_p }}
+
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+
+                  </form>
+                </div>
+
+{% endblock %}
+
+
+
+

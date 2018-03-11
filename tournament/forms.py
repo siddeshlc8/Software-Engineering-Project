@@ -61,19 +61,19 @@ class MatchCreationForm(forms.ModelForm):
 
 class ScoreForm(forms.ModelForm):
 
-    def __init__(self, tournament,batting,bowling,*args, **kwargs):
+    def __init__(self, tournament, match, batting, bowling,*args, **kwargs):
         super(ScoreForm, self).__init__(*args, **kwargs)
-        self.fields['batting_team'] = forms.ModelChoiceField(
-            queryset=Team.objects.filter(tournament=tournament)
+        self.fields['batting_team'] = forms.ChoiceField(
+            choices=[(match.team_1.id, str(match.team_1)), (match.team_2.id, str(match.team_2))]
         )
-        self.fields['bowling_team'] = forms.ModelChoiceField(
-            queryset=Team.objects.filter(tournament=tournament)
+        self.fields['bowling_team'] = forms.ChoiceField(
+            choices=[(match.team_2.id, str(match.team_2)), (match.team_1.id, str(match.team_1))]
         )
-        self.fields['batsman'] = forms.ModelChoiceField(
-            queryset=Player.objects.filter(team=batting)
+        self.fields['bowler'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in Team.objects.get(id=bowling.id).players.all()]
         )
-        self.fields['bowler'] = forms.ModelChoiceField(
-            queryset=Player.objects.filter(team=bowling)
+        self.fields['batsman'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in Team.objects.get(id=batting.id).players.all()]
         )
 
     class Meta:
@@ -103,6 +103,60 @@ class Submit_match_form(forms.Form):
 
 class Submit_tournament_form(forms.Form):
     tournament_name = forms.CharField(label='tournament name', max_length=100)
+
+
+class ScoreUpdateForm(forms.Form):
+    def __init__(self, tournament, match, batting, bowling, *args, **kwargs):
+        super(ScoreUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['innings'] = forms.ChoiceField(
+            choices=[('First', 'First'), ('Second', 'Second'), ]
+        )
+        self.fields['match'] = forms.ChoiceField(
+            choices=[(match.id, str(match))]
+        )
+        self.fields['batting_team'] = forms.ChoiceField(
+            choices=[(match.team_1.id, str(match.team_1)), (match.team_2.id, str(match.team_2))]
+        )
+        self.fields['bowling_team'] = forms.ChoiceField(
+            choices=[(match.team_2.id, str(match.team_2)), (match.team_1.id, str(match.team_1))]
+        )
+        self.fields['bowler'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in Team.objects.get(id=bowling.id).players.all()]
+        )
+        self.fields['batsman'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in Team.objects.get(id=batting.id).players.all()]
+        )
+        self.fields['extra_type'] = forms.ChoiceField(
+            choices=[
+                ('Wide', 'Wide'),
+                ('NoBall', 'NoBall'),
+                ('DeadBall', 'DeadBall')
+            ]
+        )
+        self.fields['wicket_type'] = forms.ChoiceField(
+            choices=[
+                ('RunOut', 'RunOut'),
+                ('Catch', 'Catch'),
+                ('Bowled', 'Bowled'),
+                ('Lbw', 'Lbw'),
+                ('Stumps', 'Stumps'),
+                ('HitWicket', 'HitWicket')
+            ]
+        )
+
+    match = forms.CharField(max_length=11)
+    innings = forms.CharField(max_length=11)
+    batting_team = forms.CharField(max_length=11)
+    bowling_team = forms.CharField(max_length=11)
+    ball_number = forms.IntegerField()
+    over_number = forms.IntegerField()
+    bowler = forms.CharField(max_length=11)
+    batsman = forms.CharField(max_length=11)
+    run = forms.IntegerField()
+    extra_type = forms.CharField(max_length=11, required=False,)
+    extra_run = forms.IntegerField(required=False)
+    is_wicket = forms.BooleanField(required=False)
+    wicket_type = forms.CharField(max_length=11, required=False)
 
 
 

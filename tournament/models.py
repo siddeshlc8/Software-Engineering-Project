@@ -1,5 +1,7 @@
 from django.db import models
 from organizer.models import Organizer
+from player.models import Player
+from performance.models import PerformanceMatchWise
 
 
 # Create your models here.
@@ -23,6 +25,7 @@ class Team(models.Model):
     owner = models.CharField(max_length=20)
     logo = models.ImageField()
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    players = models.ManyToManyField(Player)
 
     def __str__(self):
         return self.name
@@ -42,7 +45,7 @@ class Match(models.Model):
 
 
 class Score(models.Model):
-    match=models.ForeignKey(Match,on_delete=models.CASCADE)
+    match=models.ForeignKey(Match, on_delete=models.CASCADE)
     innings_choice= [
         ('First', 'First'),
         ('Second', 'Second'),
@@ -73,11 +76,20 @@ class Score(models.Model):
         ('Stumps', 'Stumps'),
         ('HitWicket', 'HitWicket')
     ]
-    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice,null=True,blank=True)
-
+    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice, null=True, blank=True)
 
     def __str__(self):
         return '  ball =>  '+ str(self.ball_number) + '  runs => ' + str(self.run)
+
+
+class ScoreCard(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING)
+    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING)
+    team_1_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_1_players')
+    team_2_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_2_players')
 
 
 

@@ -2,11 +2,12 @@ from django.db.models import Max
 from django.shortcuts import render, redirect
 from .models import Team, Tournament, Match
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm,Submit_match_form,Submit_tournament_form
+from .forms import TournamentCreationForm, TeamCreationForm,MatchCreationForm,ScoreForm,Submit_match_form,Submit_tournament_form, ScoreUpdateForm
 from django.contrib import messages
 from organizer.models import Organizer
 from collections import defaultdict
 from .utils import rr_schedule
+from performance.models import PerformanceMatchWise
 # Create your views here.
 
 
@@ -82,8 +83,8 @@ def team_players(request, team_id):
     try:
         o = Organizer.objects.get(pk=request.user.id)
         current_team = Team.objects.get(pk=team_id)
-        current_players = current_team.player_set.all()
-        available_players = Player.objects.filter(active=False).exclude(team__pk=team_id)
+        current_players = current_team.players.all()
+        available_players = Player.objects.filter(active=False)
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
@@ -95,7 +96,7 @@ def team_players_add(request, team_id, player_id):
     player_ = Player.objects.get(pk=player_id)
     player_.active = True
     player_.save()
-    team_.player_set.add(player_)
+    team_.players.add(player_)
     messages.success(request,'player added successfully')
     return redirect('tournament:team_players', team_id)
 
@@ -171,7 +172,7 @@ def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id
             target_dict[max][balls.ball_number] = balls.run
           max=max-1
 
-        form = ScoreForm(tournament, batting_team,bowling_team)
+        form = ScoreForm(tournament, match, batting_team,bowling_team)
         context = {'form': form ,
                    'score':score,
 
@@ -184,10 +185,8 @@ def  scores(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
     team1=match.team_1
     team2=match.team_2
-    players_team1=team1.player_set.all()
-    players_team2=team2.player_set.all()
     all_scores =match.score_set.all()
-    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2 ,'team1':team1,'team2':team2})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'team1':team1,'team2':team2})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
@@ -295,6 +294,41 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         match.name = match
         match.save()
 
+
+def enter_score1(request, tournament_id, match_id,batting_team_id,bowling_team_id):
+    tournament = Tournament.objects.get(pk=tournament_id)
+    batting_team = Team.objects.get(pk=batting_team_id)
+    bowling_team = Team.objects.get(pk=bowling_team_id)
+    match = Match.objects.get(pk=match_id)
+    if request.method == 'POST':
+        form = ScoreUpdateForm(tournament, match, batting_team,bowling_team, request.POST)
+        if form.is_valid():
+            match = form.cleaned_data['match']
+            innings = form.cleaned_data['innings']
+            batting_team = form.cleaned_data['batting_team']
+            bowling_team = form.cleaned_data['bowling_team']
+            ball_number = form.cleaned_data['ball_number']
+            over_number = form.cleaned_data['over_number']
+            bowler = form.cleaned_data['bowler']
+            batsman = form.cleaned_data['batsman']
+            run = form.cleaned_data['run']
+            extra_type = form.cleaned_data['extra_type']
+            extra_run = form.cleaned_data['extra_run']
+            is_wicket = form.cleaned_data['is_wicket']
+            wicket_type = form.cleaned_data['wicket_type']
+
+            if is_wicket == False:
+                batsman = Player.objects.get(id=batsman)
+                p = PerformanceMatchWise()
+                p.name = 'hi'
+                p.player = batsman
+                p.batting_runs = run
+                p.save()
+                return redirect('organizer:home')
+    else:
+        form = ScoreUpdateForm(tournament, match, batting_team,bowling_team)
+        context = {'form': form }
+        return render(request, 'tournament/score_templates/enter.html', context)
 
 
 
