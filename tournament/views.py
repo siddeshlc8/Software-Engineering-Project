@@ -247,7 +247,7 @@ def tournament_info_edit(request,tournament_id):
         else:
             form = TournamentCreationForm(instance=tournament)
             context = {'form': form }
-            return render(request, 'tournament/tournament_templates/edit_info.html', context)
+            return render(request, 'tournament/tournament_templates/tournament_details_edit.html', context)
     except Exception:
         return redirect('login')
 
