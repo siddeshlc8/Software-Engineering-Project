@@ -46,88 +46,362 @@
 
 
 
+       <div class="row">
+             <div class="col-lg-6">
 
-
-       <div class="container enter_score">
-                <div class="score_details">
+                 <div class="score_details">
                 <p> <h1>Fill the Details:</h1></p>
 
                    <form  name="score_form" method="POST">
 
                        {% csrf_token %}
-                       {{ form.innings.label }} {{ form.innings }}<br>
-                       {{ form.batting_team.label }}  {{ form.batting_team }}
-                       {{ form.bowling_team.label }}  {{ form.bowling_team }}<br>
-                       {{ form.ball_number.label }}   {{ form.ball_number }}<br>
-                       {{ form.over_number.label }}    {{ form.over_number }}<br>
+                         <div class="card h-75">
+                        <h5 class="card-header">SCORE</h5>
+                        <div class="card-body">
+                          <div class="row">
 
-                       {{ form.batsman.label }}   {{ form.batsman }}<br>
-                       {{ form.bowler.label }}   {{ form.bowler }}<br>
+                              <br>
 
-                        {{ form.run.label }}  {{ form.run }}<br>
-                        {{ form.extra_type.label }}   {{ form.extra_type }}<br>
-                       {{ form.extra_run.label }}  {{ form.extra_run }}<br>
-                       {{ form.is_wicket.label }}     {{ form.is_wicket }}
-                       {{ form.wicket_type.label }}   {{ form.wicket_type }}<br>
+                               <div class="col-sm-6">
+                                  {{ form.over_number.label }}    {{ form.over_number }}
+                              </div>
 
 
-
+                                <div class="col-sm-6">
+                                  {{ form.ball_number.label }}   {{ form.ball_number }}
+                              </div>
 
 
 
+                               <br>
+                               <div class="col-lg-12 my-3" style="{height: 60px;}">
+
+                               </div>
+
+
+                              <div class="col-sm-6">
+
+                                 {{ form.batsman.label }}   {{ form.batsman }}
+
+                              </div>
+
+                              <div class="col-sm-6">
+                                  {{ form.bowler.label }}   {{ form.bowler }}
+                              </div>
+
+                                  <div class="col-lg-12 my-3" style="{height: 60px;}">
+
+                               </div>
+
+                               <div class="col-sm-12">
+                                   {{ form.run.label }}  {{ form.run }}
+                              </div>
+
+                              <div class="col-lg-12 my-3" style="{height: 60px;}">
+
+                               </div>
+
+                               <div class="col-sm-3">
+                                    {{ form.extra_type.label }}   {{ form.extra_type }}
+                              </div>
+
+                               <div class="col-sm-5">
+                                    {{ form.extra_run.label }}  {{ form.extra_run }}
+                              </div>
+
+                              <div class="col-sm-4">
+                                   {{ form.wicket_type.label }}   {{ form.wicket_type }}
+                              </div>
+
+                          </div>
+
+
+                        </div>
+
+                              <div class="card-footer">
+                                  <div class="row">
+
+
+                                      <div class="col-sm-3 ">
+                                          <button  class="btn  btn-lg score_buttons" id="run">Run </button>
+
+                                      </div>
+
+                                      <div class="col-sm-2 ">
+                                          <button class="btn  btn-lg score_buttons" id="extra" >extra </button>
+                                      </div>
+
+                                      <div class="col-sm-1">
+
+                                      </div>
+
+
+                                      <div class="col-sm-4 ">
+
+                                          <button class="btn btn-lg score_buttons" id="extraRun" >extra Run </button>
+
+                                      </div>
+
+                                      <div class="col-sm-2">
+
+                                          <button class="btn  btn-lg score_buttons" id="wkt" >wkt </button>
+
+                                      </div>
+
+                                  </div>
+                              </div>
+
+                      </div>
+                       <br>
 
 
 
-                    <button type="submit" class="btn btn-primary">Save</button>
 
-                  </form>
+
+
+
+
+
+
+                         <button type="submit" class="btn btn-primary">Save</button>
+
+                   </form>
                 </div>
-       <div class="score_pad">
-        <div class="run_pad"  style="flex-grow: 2">
-               <button class="run_button" onclick="document.forms['score_form']['run'].value=6  ">6</button>
-               <button  class="run_button" onclick="document.forms['score_form']['run'].value=5  ">5</button>
-               <button  class="run_button" onclick="document.forms['score_form']['run'].value=4  ">4</button>
-               <button  class="run_button" onclick="document.forms['score_form']['run'].value=3  ">3</button>
-               <button  class="run_button" onclick="document.forms['score_form']['run'].value=2  ">2</button>
-               <button class="run_button" onclick="document.forms['score_form']['run'].value=1  ">1</button>
-               <button class="run_button"  onclick="document.forms['score_form']['run'].value=0  ">0</button>
-        </div>
-         <br>
+
+             </div>
+
+             <div class="col-md-6">
 
 
-           <div  class="extra_type_pad" style="flex-grow: 2">
-
-               <button onclick="document.forms['score_form']['extra_type'].value='Wide'  ">Wide</button>
-               <button onclick="document.forms['score_form']['extra_type'].value='NoBall'  ">No ball</button>
-               <button onclick="document.forms['score_form']['extra_type'].value='DeadBall'  ">Dead ball</button>
-                <button class="run_button" onclick="document.forms['score_form']['extra_run'].value=6  ">6</button>
-               <button  class="run_button" onclick="document.forms['score_form']['extra_run'].value=5  ">5</button>
-               <button  class="run_button" onclick="document.forms['score_form']['extra_run'].value=4  ">4</button>
-               <button  class="run_button" onclick="document.forms['score_form']['extra_run'].value=3  ">3</button>
-               <button  class="run_button" onclick="document.forms['score_form']['extra_run'].value=2  ">2</button>
-               <button class="run_button" onclick="document.forms['score_form']['extra_run'].value=1  ">1</button>
-               <button class="run_button"  onclick="document.forms['score_form']['extra_run'].value=0  ">0</button>
-
-        </div>
-
-           <br>
-
-
-           <div    class="wicket_type_pad" style="flex-grow: 1">
-
-               <button onclick="document.forms['score_form']['wicket_type'].value='RunOut'  ">Runout</button>
-               <button onclick="document.forms['score_form']['wicket_type'].value='Catch'  ">Catch</button>
-               <button onclick="document.forms['score_form']['wicket_type'].value='Bowled'  ">Bowled</button>
-               <button onclick="document.forms['score_form']['wicket_type'].value='Lbw' ">Lbw</button>
-               <button onclick="document.forms['score_form']['wicket_type'].value='Stumps'  ">Stumps</button>
-               <button onclick="document.forms['score_form']['wicket_type'].value='HitWicket'  ">Hitwicket</button>
-
-           </div>
-
-        </div>
+             </div>
 
        </div>
 
+
+
+
+
+
+<!-- The Modal -->
+<div id="wktModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+
+
+      <div class="card h-25">
+
+
+            <h5 class="card-header">CHOOSE AMONG  <span class="close" id="close">&times;</span></h5>
+
+             <div class="card-body">
+
+                 <p> <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='RunOut' " >RunOut</button>
+               <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='Catch'  ">Catch</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='Bowled'  ">Bowled</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='Lbw' ">Lbw</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='Stumps'  ">Stumps</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['wicket_type'].value='HitWicket'  ">Hitwicket</button></p>
+
+             </div>
+      </div>
+
+  </div>
+
+</div>
+
+
+<div id="extraModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+
+
+      <div class="card h-25">
+
+      <h5 class="card-header">CHOOSE AMONG  <span class="close" id="close1">&times;</span></h5>
+
+          <div class="card-body">
+
+                <p>  <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_type'].value='Wide'  ">Wide</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_type'].value='NoBall'  ">No ball</button>
+               <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_type'].value='DeadBall'  ">Dead ball</button></p>
+
+
+          </div>
+        </div>
+  </div>
+
+</div>
+
+
+    <div id="RunModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+
+
+      <div class="card h-25">
+         <h5 class="card-header">CHOOSE AMONG  <span class="close" id="close2">&times;</span></h5>
+
+
+             <div class="card-body">
+
+
+              <p><button  class=" btn  btn-lg score_buttons"  onclick="document.forms['score_form']['run'].value=6  ">6</button>
+               <button class=" btn  btn-lg score_buttons"   onclick="document.forms['score_form']['run'].value=5  ">5</button>
+               <button  class=" btn  btn-lg score_buttons"  onclick="document.forms['score_form']['run'].value=4  ">4</button>
+               <button  class=" btn  btn-lg score_buttons"  onclick="document.forms['score_form']['run'].value=3  ">3</button>
+               <button  class=" btn  btn-lg score_buttons"   onclick="document.forms['score_form']['run'].value=2  ">2</button>
+               <button class=" btn  btn-lg score_buttons"  onclick="document.forms['score_form']['run'].value=1  ">1</button>
+               <button class=" btn  btn-lg score_buttons"  onclick="document.forms['score_form']['run'].value=0  ">0</button></p>
+             </div>
+
+      </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+     <div id="extraRunModal" class="modal">
+
+  <!-- Modal content -->
+     <div class="modal-content">
+
+
+
+          <div class="card h-25">
+                <h5 class="card-header">CHOOSE AMONG  <span class="close" id="close3">&times;</span></h5>
+
+
+                <div class="card-body">
+
+                  <p>  <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=6  ">6</button>
+                   <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=5  ">5</button>
+                   <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=4  ">4</button>
+                   <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=3  ">3</button>
+                   <button  class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=2  ">2</button>
+                   <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=1  ">1</button>
+                   <button class=" btn  btn-lg score_buttons" onclick="document.forms['score_form']['extra_run'].value=0  ">0</button></p>
+
+
+                 </div>
+
+           </div>
+      </div>
+
+
+</div>
+
+
+<script>
+
+var modal = document.getElementById('wktModal');
+
+
+var btn = document.getElementById("wkt");
+
+var span = document.getElementById("close");
+
+
+
+
+
+var modal1 = document.getElementById('extraModal');
+
+
+var btn1 = document.getElementById("extra");
+
+var span1 = document.getElementById("close1");
+
+
+
+
+
+var modal2 = document.getElementById('RunModal');
+
+
+var btn2 = document.getElementById("run");
+
+var span2 = document.getElementById("close2");
+
+
+
+
+
+
+var modal3 = document.getElementById('extraRunModal');
+
+var btn3= document.getElementById("extraRun");
+
+var span3 = document.getElementById("close3");
+
+
+
+
+btn.onclick = function() {
+    modal.style.display = "block";
+};
+
+
+btn1.onclick = function() {
+    modal1.style.display = "block";
+};
+
+
+btn2.onclick = function() {
+    modal2.style.display = "block";
+};
+
+
+btn3.onclick = function() {
+    modal3.style.display = "block";
+};
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+
+
+};
+
+span1.onclick = function() {
+    modal1.style.display = "none";
+
+
+};
+
+span2.onclick = function() {
+    modal2.style.display = "none";
+
+
+};
+
+span3.onclick = function() {
+    modal3.style.display = "none";
+
+
+};
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+</script>
 
 {% endblock %}
 
