@@ -184,10 +184,8 @@ def  scores(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
     team1=match.team_1
     team2=match.team_2
-    players_team1=team1.player_set.all()
-    players_team2=team2.player_set.all()
     all_scores =match.score_set.all()
-    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'players_team1':players_team1,'players_team2':players_team2 ,'team1':team1,'team2':team2})
+    return render(request,'tournament/score_templates/scores.html',{'all_scores':all_scores,'match':match,'tournament_id':tournament_id,'team1':team1,'team2':team2})
 
 def  match(request, tournament_id,match_id):
     match=Match.objects.get(id=match_id)
