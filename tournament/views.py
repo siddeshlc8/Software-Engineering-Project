@@ -235,6 +235,23 @@ def submit_tournament(request, tournament_id):
         return render(request, 'tournament/tournament_templates/submit_tournament.html',
                       {'form': form, 'tournament': current_tournament})
 
+def tournament_info_edit(request,tournament_id):
+    try:
+        Organizer.objects.get(pk=request.user.id)
+        tournament = Tournament.objects.get(pk=tournament_id)
+        if request.method == 'POST':
+            form = TournamentCreationForm(request.POST, instance=tournament)
+            if form.is_valid():
+                form.save()
+                messages.success(request,'successfully edited information !')
+                return redirect('tournament:current_tournament',tournament_id)
+        else:
+            form = TournamentCreationForm(instance=tournament)
+            context = {'form': form }
+            return render(request, 'tournament/tournament_templates/edit_info.html', context)
+    except Exception:
+        return redirect('login')
+
 
 def create_schedule(request, tournament_id):
     try:
