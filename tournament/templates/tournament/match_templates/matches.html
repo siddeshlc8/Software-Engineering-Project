@@ -30,31 +30,251 @@
 
     {% endif %}
 
+
+    <!--------------- -->
+
+<div class="container">
+
+
+
+    <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+
+              // Store hash
+              var hash = this.hash;
+
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+
+
+
+
+
+    <!-- Page Content -->
+
     <div class="container">
 
-       {% if tournament.tournament_status != 2 %}
-        <p><a href="{% url 'tournament:create_match' tournament.id %}"><h2>Create match</h2> </a></p>
+      <div class="row">
 
-      {% endif %}
-        <h2><b>MATCHES</b></h2>
-    <ul>
-        {% for match in matches %}
-            <li><a href={% url 'tournament:match' tournament.id match.id %}>{{match }}</a></li>
-        {% endfor %}
-    </ul>
+        <!-- Blog Entries Column class="col-md-9" -->
+        <div  class="col-md-9">
+
+
+            <hr>
+            <h2 class="my-4" style="{text-align: center;}">Ongoing Matches
+
+            </h2>
+
+                  <!-- Blog Post -->
+            <div id="ongoing">
+                    {% for match in matches %}
+
+                        {% if match.match_status == 1 %}
+                          <div   class=" portfolio-item" >
+
+                           <div class="col-md-8">
+
+
+                               <div class="row">
+
+                                   <div class="col-md-8">
+
+                                      <a href="#">
+                                        <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                      </a>
+
+                                   </div>
+
+                                   <div class="col-md-4">
+
+                                       <a  href="{% url 'tournament:match' tournament.id match.id %}"><h5>{{ match.team_1 }} <b> vs </b>{{ match.team_2 }}</h5></a>
+
+                                      <h6><b> Overs :</b>{{ match.overs}}</h6>
+
+
+
+                                   </div>
+                               </div>
+
+                            </div>
+
+                          </div>
+                                         <hr>
+                        {%  endif%}
+
+                    {% endfor %}
+                <hr>
+            </div>
+
+                <!-- recent tournaments -->
+            <hr>
+            <div id="recent">
+
+            <h2 class="my-4">Recent Matches
+
+            </h2>
+
+                  <!-- Blog Post -->
+
+                {% for match in matches %}
+
+                    {% if match.match_status == 2 %}
+
+                        <div   class=" portfolio-item" >
+
+                          <div class="col-md-8">
+
+                           <div class="row">
+
+                             <div class="col-md-8">
+                                  <a href="#">
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                  </a>
+
+                             </div>
+
+                             <div class="col-md-4">
+
+                                  <a  href="{% url 'tournament:match' tournament.id match.id %}"><h5>{{match.team_1 }}<b> vs </b> {{ match.team_2 }}</h5></a>
+
+                                  <h6><b> Overs :</b>{{ match.overs }}</h6>
+
+
+
+
+                             </div>
+                           </div>
+                          </div>
+                        </div>
+                             <hr>
+                    {%  endif%}
+                {% endfor %}
+            </div>
+
+                <!-- upcomming  tournaments--->
+             <div id="upcoming">
+                 <hr>
+             <h2 class="my-4">Upcoming Matches
+
+             </h2>
+
+
+
+                  <!-- Blog Post -->
+
+               {% for match in matches %}
+
+                 {% if match.match_status == 0 %}
+
+                  <div   class=" portfolio-item" >
+
+                   <div class="col-md-8">
+
+                       <div class="row">
+
+                           <div class="col-md-8">
+                                  <a href="#">
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                  </a>
+
+                           </div>
+
+                           <div class="col-md-4">
+
+                                   <a  href="{% url 'tournament:match' tournament.id match.id %}"><h5>{{ match.team_1 }}<b> vs </b>{{ match.team_2 }}</h5></a>
+
+                                  <h6><b> Overs :</b>{{ match.overs}}</h6>
+
+
+
+                           </div>
+
+                         </div>
+
+                   </div>
+
+                  </div>
+                                 <hr>
+                  {%  endif%}
+
+               {% endfor %}
+                             <hr>
+             </div>
+        </div>
+
+
+
+
+        <!-- Sidebar Widgets Column class="col-md-3" -->
+        <div   class="col-md-3 ">
+
+            <div class="sticky-top" >
+
+                  <!-- Search Widget -->
+                      <div class="card my-4">
+
+                        <h5 class="card-header">Search</h5>
+                        <div class="card-body">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                              <button class="btn btn-secondary" type="button">Go!</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                  <!-- Categories Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">Go To</h5>
+                        <div class="card-body">
+                          <div class="row">
+                              <a href="#recent">RECENT MATCHES</a>
+                              <a href="#ongoing">ONGOING MATCHES</a>
+                              <a href="#upcoming">UPCOMING MATCHES</a>
+                          </div>
+                      </div>
+                      </div>
+
+                  <!-- Side Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">  <a href="{% url 'tournament:create_match' tournament.id %}"><b>Create Match</b></a></h5>
+                        <div class="card-body">
+                          create new Match by clinking the above link . <br>The new match will be Added to  your upcoming tournament section
+                        </div>
+                      </div>
+
+            </div>
+
+        </div>
+
+
+      </div>
+      <!-- /.row -->
 
     </div>
 
-    <!--------------
-
-<
+    <!-------------  -->
 
 
 
 
-  <body>
-
-    <!-- Navigation -->
-
-    -->
 {% endblock %}

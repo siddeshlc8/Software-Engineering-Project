@@ -22,6 +22,7 @@
     <orderEntry type="library" name="fusioncharts.theme.fint" level="application" />
     <orderEntry type="library" name="frameworks-ea8cfb713b12" level="application" />
     <orderEntry type="library" name="github-4ac5048db1ab" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
