@@ -3,7 +3,7 @@
 {% block title %}Tournaments{% endblock %}
 
 {% block body %}
-    <br><br><br>
+<br><br><br>
      {% if messages %}
 
        {% for message in messages %}
@@ -29,19 +29,252 @@
 
 <div class="container">
 
-    <a href="{% url 'tournament:create_tournament' %}"><h2><b>Create Tournament</b></h2></a>
-
-    <p><h3>List of Tournaments:</h3></p>
-
-    {% for tournament in all_tournament %}
 
 
+    <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
 
-        <a href="{% url 'tournament:current_tournament' tournament.id %}  "><h4>{{ tournament.name }}</h4></a>
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
 
-    {% endfor %}
+              // Store hash
+              var hash = this.hash;
 
-</div>
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+
+
+
+
+
+    <!-- Page Content -->
+
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column class="col-md-9" -->
+        <div  class="col-md-9">
+
+
+            <hr>
+            <h2 class="my-4" style="{text-align: center;}">Ongoing Tournament
+
+            </h2>
+
+                  <!-- Blog Post -->
+            <div id="ongoing">
+                    {% for tournament in all_tournament %}
+
+                        {% if tournament.tournament_status == 1 %}
+                          <div   class=" portfolio-item" >
+
+                           <div class="col-md-8">
+
+
+                               <div class="row">
+
+                                   <div class="col-md-8">
+
+                                      <a href="#">
+                                        <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                      </a>
+
+                                   </div>
+
+                                   <div class="col-md-4">
+
+                                       <a  href="{% url 'tournament:current_tournament' tournament.id %}"><h3>{{ tournament.name }}</h3></a>
+
+                                      <h6>{{ tournament.place }}</h6>
+
+                                       <h6>{{ tournament.start_date }}</h6>
+
+                                       <h6>{{ tournament.end_date }}</h6>
+
+
+                                   </div>
+                               </div>
+
+                            </div>
+
+                          </div>
+                                         <hr>
+                        {%  endif%}
+
+                    {% endfor %}
+                <hr>
+            </div>
+
+                <!-- recent tournaments -->
+            <hr>
+            <div id="recent">
+
+            <h2 class="my-4">Recent Tournaments
+
+            </h2>
+
+                  <!-- Blog Post -->
+
+                {% for tournament in all_tournament %}
+
+                    {% if tournament.tournament_status == 2 %}
+
+                        <div   class=" portfolio-item" >
+
+                          <div class="col-md-8">
+
+                           <div class="row">
+
+                             <div class="col-md-8">
+                                  <a href="#">
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                  </a>
+
+                             </div>
+
+                             <div class="col-md-4">
+
+                                  <a  href="{% url 'tournament:current_tournament' tournament.id %}"><h3>{{ tournament.name }}</h3></a>
+
+                                  <h6>{{ tournament.place }}</h6>
+
+                                  <h6>{{ tournament.start_date }}</h6>
+
+                                  <h6>{{ tournament.end_date }}</h6>
+
+
+                             </div>
+                           </div>
+                          </div>
+                        </div>
+                             <hr>
+                    {%  endif%}
+                {% endfor %}
+            </div>
+
+                <!-- upcomming  tournaments--->
+             <div id="upcoming">
+                 <hr>
+             <h2 class="my-4">Upcoming tournaments
+
+             </h2>
+
+
+
+                  <!-- Blog Post -->
+
+               {% for tournament in all_tournament %}
+
+                 {% if tournament.tournament_status == 0 %}
+
+                  <div   class=" portfolio-item" >
+
+                   <div class="col-md-8">
+
+                       <div class="row">
+
+                           <div class="col-md-8">
+                                  <a href="#">
+                                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                                  </a>
+
+                           </div>
+
+                           <div class="col-md-4">
+
+                                   <a  href="{% url 'tournament:current_tournament' tournament.id %}"><h3>{{ tournament.name }}</h3></a>
+
+                                  <h6>{{ tournament.place }}</h6>
+
+                                    <h6>{{ tournament.start_date }}</h6>
+
+                                    <h6>{{ tournament.end_date }}</h6>
+
+
+                           </div>
+
+                         </div>
+
+                   </div>
+
+                  </div>
+                                 <hr>
+                  {%  endif%}
+
+               {% endfor %}
+                             <hr>
+             </div>
+        </div>
+
+
+
+
+        <!-- Sidebar Widgets Column class="col-md-3" -->
+        <div   class="col-md-3 ">
+
+            <div class="sticky-top" >
+
+                  <!-- Search Widget -->
+                      <div class="card my-4">
+
+                        <h5 class="card-header">Search</h5>
+                        <div class="card-body">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                              <button class="btn btn-secondary" type="button">Go!</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                  <!-- Categories Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">Go To</h5>
+                        <div class="card-body">
+                          <div class="row">
+                              <a href="#recent">RECENT TOURNAMENTS</a>
+                              <a href="#ongoing">ONGOING TOURNAMENTS</a>
+                              <a href="#upcoming">UPCOMING TOURNAMENTS</a>
+                          </div>
+                      </div>
+                      </div>
+
+                  <!-- Side Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">  <a href="{% url 'tournament:create_tournament' %}"><b>Create Tournament</b></a></h5>
+                        <div class="card-body">
+                          create new tournament by clinking the above link . The new tournament will be Added to  your upcoming tournament section
+                        </div>
+                      </div>
+
+            </div>
+
+        </div>
+
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+
+
 
 {% endblock %}
 

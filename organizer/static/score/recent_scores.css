@@ -1,3 +1,6 @@
+body {
+    top: 65px;
+}
 .recent_overs {
      display: flex;
 
