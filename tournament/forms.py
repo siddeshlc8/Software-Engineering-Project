@@ -61,13 +61,13 @@ class MatchCreationForm(forms.ModelForm):
 
 class ScoreForm(forms.ModelForm):
 
-    def __init__(self, tournament,batting,bowling,*args, **kwargs):
+    def __init__(self, tournament, match, batting,bowling,*args, **kwargs):
         super(ScoreForm, self).__init__(*args, **kwargs)
-        self.fields['batting_team'] = forms.ModelChoiceField(
-            queryset=Team.objects.filter(tournament=tournament)
+        self.fields['batting_team'] = forms.ChoiceField(
+            choices=[(match.team_1.id, str(match.team_1)), (match.team_2.id, str(match.team_2))]
         )
-        self.fields['bowling_team'] = forms.ModelChoiceField(
-            queryset=Team.objects.filter(tournament=tournament)
+        self.fields['bowling_team'] = forms.ChoiceField(
+            choices=[(match.team_2.id, str(match.team_2)), (match.team_1.id, str(match.team_1))]
         )
         self.fields['batsman'] = forms.ModelChoiceField(
             queryset=Player.objects.filter(team=batting)

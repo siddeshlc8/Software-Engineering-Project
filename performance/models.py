@@ -28,7 +28,6 @@ class PerformanceTotal(models.Model):
 
 
 class PerformanceMatchWise(models.Model):
-    performance = models.ForeignKey(PerformanceTotal, on_delete=models.CASCADE, blank=True)
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     batting_runs = models.BigIntegerField()
@@ -36,6 +35,7 @@ class PerformanceMatchWise(models.Model):
     sixes = models.IntegerField()
     fours = models.IntegerField()
     bowling_runs = models.BigIntegerField()
+    bowling_overs = models.BigIntegerField()
     wickets = models.BigIntegerField()
     bowling_avg = models.FloatField()
     economy = models.FloatField()

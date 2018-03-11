@@ -171,7 +171,7 @@ def enter_score(request, tournament_id, match_id,batting_team_id,bowling_team_id
             target_dict[max][balls.ball_number] = balls.run
           max=max-1
 
-        form = ScoreForm(tournament, batting_team,bowling_team)
+        form = ScoreForm(tournament, match, batting_team,bowling_team)
         context = {'form': form ,
                    'score':score,
 
@@ -277,6 +277,8 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         match.overs = 4
         match.name = match
         match.save()
+
+
 
 
 
