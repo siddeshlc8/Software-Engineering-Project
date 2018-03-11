@@ -82,8 +82,8 @@ def team_players(request, team_id):
     try:
         o = Organizer.objects.get(pk=request.user.id)
         current_team = Team.objects.get(pk=team_id)
-        current_players = current_team.player_set.all()
-        available_players = Player.objects.filter(active=False).exclude(team__pk=team_id)
+        current_players = current_team.players.all()
+        available_players = Player.objects.filter(active=False)
         context = {'current_players': current_players, 'team': current_team, 'available_players': available_players, 'O': o}
         return render(request, 'tournament/team_templates/team_players.html', context)
     except Exception:
@@ -95,7 +95,7 @@ def team_players_add(request, team_id, player_id):
     player_ = Player.objects.get(pk=player_id)
     player_.active = True
     player_.save()
-    team_.player_set.add(player_)
+    team_.players.add(player_)
     messages.success(request,'player added successfully')
     return redirect('tournament:team_players', team_id)
 

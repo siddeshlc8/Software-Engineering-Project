@@ -48,6 +48,8 @@
 
            <div class="row">
            {% for player in current_players %}
+
+           {% if player %}
             <div class="col-lg-3  text-center mb-4">
 
               <img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt="">
@@ -57,10 +59,8 @@
                 <small>{{ player.player_type }}</small>
 
               </h3>
-
-
-
-            </div>
+               </div>
+               {% endif %}
 
           {% endfor %}
       </div>
