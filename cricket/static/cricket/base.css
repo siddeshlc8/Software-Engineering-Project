@@ -1,0 +1,11 @@
+.submit_buttons{
+    background-color: #606468;
+    color: whitesmoke;
+
+
+
+}
+.submit_buttons:hover{
+    background-color: #2c3338;
+     color: whitesmoke;
+}

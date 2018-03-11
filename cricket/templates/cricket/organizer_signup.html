@@ -3,12 +3,14 @@
 {% block title %}SignUP{% endblock %}
 
   {% block body %}
+
        <div class="container">
      <br>   {% if errors %}
-
+                <br><br><br><br>
             {% for error in errors %}
 
                 <p>{{ error }}</p>
+                <p>{{ erro }}</p>
 
             {% endfor%}
 
@@ -19,12 +21,103 @@
 
          {% csrf_token %}
 
-         {{ form.as_p }}
+            <div class="container">
 
-         <input type="submit" value="SignUp">
+             <div class="row">
+
+                 <div class="col-md-4">
+                     {{ form.first_name.label }}  {{ form.first_name }}
+
+                 </div>
+
+                 <div class="col-md-4">
+                     {{ form.last_name.label }}  {{ form.last_name }}
+
+                 </div>
+
+
+
+             </div>
+                <div class="row my-4">
+
+                </div>
+                <div class="row">
+
+                     <div class="col-md-4">
+                     {{ form.nationality.label }}  {{ form.nationality }}
+
+                 </div>
+
+                 <div class="col-md-4">
+                     {{ form.state.label}}  {{ form.state}}
+
+                 </div>
+
+                     <div class="col-md-4">
+                     {{ form.phone_no.label}}  {{ form.phone_no}}
+
+                 </div>
+
+                </div>
+
+
+
+                 <div class="row my-4">
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        {{ form.username.label }}{{ form.username }}
+
+
+                    </div>
+
+                     <div class="col-md-4">
+
+                        {{ form.email.label }}  {{ form.email }}
+                    </div>
+
+
+                </div>
+                <div class="row my-4">
+
+                </div>
+                <div class="row">
+
+                     <div class="col-md-9">
+                     {{ form.password1.label }}  {{ form.password1}}
+
+                     </div>
+
+                </div>
+                <div class="row my-4">
+
+                </div>
+                <div class="row">
+
+                 <div class="col-md-9">
+                     {{ form.password2.label }}  {{ form.password2}}
+
+                 </div>
+
+                </div>
+                 <div class="row my-5">
+
+                </div>
+
+                </div>
+
+
+
+
+
+
+         <input type="submit" class="btn btn-lg submit_buttons" value="SignUp" >
 
          </form>
-      </p>
+
        </div>
 
   {% endblock %}
