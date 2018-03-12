@@ -143,4 +143,19 @@ class ScoreUpdateForm(forms.Form):
     wicket_type = forms.CharField(max_length=11, required=False)
 
 
+class TossForm(forms.Form):
+    def __init__(self, match, *args, **kwargs):
+        super(TossForm, self).__init__(*args, **kwargs)
+        self.fields['toss_winner'] = forms.ChoiceField(
+            choices=[ (match.team_1.id, str(match.team_1)), (match.team_2.id, str(match.team_2))]
+        )
+        self.fields['toss_winner_choice'] = forms.ChoiceField(
+            choices=[('Batting', 'Batting'),
+                     ('Bowling', 'Bowling')]
+        )
+
+    toss_winner = forms.CharField(max_length=11)
+    toss_winner_choice = forms.CharField(max_length=10)
+
+
 

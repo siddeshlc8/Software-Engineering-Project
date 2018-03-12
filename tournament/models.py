@@ -39,6 +39,9 @@ class Match(models.Model):
     overs = models.IntegerField()
     match_status = models.IntegerField(default=0)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
+    toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING, blank=True, null=True)
+    toss_winner_choice = models.CharField(max_length=10, default='Select')
+    toss_stored = models.BooleanField(default=False)
 
     def __str__(self):
         return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
