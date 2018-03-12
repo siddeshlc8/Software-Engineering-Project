@@ -208,18 +208,19 @@ def submit_match(request, match_id):
 
 def submit_tournament(request, tournament_id):
     tournament = Tournament.objects.get(pk=tournament_id)
-    if tournament.tournament_status == 0:
+    if tournament.tournament_status == 1:
         players = PerformanceMatchWise.objects.filter(tournament=tournament)
+        print(players)
         for player in players:
-            performance = PerformanceTotal()
-            performance.save()
-            performance.player = player
+            print(player)
+            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
             performance.batting_runs = player.batting_runs
             performance.tournaments += 1
             performance.save()
             player.player.active = 0
             player.player.save()
         tournament.tournament_status = 2
+        tournament.save()
         messages.success(request, 'Successfully Submitted')
         return redirect('tournament:current_tournament', tournament.id)
     else:
@@ -324,8 +325,12 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     p.batting_runs = b
                     p.save()
                 else:
+                    performance = PerformanceTotal()
+                    performance.player = batsman
+                    performance.save()
                     p = PerformanceMatchWise()
                     p.match = match
+                    p.tournament = tournament
                     p.team = batting_team
                     p.player = batsman
                     p.batting_runs = run
@@ -339,9 +344,14 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     p.bowling_runs += a
                     p.save()
                 else:
+                    performance = PerformanceTotal()
+                    performance.player = bowler
+                    performance.save()
                     p = PerformanceMatchWise()
                     a = p.bowling_runs
+                    p.player = bowler
                     p.match = match
+                    p.tournament = tournament
                     p.team = bowling_team
                     p.bowling_runs = run
                     p.bowling_runs += a
@@ -361,6 +371,7 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
         messages.success(request, 'Please fill toss information first')
         return redirect('tournament:match', tournament_id, match_id)
 
+
 def start_match(request, match_id):
     match = Match.objects.get(id=match_id)
     team1 = match.team_1
@@ -377,4 +388,13 @@ def start_match(request, match_id):
                   {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
                    'bowling_team': bowling_team, 'form': form, 'team1_players': team1_players,
                    'team2_players': team2_players})
+
+
+def start_tournament(request, tournament_id):
+    current_tournament = Tournament.objects.get(pk=tournament_id)
+    teams = current_tournament.team_set.all()
+    current_tournament.tournament_status = 1
+    current_tournament.save()
+    context = {'current_tournament': current_tournament, 'teams': teams}
+    return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
 
