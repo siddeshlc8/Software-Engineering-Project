@@ -35,7 +35,7 @@
 
           {% for match in matches %}
 
-              <a href="#"> <h3>{{ match }}</h3></a>
+              <a href="{% url 'search:match_details' match.id %}"> <h3>{{ match }}</h3></a>
 
           {% empty %}
 

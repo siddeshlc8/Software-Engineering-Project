@@ -179,16 +179,18 @@ def player_details(request, player_id):
 
 
 def tournaments_details(request, tournament_id):
-    tournament = Tournament.objects.get(pk=tournament_id)
+    current_tournament = Tournament.objects.get(pk=tournament_id)
+    teams = current_tournament.team_set.all()
+    context = {'current_tournament': current_tournament, 'teams': teams}
     try:
         P = Player.objects.get(pk=request.user.id)
-        context = {'tournament': tournament, 'P': P}
+        context = {'current_tournament': current_tournament, 'teams': teams, 'P': P}
     except Exception:
         try:
             o = Organizer.objects.get(pk=request.user.id)
-            context = {'tournament': tournament, 'O': o}
+            context = {'current_tournament': current_tournament, 'teams': teams, 'O': o}
         except Exception:
-            context = {'tournament': tournament, 'O': None}
+            context = {'current_tournament': current_tournament, 'teams': teams, 'O': None}
     return render(request, 'search/tournaments_details.html', context)
 
 
@@ -204,3 +206,18 @@ def teams_details(request, team_id):
         except Exception:
             context = {'team': team, 'O': None}
     return render(request, 'search/teams_details.html', context)
+
+
+
+def match_details(request, match_id):
+    match = Match.objects.get(pk=match_id)
+    try:
+        P = Player.objects.get(pk=request.user.id)
+        context = {'match': match, 'P': P}
+    except Exception:
+        try:
+            o = Organizer.objects.get(pk=request.user.id)
+            context = {'match': match, 'O': o}
+        except Exception:
+            context = {'match': match, 'O': None}
+    return render(request, 'search/match_details.html', context)
