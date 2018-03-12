@@ -4,7 +4,11 @@
 
 {% block body %}
 
+    {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
+
 {% if messages %}
+
 <br><br><br><br>
 
        {% for message in messages %}
