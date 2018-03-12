@@ -56,24 +56,37 @@
 
       <!-- Call to Action Well -->
       <div class="row">
-          <div class="col-md-8">
+
+      {% if current_tournament.tournament_status == 0 %}
+          <div class="col-md-12">
 
                <div class="card text-white bg-secondary my-4 text-center">
                 <div class="card-body">
                     <p class="text-white m-0">
 
-                      {% if current_tournament.tournament_status == 0 %}
-                         <h6> Tournament   is    Yet    to   start</h6>
+                         <p class="text-white m-0"> <a class="text-white m-0" href="{% url 'tournament:start_tournament' current_tournament.id %}"><b> Tournament yet to start. Start Tournament </b></a></p>
 
-                      {% elif  current_tournament.tournament_status == 1%}
+      {% elif  current_tournament.tournament_status == 1%}
+
+            <div class="col-md-8">
+
+               <div class="card text-white bg-secondary my-4 text-center">
+                <div class="card-body">
+                    <p class="text-white m-0">
 
                          <h6>  Tournament    is    ongoing</h6>
 
-                      {% elif current_tournament.tournament_status == 2%}
+      {% elif current_tournament.tournament_status == 2%}
+
+            <div class="col-md-8">
+
+               <div class="card text-white bg-secondary my-4 text-center">
+                <div class="card-body">
+                    <p class="text-white m-0">
 
                           <h6>  Tournament         has        finished</h6>
 
-                      {% endif %}
+      {% endif %}
 
 
                   </p>
@@ -81,6 +94,7 @@
               </div>
 
           </div>
+{% if current_tournament.tournament_status != 0 %}
 
           <div class="col-md-4">
 
@@ -97,7 +111,7 @@
 
           </div>
 
-
+  {% endif %}
       </div>
 
 
