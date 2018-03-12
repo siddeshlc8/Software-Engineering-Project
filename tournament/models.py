@@ -39,6 +39,9 @@ class Match(models.Model):
     overs = models.IntegerField()
     match_status = models.IntegerField(default=0)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
+    toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING, blank=True, null=True)
+    toss_winner_choice = models.CharField(max_length=10, default='Select')
+    toss_stored = models.BooleanField(default=False)
 
     def __str__(self):
         return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
@@ -83,11 +86,11 @@ class Score(models.Model):
 
 
 class ScoreCard(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE)
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
-    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING)
-    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True, blank=True)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
+    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING, null=True, blank=True)
+    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING, null=True, blank=True)
     team_1_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_1_players')
     team_2_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_2_players')
 

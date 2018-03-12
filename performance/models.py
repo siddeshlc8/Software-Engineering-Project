@@ -28,17 +28,17 @@ class PerformanceTotal(models.Model):
 
 
 class PerformanceMatchWise(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    batting_runs = models.BigIntegerField()
-    strike_rate = models.FloatField(null=True)
-    sixes = models.IntegerField(null=True)
-    fours = models.IntegerField(null=True)
-    bowling_runs = models.BigIntegerField(null=True)
-    bowling_overs = models.BigIntegerField(null=True)
-    wickets = models.BigIntegerField(null=True)
-    bowling_avg = models.FloatField(null=True)
-    economy = models.FloatField(null=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True)
+    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True)
+    batting_runs = models.BigIntegerField(default=0)
+    strike_rate = models.FloatField(default=0)
+    sixes = models.IntegerField(default=0)
+    fours = models.IntegerField(default=0)
+    bowling_runs = models.BigIntegerField(default=0)
+    bowling_overs = models.BigIntegerField(default=0)
+    wickets = models.BigIntegerField(default=0)
+    bowling_avg = models.FloatField(default=0)
+    economy = models.FloatField(default=0)
+    status = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.name

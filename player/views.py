@@ -19,7 +19,7 @@ def player_home(request):
 def player_performance(request):
     try:
         player = Player.objects.get(pk=request.user.id)
-        data = PerformanceMatchWise.objects.filter(player=player).order_by('name')
+        data = PerformanceMatchWise.objects.filter(player=player).order_by('match__name')
         labels = []
         values = []
         for key in data:

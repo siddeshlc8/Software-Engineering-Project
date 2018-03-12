@@ -7,47 +7,20 @@
 {% block title %}{{ organizer.get_full_name }} | Enter Score{% endblock %}
 
 {% block body %}
-    <br><br><br>
-    <br><br><br>
+    <br><br><br><br>
 
 
-      <div class="container recent_overs">
+         <p>Match : {{ match.name }}</p><br>
 
-        <p><h1 >RECENT DELIVERIES:</h1></p>
+         <p>Batting Team : {{ batting_team }}</p><br>
 
+         <p>Bowling Team  : {{ bowling_team }}</p><br>
 
-      {%  for key,value in target_dict.items %}
-
-          <table  class="scoretable">
-               <tr>
-
-               {% for key1,value1 in value.items %}
-                   <td> {{ value1 }}</td>
-                   {% endfor %}
-               </tr>
-
-             </table>
-
-      {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-       <br><br><br>
-
-
+         <p>Innings  : {{ innings }}</p><br>
 
 
        <div class="row">
-             <div class="col-lg-6">
+             <div class="col-lg-5">
 
                  <div class="score_details">
                 <p> <h1>Fill the Details:</h1></p>
@@ -155,14 +128,6 @@
                        <br>
 
 
-
-
-
-
-
-
-
-
                          <button type="submit" class="btn btn-primary">Save</button>
 
                    </form>
@@ -170,12 +135,108 @@
 
              </div>
 
-             <div class="col-md-6">
+
+    <div class="col-md-6">  <br><br>
+        <div class="card h-90">
+           <h2 class="card-header"><b>SCORE BOARD:</b></h2>
+
+            <div class="card-body">
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Runs</th>
+                  <th scope="col">Balls</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+              </tbody>
+            </table>
 
 
-             </div>
 
+        <br><br><br>
+
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">Overs</th>
+                  <th scope="col">Maidens</th>
+                  <th scope="col">Wickets</th>
+                  <th scope="col">Average</th>
+                  <th scope="col">Economy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+        <br><br>
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Recent</th>
+                </tr>
+              </thead>
+            </table>
+
+            </div>
+        </div>
+    </div>
        </div>
+
+
+
 
 
 
@@ -186,12 +247,11 @@
 <div id="wktModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content animate">
 
 
 
-      <div class="card h-25">
-
+      <div class="card h-25 w-10" >
 
             <h5 class="card-header">CHOOSE AMONG  <span class="close" id="close">&times;</span></h5>
 
@@ -303,105 +363,53 @@
 
 
 <script>
-
 var modal = document.getElementById('wktModal');
-
-
 var btn = document.getElementById("wkt");
-
 var span = document.getElementById("close");
-
-
-
-
-
 var modal1 = document.getElementById('extraModal');
-
-
 var btn1 = document.getElementById("extra");
-
 var span1 = document.getElementById("close1");
-
-
-
-
-
 var modal2 = document.getElementById('RunModal');
-
-
 var btn2 = document.getElementById("run");
-
 var span2 = document.getElementById("close2");
-
-
-
-
-
-
 var modal3 = document.getElementById('extraRunModal');
-
 var btn3= document.getElementById("extraRun");
-
 var span3 = document.getElementById("close3");
-
-
-
-
 btn.onclick = function() {
     modal.style.display = "block";
 };
-
-
 btn1.onclick = function() {
     modal1.style.display = "block";
 };
-
-
 btn2.onclick = function() {
     modal2.style.display = "block";
 };
-
-
 btn3.onclick = function() {
     modal3.style.display = "block";
 };
-
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
-
-
 };
-
 span1.onclick = function() {
     modal1.style.display = "none";
-
-
 };
-
 span2.onclick = function() {
     modal2.style.display = "none";
-
-
 };
-
 span3.onclick = function() {
     modal3.style.display = "none";
-
-
 };
-
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
-
-
 </script>
+
+
+
 
 {% endblock %}
 
