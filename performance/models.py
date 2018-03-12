@@ -3,7 +3,7 @@ from player.models import Player
 
 
 class PerformanceTotal(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
     tournaments = models.BigIntegerField()
     matches = models.BigIntegerField()
     batting_innings = models.BigIntegerField()
@@ -30,6 +30,7 @@ class PerformanceTotal(models.Model):
 class PerformanceMatchWise(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
     match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True)
+    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True)
     team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True)
     batting_runs = models.BigIntegerField(default=0)
     strike_rate = models.FloatField(default=0)

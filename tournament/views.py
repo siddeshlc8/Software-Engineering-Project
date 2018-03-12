@@ -6,7 +6,7 @@ from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, 
 from django.contrib import messages
 from organizer.models import Organizer
 from .utils import rr_schedule
-from performance.models import PerformanceMatchWise
+from performance.models import PerformanceMatchWise, PerformanceTotal
 
 
 def create_tournament(request):
@@ -176,7 +176,7 @@ def match(request, tournament_id,match_id):
 def submit_match(request, match_id):
     match = Match.objects.get(pk=match_id)
     tournament = Tournament.objects.get(pk=match.tournament.id)
-    if match.match_status == 0:
+    if match.match_status == 1:
         team_1 = Team.objects.get(pk=match.team_1.id)
         team_2 = Team.objects.get(pk=match.team_2.id)
         score_card = ScoreCard()
@@ -207,22 +207,25 @@ def submit_match(request, match_id):
 
 
 def submit_tournament(request, tournament_id):
-    current_tournament = Tournament.objects.get(pk=tournament_id)
-    if request.method == 'POST':
-        form = Submit_tournament_form(request.POST)
-
-        if form['tournament_name'].value() == current_tournament.name :
-            current_tournament.tournament_status = 2
-            current_tournament.save()
-            messages.success(request,'tournament sucessfully submitted')
-            return redirect('tournament:current_tournament', tournament_id)
-        else:
-            messages.error(request, 'Please correct the error below.')
-            return redirect('tournament:submit_tournament', tournament_id)
+    tournament = Tournament.objects.get(pk=tournament_id)
+    if tournament.tournament_status == 0:
+        players = PerformanceMatchWise.objects.filter(tournament=tournament)
+        for player in players:
+            performance = PerformanceTotal()
+            performance.save()
+            performance.player = player
+            performance.batting_runs = player.batting_runs
+            performance.tournaments += 1
+            performance.save()
+            player.player.active = 0
+            player.player.save()
+        tournament.tournament_status = 2
+        messages.success(request, 'Successfully Submitted')
+        return redirect('tournament:current_tournament', tournament.id)
     else:
-        form = Submit_tournament_form()
-        return render(request, 'tournament/tournament_templates/submit_tournament.html',
-                      {'form': form, 'tournament': current_tournament})
+        messages.success(request, 'Already Submitted')
+        return redirect('tournament:current_tournament', tournament.id)
+
 
 def tournament_info_edit(request,tournament_id):
     try:
@@ -290,7 +293,7 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
     batting_team = Team.objects.get(pk=batting_team_id)
     bowling_team = Team.objects.get(pk=bowling_team_id)
     match = Match.objects.get(pk=match_id)
-    if match.match_status == 1:
+    if match.match_status == 2:
         messages.success(request, 'Match already Submitted')
         return redirect('tournament:match', tournament_id, match_id)
     if match.toss_winner_choice != 'Select':
@@ -357,3 +360,21 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
     else:
         messages.success(request, 'Please fill toss information first')
         return redirect('tournament:match', tournament_id, match_id)
+
+def start_match(request, match_id):
+    match = Match.objects.get(id=match_id)
+    team1 = match.team_1
+    team2 = match.team_2
+    batting_team = team1
+    bowling_team = team2
+    tournament = Tournament.objects.get(pk=match.tournament.id)
+    match.match_status = 1
+    match.save()
+    form = TossForm(match)
+    team1_players = PerformanceMatchWise.objects.filter(team=batting_team)
+    team2_players = PerformanceMatchWise.objects.filter(team=bowling_team)
+    return render(request, 'tournament/match_templates/current_match.html',
+                  {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
+                   'bowling_team': bowling_team, 'form': form, 'team1_players': team1_players,
+                   'team2_players': team2_players})
+
