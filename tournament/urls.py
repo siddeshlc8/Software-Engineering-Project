@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, include
+
 from . import views
+
 
 app_name = 'tournament'
 urlpatterns = [
@@ -19,4 +21,5 @@ urlpatterns = [
     path('<int:tournament_id>/submit_tournament', views.submit_tournament, name='submit_tournament'),
     path('<int:tournament_id>/create_schedule/', views.create_schedule, name='create_schedule'),
     path('<int:match_id>/start_match/', views.start_match, name='start_match'),
+    path('<int:tournament_id>/alerts',include('alerts.urls'), name='tournament_alerts'),
 ]

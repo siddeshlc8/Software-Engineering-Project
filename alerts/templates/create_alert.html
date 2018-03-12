@@ -1,0 +1,33 @@
+{% extends 'organizer/base.html' %}
+
+{% block title %}Create Alert{% endblock %}
+
+{% block body %}
+
+       <div class="container">
+
+        <p><h1>Fill the Details:</h1></p>
+
+           <form  method="POST">
+
+            {% csrf_token %}
+                 {% for field in form %}
+
+                     <div class="form-group">
+
+                     {{ field.errors }}
+                     <b>{{ field.label_tag }}</b>
+                     <p> {{ field }}</p>
+
+                     </div>
+
+                 {% endfor %}
+
+            <button type="submit" class="btn btn-primary submit_buttons">Submit</button>
+
+          </form>
+        </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,25 @@
+{% extends 'organizer/base.html' %}
+
+{% block title %}All Alerts{% endblock %}
+
+{% block body %}
+    <br><br><br><br>
+ <h1>All alerts</h1>
+     {% for alert in all_alerts %}
+
+         <div class="row">
+
+         <h3> {{ alert.title }}</h3>
+             <p> {{ alert.body }}</p>
+
+         </div>
+     {% endfor %}
+
+    <h1>
+
+    <a href="{% url 'tournament:alerts:create_tournament_alert' current__tournament.id %}">create alert</a>
+    </h1>
+
+{% endblock %}
+
+
