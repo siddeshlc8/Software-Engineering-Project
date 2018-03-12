@@ -168,8 +168,8 @@ def match(request, tournament_id,match_id):
     else:
         form = TossForm(match)
         score_card = ScoreCard.objects.filter(match=match).first()
-        team1_players = PerformanceMatchWise.objects.filter(team=batting_team)
-        team2_players =  PerformanceMatchWise.objects.filter(team=bowling_team)
+        team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match)
+        team2_players =  PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match)
         return render(request,'tournament/match_templates/current_match.html',{'all_scores':None,'match':match,'tournament':tournament,'batting_team':batting_team,'bowling_team':bowling_team, 'form': form, 'team1_players': team1_players, 'team2_players': team2_players})
 
 
@@ -190,10 +190,16 @@ def submit_match(request, match_id):
         team_2_players = PerformanceMatchWise.objects.filter(team=team_2)
         for player in team_1_players:
             player.status = True
+            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+            performance.matches += 1
+            performance.save()
             player.save()
             score_card.team_1_players.add(player)
         for player in team_2_players:
             player.status = True
+            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+            performance.matches += 1
+            performance.save()
             player.save()
             score_card.team_2_players.add(player)
         score_card.save()
@@ -210,12 +216,26 @@ def submit_tournament(request, tournament_id):
     tournament = Tournament.objects.get(pk=tournament_id)
     if tournament.tournament_status == 1:
         players = PerformanceMatchWise.objects.filter(tournament=tournament)
-        print(players)
         for player in players:
-            print(player)
             performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
-            performance.batting_runs = player.batting_runs
+            performance.batting_runs += player.batting_runs
             performance.tournaments += 1
+            performance.wickets = player.wickets
+            performance.batting_balls += player.batting_balls
+            performance.save()
+            if performance.matches:
+                performance.batting_avg = performance.batting_runs/performance.matches
+            if performance.wickets:
+                performance.bowling_avg = performance.bowling_runs/performance.wickets
+            performance.strike_rate = (performance.batting_runs/performance.batting_balls)*100
+            if player.batting_runs > performance.high_score:
+                performance.high_score = player.batting_runs
+            if player.batting_runs > 50:
+                performance.fifties += 1
+            if player.batting_runs > 100:
+                performance.hundreds += 1
+            performance.sixes += player.sixes
+            performance.fours += player.fours
             performance.save()
             player.player.active = 0
             player.player.save()
@@ -310,54 +330,69 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                 bowler = form.cleaned_data['bowler']
                 batsman = form.cleaned_data['batsman']
                 run = form.cleaned_data['run']
-                #run = int(run)
                 extra_type = form.cleaned_data['extra_type']
                 extra_run = form.cleaned_data['extra_run']
                 is_wicket = form.cleaned_data['is_wicket']
                 wicket_type = form.cleaned_data['wicket_type']
 
                 batsman = Player.objects.get(id=batsman)
-                find = PerformanceMatchWise.objects.filter(player=batsman).first()
-                if find is not None:
-                    p = find
-                    a = p.batting_runs
-                    b = a + run
-                    p.batting_runs = b
+                find = PerformanceMatchWise.objects.filter(player=batsman).filter(match=match).first()
+                if find is None:
+                    find = PerformanceTotal.objects.filter(player=batsman).first()
+                    if find is None:
+                        performance = PerformanceTotal()
+                        performance.player = batsman
+                        performance.save()
+                    p = PerformanceMatchWise()
                     p.save()
                 else:
-                    performance = PerformanceTotal()
-                    performance.player = batsman
-                    performance.save()
-                    p = PerformanceMatchWise()
-                    p.match = match
-                    p.tournament = tournament
-                    p.team = batting_team
-                    p.player = batsman
-                    p.batting_runs = run
-                    p.save()
+                    p = find
+                a = p.batting_runs
+                b = a + run
+                p.batting_runs = b
+                match.team_1_score += run
+                p.match = match
+                p.tournament = tournament
+                p.team = batting_team
+                p.player = batsman
+                p.batting_balls += 1
+                p.save()
+                p.strike_rate = (p.batting_runs/p.batting_balls)*100
+                if run == 6:
+                    p.sixes += 1
+                if run == 4:
+                    p.fours += 1
+                p.status = 'batting'
+                if is_wicket:
+                    p.status = 'out'
+                    match.team_1_wickets += 1
+                p.save()
+
+
                 bowler = Player.objects.get(id=bowler)
-                find = PerformanceMatchWise.objects.filter(player=bowler).first()
-                if find is not None:
-                    p = find
-                    a = p.bowling_runs
-                    p.bowling_runs = run
-                    p.bowling_runs += a
+                find = PerformanceMatchWise.objects.filter(player=bowler).filter(match=match).first()
+                if find is None:
+                    find = PerformanceTotal.objects.filter(player=bowler).first()
+                    if find is None:
+                        performance = PerformanceTotal()
+                        performance.player = bowler
+                        performance.save()
+                    p = PerformanceMatchWise()
                     p.save()
                 else:
-                    performance = PerformanceTotal()
-                    performance.player = bowler
-                    performance.save()
-                    p = PerformanceMatchWise()
-                    a = p.bowling_runs
-                    p.player = bowler
-                    p.match = match
-                    p.tournament = tournament
-                    p.team = bowling_team
-                    p.bowling_runs = run
-                    p.bowling_runs += a
-                    if is_wicket:
-                        p.wickets += 1
-                    p.save()
+                    p = find
+                p.player = bowler
+                p.match = match
+                p.tournament = tournament
+                p.team = bowling_team
+                a = p.bowling_runs
+                b = a + run
+                p.bowling_runs = b
+                if is_wicket:
+                    p.wickets += 1
+                if p.wickets:
+                    p.bowling_avg = (p.bowling_runs/p.wickets)
+                p.save()
                 form = ScoreUpdateForm(batting_team, bowling_team)
                 context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team,
                            'innings': innings}

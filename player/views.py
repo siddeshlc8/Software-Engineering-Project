@@ -22,11 +22,15 @@ def player_performance(request):
         data = PerformanceMatchWise.objects.filter(player=player).order_by('match__name')
         labels = []
         values = []
+        labels1 = []
+        values1 = []
         for key in data:
             labels.append(key.id)
             values.append(key.batting_runs)
+            labels1.append(key.id)
+            values1.append(key.wickets)
         total_data = PerformanceTotal.objects.get(player=player)
-        context = {'labels': labels, 'values': values, 'total_data': total_data}
+        context = {'labels': labels, 'values': values, 'labels1': labels1, 'values1': values1, 'total_data': total_data}
         return render(request, 'player/performance.html', context)
     except Exception:
         return redirect('login')

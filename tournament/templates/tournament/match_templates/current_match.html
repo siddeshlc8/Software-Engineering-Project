@@ -101,12 +101,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>Mark</td>
+                  <td>{{ player.status }}</td>
                   <td>{{ player.batting_runs }}</td>
-                  <td>22</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -139,28 +139,18 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
+                  {% for player in team2_players %}
+              <tbody>
                 <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg}}</td>
+                  <td>0</td>
                 </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
+              </tbody>
+                            {% endfor %}
                 </tr>
               </tbody>
             </table>
@@ -197,12 +187,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>Mark</td>
+                  <td>{{ player.status }}</td>
                   <td>{{ player.batting_runs }}</td>
-                  <td>22</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -234,32 +224,18 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
+              {% for player in team1_players %}
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg }}</td>
+                  <td>0</td>
                 </tr>
               </tbody>
+                            {% endfor %}
             </table>
                  </div>
             </div>
