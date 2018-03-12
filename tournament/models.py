@@ -42,6 +42,10 @@ class Match(models.Model):
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING, blank=True, null=True)
     toss_winner_choice = models.CharField(max_length=10, default='Select')
     toss_stored = models.BooleanField(default=False)
+    team_1_score = models.BigIntegerField(default=0)
+    team_2_score = models.BigIntegerField(default=0)
+    team_2_wickets = models.IntegerField(default=0)
+    team_1_wickets = models.IntegerField(default=0)
 
     def __str__(self):
         return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
