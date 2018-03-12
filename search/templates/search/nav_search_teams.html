@@ -36,7 +36,7 @@
 
           {% for team in teams %}
 
-              <a href="#"> <h3>{{ team.name }}</h3></a>
+              <a href="{%  url 'search:teams_details' team.id %} "> <h3>{{ team.name }}</h3></a>
 
           {% empty %}
 
