@@ -1,6 +1,6 @@
 /* config.css */
 
-/* helpers/align.css */
+/* helpers/align.css
 
 .align {
   -webkit-box-align: center;
@@ -18,17 +18,6 @@
           justify-content: center;
 }
 
-/* helpers/grid.css */
-
-.grid {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 320px;
-  max-width: 20rem;
-  width: 90%;
-}
-
-/* helpers/hidden.css */
 
 .hidden {
   border: 0;
@@ -41,7 +30,7 @@
   width: 1px;
 }
 
-/* helpers/icon.css */
+
 
 .icons {
   display: none;
@@ -57,7 +46,7 @@
   width: 1em;
 }
 
-/* layout/base.css */
+
 
 * {
   -webkit-box-sizing: inherit;
@@ -84,7 +73,7 @@ body {
   min-height: 100vh;
 }
 
-/* modules/anchor.css */
+
 
 a {
   color: #eee;
@@ -97,7 +86,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* modules/form.css */
+
 
 input {
   background-image: none;
@@ -139,8 +128,9 @@ input[type='submit'] {
       -ms-flex: 1;
           flex: 1;
 }
+*/
 
-/* modules/login.css */
+/*
 
 .login {
   color: #eee;
@@ -191,7 +181,6 @@ input[type='submit'] {
   background-color: #d44179;
 }
 
-/* modules/text.css */
 
 p {
   margin-bottom: 24px;
@@ -202,4 +191,56 @@ p {
 
 .text--center {
   text-align: center;
+}
+
+
+
+
+.form-white input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #fff;
+    -webkit-box-shadow: 0 1px 0 0 #fff;
+    box-shadow: 0 1px 0 0 #fff;
+}
+.form-white input[type=text]:focus:not([readonly]) + label {
+    color: #fff;
+}
+.form-white input[type=password]:focus:not([readonly]) {
+    border-bottom: 1px solid #fff;
+    -webkit-box-shadow: 0 1px 0 0 #fff;
+    box-shadow: 0 1px 0 0 #fff;
+}
+.form-white input[type=password]:focus:not([readonly]) + label {
+    color: #fff;
+}
+.form-white input[type=password], .form-white input[type=text] {
+    border-bottom: 1px solid #fff;
+}
+.form-white .form-control:focus {
+    color: #fff;
+}
+.form-white .form-control {
+    color: #fff;
+}
+.form-white textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #fff;
+    box-shadow: 0 1px 0 0 #fff;
+    color: #fff;
+}
+.form-white textarea.md-textarea  {
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+.form-white textarea.md-textarea:focus:not([readonly])+label {
+    color: #fff;
+}
+.ripe-malinka-gradient {
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+.near-moon-gradient {
+    background-image: linear-gradient(to bottom, #5ee7df 0%, #b490ca 100%);
+}
+*/
+.login-jumbotron{
+
+  border: 2px dotted grey;
 }

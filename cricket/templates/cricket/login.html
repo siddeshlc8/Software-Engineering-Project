@@ -37,25 +37,67 @@
          <form method="POST">
             {% csrf_token %}
 
-                   <div class="form-group">
-
-                       <label><p><b>Username</b></p></label>
-                       <p><input type="text" name="username"></p>
+ <div class="jumbotron login-jumbotron container col-md-4">
 
 
-                        <label><b>Password</b></label>
-                        <p><input type="password" name="password"></p>
+      <div class="form-group">
 
+          <div class="row">
 
-                    </div>
-                 <button type="submit"><b>Login</b></button>
-                 <input type="hidden" name="next" value="{{ next }}" />
-         </form>
+                  <div class="col-lg-1">
 
-        <p><a href="#"><b>Lost password?</b></a></p>
+                  </div>
+
+                   <div class="col-md-10">
+                       <input type="text" class="form-control"name="username"  placeholder="Enter Username">
+                   </div>
+          </div>
+
+      </div>
+
+     <div class="row my-4">
 
      </div>
 
-    </p>
+
+     <div class="form-group">
+
+          <div class="row">
+                   <div class="col-lg-1">
+
+                   </div>
+
+                   <div class="col-md-10">
+                      <input type="password" class="form-control" name="password" placeholder="Password">
+                   </div>
+          </div>
+
+
+     </div>
+
+
+     <div class="row my-4">
+
+     </div>
+
+
+
+      <div class="row">
+          <div class="container col-md-4">
+              <button type="submit" class="btn btn-primary submit_buttons">LOGIN</button>
+          </div>
+
+      </div>
+
+
+
+ </div>
+
+</form>
+
+
+
+
+
 
 {% endblock %}

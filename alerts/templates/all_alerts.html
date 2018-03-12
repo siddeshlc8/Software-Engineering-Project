@@ -5,19 +5,48 @@
 {% block body %}
     <br><br><br><br>
  <h1>All alerts</h1>
+    <div class="container col-md-8">
+
+     <div class="row">
+
+
      {% for alert in all_alerts %}
+          <div class="col-md-5">
 
-         <div class="row">
+                <div class="jumbotron">
 
-         <h3> {{ alert.title }}</h3>
-             <p> {{ alert.body }}</p>
+                  <h1 class="display-4">{{ alert.title }}</h1>
+
+                  <p class="lead">{{ alert.body }}</p>
+
+                  <hr class="my-4">
+
+
+                  <p class="lead">
+
+                    <a class="btn btn-lg submit_buttons" href="#" role="button">Delete Post</a>
+
+                  </p>
+
+                </div>
+          </div>
+
+
+          <div class="col-lg-1">
+
 
          </div>
+         
+
      {% endfor %}
+     </div>
+
+    </div>
 
     <h1>
 
     <a href="{% url 'tournament:alerts:create_tournament_alert' current__tournament.id %}">create alert</a>
+
     </h1>
 
 {% endblock %}
