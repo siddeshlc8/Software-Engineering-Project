@@ -293,7 +293,7 @@
                                   {% csrf_token %}
                                       <p>Select Team :  {{ form.toss_winner }}</p>
                                       <p>Select Choice :  {{ form.toss_winner_choice }}</p>
-                                     <button class="btn btn-secondary" type="su" value="continue">Save</button>
+                                     <button class="btn btn-secondary" type="submit" value="continue">Save</button>
                               </form>
                           </div>
                       </div>
@@ -316,9 +316,21 @@
                         <h5 class="card-header"><b>Update Score Card</b></h5>
                         <div class="card-body">
                           <div class="row">
+                              {% if match.match_status != 0 %}
+
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  batting_team.id bowling_team.id 0 %}">FIRST INNINGS</a></p>
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  bowling_team.id batting_team.id 1 %}">SECOND INNINGS</a></p>
                               <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
+
+                              {% else %}
+
+                                    <form method="POST" action="{% url 'tournament:start_match' match.id %}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary" type="submit" value="continue">Start Match</button>
+                                  </form>
+                              {% endif %}
+
+
                           </div>
                         </div>
                       </div>
