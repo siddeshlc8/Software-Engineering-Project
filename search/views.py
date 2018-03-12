@@ -221,3 +221,23 @@ def match_details(request, match_id):
         except Exception:
             context = {'match': match, 'O': None}
     return render(request, 'search/match_details.html', context)
+
+
+
+
+def tournaments_matches(request, tournament_id):
+
+    tournament=Tournament.objects.get(id=tournament_id)
+    al_matches = tournament.match_set.all()
+    {'tournament':tournament,'matches':al_matches}
+
+    try:
+        P = Player.objects.get(pk=request.user.id)
+        context = { 'tournament':tournament,'matches':al_matches,'P': P}
+    except Exception:
+        try:
+            o = Organizer.objects.get(pk=request.user.id)
+            context = {'tournament':tournament,'matches':al_matches, 'O': o}
+        except Exception:
+            context = {'tournament':tournament,'matches':al_matches, 'O': None}
+    return render(request, 'search/match_details.html', context)
