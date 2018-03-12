@@ -65,14 +65,14 @@ def tournament(request):
 
 
 def current_tournament(request, tournament_id):
-    try:
+    #try:
         Organizer.objects.get(pk=request.user.id)
         current_tournament = Tournament.objects.get(pk=tournament_id)
         teams = current_tournament.team_set.all()
         context = {'current_tournament': current_tournament, 'teams': teams}
         return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
-    except Exception:
-        return redirect('login')
+    #except Exception:
+        #return redirect('login')
 
 
 def team_players(request, team_id):
