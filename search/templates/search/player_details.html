@@ -3,25 +3,46 @@
 {% block title %}Player | Details{% endblock %}
 
 {% block body %}
-
-    {% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
 <br><br>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
        <div class="container">
 
       <br>  <p><h1>Player Details</h1></p>
 
-        {% for field_name, field in all_details.items %}
+ <div class="container col-lg-5">
+      <div class="card mb-4    text-center">
 
-            <div class="form-group">
-                <b>{{ field_name }}:</b>
-                 <p> {{ field }}</p>
-            </div>
+          <div class="card-header bg-secondary text-white">
+              Details
+          </div>
+          <div class="card-body">
 
-        {% endfor %}
+              <div class="row">
+
+                  {% for field_name, field in all_details.items %}
+
+
+                      <div class="col-md-6">
+                          {{ field_name }}:
+                      </div>
+
+                      <div class="col-md-6">
+                          {{ field }}
+                      </div>
+
+
+                  {% endfor %}
+
+              </div>
+          </div>
+
+          </div>
+
+       </div>
 
         </div>
+
+      <a href="{% url 'search:player_performance' player.id %}"> Performance</a>
     </main>
 
 {% endblock %}

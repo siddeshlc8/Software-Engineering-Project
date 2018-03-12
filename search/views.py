@@ -168,13 +168,13 @@ def player_details(request, player_id):
     all_details = player.details()
     try:
         P = Player.objects.get(pk=request.user.id)
-        context = {'all_details': all_details, 'P': P}
+        context = {'all_details': all_details,'player':player ,'P': P}
     except Exception:
         try:
             o = Organizer.objects.get(pk=request.user.id)
-            context = {'all_details': all_details, 'O': o}
+            context = {'all_details': all_details, 'player':player ,'O': o}
         except Exception:
-            context = {'all_details': all_details, 'O': None}
+            context = {'all_details': all_details,'player':player , 'O': None}
     return render(request, 'search/player_details.html', context)
 
 
@@ -229,7 +229,6 @@ def tournaments_matches(request, tournament_id):
 
     tournament=Tournament.objects.get(id=tournament_id)
     al_matches = tournament.match_set.all()
-    {'tournament':tournament,'matches':al_matches}
 
     try:
         P = Player.objects.get(pk=request.user.id)
@@ -241,3 +240,19 @@ def tournaments_matches(request, tournament_id):
         except Exception:
             context = {'tournament':tournament,'matches':al_matches, 'O': None}
     return render(request, 'search/match_details.html', context)
+
+
+
+def player_performance(request,player_id):
+    player=Player.objects.get(pk=player_id)
+
+    try:
+        P = Player.objects.get(pk=request.user.id)
+        context = { 'player':player,'P': P}
+    except Exception:
+        try:
+            o = Organizer.objects.get(pk=request.user.id)
+            context = {'player':player, 'O': o}
+        except Exception:
+            context = {'player':player, 'O': None}
+    return render(request, 'search/player_performance.html', context)

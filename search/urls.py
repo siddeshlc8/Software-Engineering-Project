@@ -19,5 +19,5 @@ urlpatterns = [
     path('players/', views.search_players, name='search_players'),
     path('players/details/<int:player_id>/', views.player_details, name='player_details'),
     path('organizers/', views.search_organizers, name='search_organizers'),
-
+    path('players/details/<int:player_id>/performance', views.player_performance, name='player_performance'),
 ]
