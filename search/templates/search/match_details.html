@@ -11,9 +11,329 @@
 
       <br>  <p><h1>Match Details</h1></p>
 
+        <!-------------
+
+
+{% if messages %}
+<br><br><br><br>
+
+       {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+
+              <strong> {{ message }}  </strong>
+
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+              </button>
+
+        </div>
+
+       {% endfor %}
+
+{% endif %}
+
+
+    <div class="container">
+     <br>
+    <br>
+    <br>
         <h1> {{  match.team_1 }}vs {{match.team_2}}</h1>
 
+    </div>
 
+
+    <!--------------- -->
+
+<div class="container">
+
+    <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+
+              // Store hash
+              var hash = this.hash;
+
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+
+
+
+    <!-- Page Content -->
+
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column class="col-md-9" -->
+        <div  class="col-md-9">
+
+
+            <hr>
+            <h2 class="my-4" style="{text-align: center;}">First Innings : {{ team1.name }}
+
+            </h2>
+
+                  <!-- Blog Post -->
+            <div id="firstinnings">
+                        <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Runs</th>
+                  <th scope="col">Balls</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+                            {% for player in team1_players %}
+              <tbody>
+                <tr>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>Mark</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>22</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
+            </table>
+
+
+        <br><br>
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fall of Wickets</th>
+                </tr>
+              </thead>
+            </table>
+
+        <br><br><br>
+
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">Overs</th>
+                  <th scope="col">Maidens</th>
+                  <th scope="col">Wickets</th>
+                  <th scope="col">Average</th>
+                  <th scope="col">Economy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+
+                    <hr>
+            </div>
+
+                <!-- recent tournaments -->
+            <hr>
+            <div id="recent">
+
+            <h2 class="my-4">Second Innings : {{ team2.name }}
+
+            </h2>
+
+                  <!-- Blog Post -->
+
+                 <div id="secondinnings">
+                        <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Runs</th>
+                  <th scope="col">Balls</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {% for player in team2_players %}
+              <tbody>
+                <tr>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>Mark</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>22</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+
+        <br><br>
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fall of Wickets</th>
+                </tr>
+              </thead>
+            </table>
+
+        <br><br><br>
+
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">Overs</th>
+                  <th scope="col">Maidens</th>
+                  <th scope="col">Wickets</th>
+                  <th scope="col">Average</th>
+                  <th scope="col">Economy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                  <td>Thornton</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+                 </div>
+            </div>
+
+
+                <!-- upcomming  tournaments--->
+             <div id="commentary">
+                 <hr>
+             <h2 class="my-4">Commentary</h2>
+
+                 <hr>
+             </div>
+        </div>
+
+
+
+
+
+
+        <!-- Sidebar Widgets Column class="col-md-3" -->
+        <div   class="col-md-3 ">
+
+            <div class="sticky-top" >
+
+                 <!-- Toss Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header"> Toss Information</h5>
+                        <div class="card-body">
+                          describe toss info
+                      </div>
+                      </div>
+
+                  <!-- Categories Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">Go To</h5>
+                        <div class="card-body">
+                          <div class="row">
+                              <p><a href="#firstinnings">FIRST INNINGS</a></p>
+                              <p><a href="#secondinnings">SECOND INNINGS</a></p>
+                              <p><a href="#commentary">COMMENTARY</a></p>
+                          </div>
+                      </div>
+                      </div>
+
+                  <!-- Side Widget -->
+
+
+            </div>
+
+        </div>
+
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+
+    <!-------------  -->
+
+
+
+        -->
+
+       </div>
        </div>
     </main>
 
