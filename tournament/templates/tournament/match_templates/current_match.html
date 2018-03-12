@@ -97,26 +97,19 @@
                   <th scope="col">SR</th>
                 </tr>
               </thead>
+                            {% for player in team1_players %}
               <tbody>
                 <tr>
+                  <td>{{ player.player.get_full_name }}</td>
                   <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>22</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
                 </tr>
               </tbody>
+                            {% endfor %}
             </table>
 
 
@@ -200,22 +193,19 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
+                  {% for player in team2_players %}
+              <tbody>
                 <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>Mark</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>22</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
                 </tr>
               </tbody>
             </table>
@@ -328,7 +318,7 @@
                           <div class="row">
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  batting_team.id bowling_team.id 0 %}">FIRST INNINGS</a></p>
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  bowling_team.id batting_team.id 1 %}">SECOND INNINGS</a></p>
-                              <p><a href="{% url 'tournament:submit_match' tournament.id match.id %}">SUBMIT MATCH</a></p>
+                              <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
                           </div>
                         </div>
                       </div>

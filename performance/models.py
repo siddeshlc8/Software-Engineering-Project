@@ -30,6 +30,7 @@ class PerformanceTotal(models.Model):
 class PerformanceMatchWise(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
     match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True)
+    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True)
     batting_runs = models.BigIntegerField(default=0)
     strike_rate = models.FloatField(default=0)
     sixes = models.IntegerField(default=0)
@@ -39,6 +40,5 @@ class PerformanceMatchWise(models.Model):
     wickets = models.BigIntegerField(default=0)
     bowling_avg = models.FloatField(default=0)
     economy = models.FloatField(default=0)
+    status = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.name

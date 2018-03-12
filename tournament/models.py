@@ -86,11 +86,11 @@ class Score(models.Model):
 
 
 class ScoreCard(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE)
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
-    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING)
-    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True, blank=True)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
+    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING, null=True, blank=True)
+    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING, null=True, blank=True)
     team_1_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_1_players')
     team_2_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_2_players')
 

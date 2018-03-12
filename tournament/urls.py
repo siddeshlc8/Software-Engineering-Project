@@ -15,7 +15,7 @@ urlpatterns = [
     path('<int:tournament_id>/<int:match_id>/match', views.match, name='match'),
     path('<int:tournament_id>/<int:match_id>/<int:batting_team_id>/<int:bowling_team_id>/<int:innings>/enter_score',
          views.enter_score, name='enter_score'),
-    path('<int:tournament_id>/<int:match_id>/submit_match', views.submit_match, name='submit_match'),
+    path('<int:match_id>/submit_match', views.submit_match, name='submit_match'),
     path('<int:tournament_id>/submit_tournament', views.submit_tournament, name='submit_tournament'),
     path('<int:tournament_id>/create_schedule/', views.create_schedule, name='create_schedule')
 ]
