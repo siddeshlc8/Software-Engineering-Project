@@ -11,34 +11,67 @@
   <main role="main">
 
       <div class="container marketing">
-
-        <!-- Three columns of text below the carousel -->
         <div class="row">
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNyUJ8ud9fkql7S2jgSw9P_QuUduiMw08vzwh5mUNwo3pscn2" alt="Generic placeholder image" width="140" height="140">
-            <h2>Are you a member?</h2>
-            <p></p>
-            <p><a class="btn btn-secondary" href="{% url 'login' %}" role="button"> <b>LogIn </b>  </a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMt7E7phcE-1iO4Wda_FZku_lJuo1OighJozlouHDQuzLH0vdW" alt="Generic placeholder image" width="140" height="140">
-            <h2>Browse Players</h2>
-            <p>.</p>
-            <p><a class="btn btn-secondary" href="{% url 'search:search_players' %}" role="button"><b>Browse</b></a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwCOxMLdOQCj2sBLDkUnc4Q3POWJIpsbov2NDeCvQm7E7RqMX7" alt="Generic placeholder image" width="140" height="140">
-            <h2>Are you new?</h2>
-            <p></p>
-            <p><a class="btn btn-secondary" href="{% url 'player_signup' %}" role="button"><b>SignUp</b></a></p>
-          </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
 
-      </div>
+
+              <div class="jumbotron">
+
+                  <h1 class="display-4"> Are you a cricketer ?</h1>
+
+                  <p class="lead">If Yes , then can create your account as a player and get opportunities to play in upcomming  tournaments</p>
+
+                  <hr class="my-4">
 
 
 
 
+                </div>
+
+
+
+
+             <div class="row">
+
+
+                  <div class="col-lg-4">
+
+                    <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNyUJ8ud9fkql7S2jgSw9P_QuUduiMw08vzwh5mUNwo3pscn2" alt="Generic placeholder image" width="140" height="140">
+                    <h2>Are you a member?</h2>
+                    <p></p>
+                    <p><a class="btn btn-secondary" href="{% url 'login' %}" role="button"> <b>LogIn </b>  </a></p>
+
+                  </div><!-- /.col-lg-4 -->
+
+                  <div class="col-lg-4">
+                      <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMt7E7phcE-1iO4Wda_FZku_lJuo1OighJozlouHDQuzLH0vdW" alt="Generic placeholder image" width="140" height="140">
+                    <h2>Browse Players</h2>
+                    <p>.</p>
+                    <p><a class="btn btn-secondary" href="{% url 'search:search_players' %}" role="button"><b>Browse</b></a></p>
+
+                  </div><!-- /.col-lg-4 -->
+
+                  <div class="col-lg-4">
+
+                    <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwCOxMLdOQCj2sBLDkUnc4Q3POWJIpsbov2NDeCvQm7E7RqMX7" alt="Generic placeholder image" width="140" height="140">
+                    <h2>Are you new?</h2>
+                    <p></p>
+                    <p><a class="btn btn-secondary" href="{% url 'player_signup' %}" role="button"><b>SignUp</b></a></p>
+
+                  </div><!-- /.col-lg-4 -->
+             </div><!-- /.row -->
+
+
+            </div>
+
+
+        </div>
+        <!-- Three columns of text below the carousel -->
+
+
+
+
+
+</main>
 
 
 {% endblock %}
