@@ -14,7 +14,21 @@ div.livematches{
     height: 300px;
     overflow: scroll;
 }
+
+
 div.livetournaments{
     height: 300px;
     overflow: scroll;
+}
+
+
+div.signup_form{
+
+}
+
+.header{
+
+    text-align: center;
+
+
 }
