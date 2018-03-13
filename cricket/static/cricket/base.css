@@ -9,3 +9,12 @@
     background-color: #2c3338;
      color: whitesmoke;
 }
+
+div.livematches{
+    height: 300px;
+    overflow: scroll;
+}
+div.livetournaments{
+    height: 300px;
+    overflow: scroll;
+}
