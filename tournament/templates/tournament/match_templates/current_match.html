@@ -269,10 +269,10 @@
                         <h5 class="card-header">Enter Overs Information</h5>
                         <div class="card-body">
                           <div class="row">
-                                 <form method="POST" action="#">
+                                 <form method="POST">
                                   {% csrf_token %}
-                                     <p><input type="text" class="form-control" name="over"  placeholder="Enter Overs"></p>
-                                     <p><button class="btn btn-secondary" type="submit" value="continue">Save</button></p>
+                                     <p><input type="text" class="form-control" name="overs"  placeholder="Enter Overs"></p>
+                                     <button type="submit" class="btn btn-secondary submit_buttons">Save</button>
                               </form>
                           </div>
                       </div>
