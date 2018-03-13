@@ -1,23 +1,14 @@
-
-
 {% extends 'search/base.html' %}
 
-{% block title %}Player | Details{% endblock %}
+{% block title %}Match{% endblock %}
 
 {% block body %}
 
     {% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
-<br><br>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-       <div class="container">
-
-      <br>  <p><h1>Match Details</h1></p>
-
-        <!-------------
-
+    <link  rel="stylesheet" type="text/css" href="{% static 'search/base.css' %}">
 
 {% if messages %}
+
 <br><br><br><br>
 
        {% for message in messages %}
@@ -114,12 +105,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>Mark</td>
+                  <td>{{ player.status }}</td>
                   <td>{{ player.batting_runs }}</td>
-                  <td>22</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -152,28 +143,18 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
+                  {% for player in team2_players %}
+              <tbody>
                 <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg}}</td>
+                  <td>0</td>
                 </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
+              </tbody>
+                            {% endfor %}
                 </tr>
               </tbody>
             </table>
@@ -210,12 +191,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>Mark</td>
+                  <td>{{ player.status }}</td>
                   <td>{{ player.batting_runs }}</td>
-                  <td>22</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -247,32 +228,18 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
+              {% for player in team1_players %}
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg }}</td>
+                  <td>0</td>
                 </tr>
               </tbody>
+                            {% endfor %}
             </table>
                  </div>
             </div>
@@ -299,9 +266,10 @@
 
                  <!-- Toss Widget -->
                       <div class="card my-4">
-                        <h5 class="card-header"> Toss Information</h5>
+                        <h5 class="card-header">Toss Information</h5>
                         <div class="card-body">
-                          describe toss info
+                          <div class="row">
+                          </div>
                       </div>
                       </div>
 
@@ -332,13 +300,4 @@
 
     <!-------------  -->
 
-
-
-        -->
-
-       </div>
-       </div>
-    </main>
-
 {% endblock %}
-

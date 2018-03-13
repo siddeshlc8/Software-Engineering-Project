@@ -1,19 +1,40 @@
 {% extends 'search/base.html' %}
 
-{% block title %}Team{% endblock %}
+
+{% block title %}ALL MATCHES{% endblock %}
 
 {% block body %}
-<br><br>
 
     {% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
+    <link  rel="stylesheet" type="text/css" href="{% static 'search/base.css' %}">
+    <br>
+    <br>
+    <br>
 
-      <p>Team Details:</p>
+     {% if messages %}
 
-     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+       {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+
+              <strong> {{ message }}  </strong>
+
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+              </button>
+
+        </div>
 
 
+       {% endfor %}
 
+
+    {% endif %}
+
+
+    <!--------------- -->
 
 <div class="container">
 
@@ -87,7 +108,7 @@
 
                                    <div class="col-md-4">
 
-                                       <a  href="#"><h5>{{ match.team_1 }} <b> vs </b>{{ match.team_2 }}</h5></a>
+                                       <a  href="{% url 'search:match_details' match.id %}"><h5>{{ match.team_1 }} <b> vs </b>{{ match.team_2 }}</h5></a>
 
                                       <h6><b> Overs :</b>{{ match.overs}}</h6>
 
@@ -135,7 +156,7 @@
 
                              <div class="col-md-4">
 
-                                  <a  href="#"><h5>{{match.team_1 }}<b> vs </b> {{ match.team_2 }}</h5></a>
+                                  <a  href="{% url 'search:match_details' match.id %}"><h5>{{match.team_1 }}<b> vs </b> {{ match.team_2 }}</h5></a>
 
                                   <h6><b> Overs :</b>{{ match.overs }}</h6>
 
@@ -181,7 +202,7 @@
 
                            <div class="col-md-4">
 
-                                   <a  href=" #"><h5>{{ match.team_1 }}<b> vs </b>{{ match.team_2 }}</h5></a>
+                                   <a  href="{% url 'search:match_details' match.id %}"><h5>{{ match.team_1 }}<b> vs </b>{{ match.team_2 }}</h5></a>
 
                                   <h6><b> Overs :</b>{{ match.overs}}</h6>
 
@@ -238,9 +259,9 @@
 
                   <!-- Side Widget -->
                       <div class="card my-4">
-                        <h5 class="card-header">  <a href="{% url 'tournament:create_schedule' tournament.id %}"><b>Create Round Robin Schedule</b></a></h5>
+                        <h5 class="card-header">  </h5>
                         <div class="card-body">
-                          create new Schedule by clinking the above link . <br>The new match will be Added to  your upcoming tournament section. IMPORTANT :- NO OF TEAMS SHOULD BE EVEN
+
                         </div>
                       </div>
 
@@ -253,11 +274,9 @@
       <!-- /.row -->
 
     </div>
-</div>
 
-    <!-- /.container -->
+    <!-------------  -->
 
-     </main>
 
 
 

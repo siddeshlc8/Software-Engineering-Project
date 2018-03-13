@@ -108,7 +108,7 @@
 
                 <div class="card-body">
 
-                  <p class="text-white m-0"> <a class="text-white m-0" href="#"><b> Matches </b></a></p>
+                  <p class="text-white m-0"> <a class="text-white m-0" href="{% url 'search:tournaments_matches' current_tournament.id %}"><b> Matches </b></a></p>
 
                 </div>
 
@@ -138,7 +138,7 @@
 
                      {% for team in teams %}
 
-                         <p> <a href="#"><h5>{{ team.name }}</h5></a></p>
+                         <p> <a href="{% url 'search:teams_details' team.id %}"><h5>{{ team.name }}</h5></a></p>
 
                      {% endfor %}
 

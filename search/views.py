@@ -3,6 +3,7 @@ from player.models import Player
 from tournament.models import Team, Tournament, Match
 from .filters import PlayerFilter, TournamentFilter, TeamFilter, OrganizerFilter
 from organizer.models import Organizer
+from performance.models import PerformanceMatchWise
 
 
 def nav_search_matches(request):
@@ -184,13 +185,13 @@ def tournaments_details(request, tournament_id):
     context = {'current_tournament': current_tournament, 'teams': teams}
     try:
         P = Player.objects.get(pk=request.user.id)
-        context = {'current_tournament': current_tournament, 'teams': teams, 'P': P}
+        context.update({'current_tournament': current_tournament, 'teams': teams, 'P': P})
     except Exception:
         try:
             o = Organizer.objects.get(pk=request.user.id)
             context = {'current_tournament': current_tournament, 'teams': teams, 'O': o}
         except Exception:
-            context = {'current_tournament': current_tournament, 'teams': teams, 'O': None}
+            context.update({'current_tournament': current_tournament, 'teams': teams, 'O': None})
     return render(request, 'search/tournaments_details.html', context)
 
 
@@ -220,9 +221,18 @@ def match_details(request, match_id):
             context = {'match': match, 'O': o}
         except Exception:
             context = {'match': match, 'O': None}
-    return render(request, 'search/match_details.html', context)
-
-
+    match = Match.objects.get(id=match_id)
+    tournament = Tournament.objects.get(id=match.tournament.id)
+    team1 = match.team_1
+    team2 = match.team_2
+    batting_team = team1
+    bowling_team = team2
+    team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match)
+    team2_players = PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match)
+    context.update({'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
+                   'bowling_team': bowling_team, 'team1_players': team1_players,
+                   'team2_players': team2_players})
+    return render(request, 'search/match_details.html',context)
 
 
 def tournaments_matches(request, tournament_id):
@@ -239,7 +249,7 @@ def tournaments_matches(request, tournament_id):
             context = {'tournament':tournament,'matches':al_matches, 'O': o}
         except Exception:
             context = {'tournament':tournament,'matches':al_matches, 'O': None}
-    return render(request, 'search/match_details.html', context)
+    return render(request, 'search/tournament_matches.html', context)
 
 
 
