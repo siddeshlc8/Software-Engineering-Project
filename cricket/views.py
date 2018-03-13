@@ -15,7 +15,7 @@ def organizers_page(request):
 
 
 def home_page(request):
-    return render(request, 'cricket/home_page.html')
+    return render(request, 'cricket/home.html')
 
 
 def players_page(request):
