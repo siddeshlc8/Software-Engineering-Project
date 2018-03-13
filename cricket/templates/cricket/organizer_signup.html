@@ -16,22 +16,28 @@
 
         {% endif %}
 
-     <br> <p>
+      <p>
          <form  method="post">
 
          {% csrf_token %}
 
-            <div class="container">
+            <div class=" signup_form card my-1">
+              <div class="card-header header">
 
-             <div class="row">
+                  <b>Signupform</b>
+              </div>
+                <div class="my-4"></div>
 
+
+             <div class="row ">
+                 <div class="col-md-1"></div>
                  <div class="col-md-4">
-                     {{ form.first_name.label }}  {{ form.first_name }}
+                    First Name :  {{ form.first_name }}
 
                  </div>
 
                  <div class="col-md-4">
-                     {{ form.last_name.label }}  {{ form.last_name }}
+                     Last Name :  {{ form.last_name }}
 
                  </div>
 
@@ -42,21 +48,21 @@
 
                 </div>
                 <div class="row">
+                     <div class="col-md-1">
+
+                     </div>
 
                      <div class="col-md-4">
-                     {{ form.nationality.label }}  {{ form.nationality }}
+                     Nationality :  {{ form.nationality }}
 
-                 </div>
-
-                 <div class="col-md-4">
-                     {{ form.state.label}}  {{ form.state}}
-
-                 </div>
+                     </div>
 
                      <div class="col-md-4">
-                     {{ form.phone_no.label}}  {{ form.phone_no}}
+                         State :  {{ form.state}}
 
-                 </div>
+                     </div>
+
+
 
                 </div>
 
@@ -64,57 +70,72 @@
 
                  <div class="row my-4">
 
-                </div>
+                 </div>
                 <div class="row">
+
+                    <div class="col-md-1">
+
+                    </div>
 
                     <div class="col-md-4">
 
-                        {{ form.username.label }}{{ form.username }}
+                        Username &nbsp:  {{ form.username }}
 
 
                     </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-3">
 
-                        {{ form.email.label }}  {{ form.email }}
-                    </div>
+                       Email:  {{ form.email }}
+
+                     </div>
+
+                      <div class="col-md-3">
+                     {{ form.phone_no.label}} {{ form.phone_no}}
+
+                      </div>
 
 
                 </div>
                 <div class="row my-4">
 
                 </div>
+
+
                 <div class="row">
 
-                     <div class="col-md-9">
-                     {{ form.password1.label }}  {{ form.password1}}
+                     <div class="col-md-1">
+
+                     </div>
+
+                     <div class="col-md-4">
+
+                     Password &nbsp :   {{ form.password1}}
+
+                     </div>
+
+                     <div class="col-md-4">
+                     {{ form.password2.label }} {{ form.password2}}
 
                      </div>
 
                 </div>
-                <div class="row my-4">
 
-                </div>
-                <div class="row">
 
-                 <div class="col-md-9">
-                     {{ form.password2.label }}  {{ form.password2}}
+                     <div class="row my-4">
 
-                 </div>
-
-                </div>
-                 <div class="row my-5">
-
-                </div>
+                    </div>
 
                 </div>
 
 
 
 
+         <div class="container col-md-1">
 
+         <input type="submit" class="btn btn-lg submit_buttons" style=" {justify-content: center}" value="SignUp" >
 
-         <input type="submit" class="btn btn-lg submit_buttons" value="SignUp" >
+         </div>
 
          </form>
 

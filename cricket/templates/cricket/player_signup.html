@@ -19,65 +19,90 @@
 
          {% csrf_token %}
 
-             <div class="container">
+             <div class="card my-2">
 
-             <div class="row">
+                 <div class="card-header header">
 
-                 <div class="col-md-4">
-                     {{ form.first_name.label }}  {{ form.first_name }}
-
+                     SIGN UP FORM
                  </div>
 
-                 <div class="col-md-4">
-                     {{ form.last_name.label }}  {{ form.last_name }}
+             <div class="card-body">
+                  <div class="row my-2">
 
-                 </div>
+                  </div>
+                  <div class="row">
 
+                      <div class="col-md-1">
 
+                      </div>
 
-             </div>
+                     <div class="col-md-4">
+                         {{ form.first_name.label }} &nbsp &nbsp &nbsp: {{ form.first_name }}
 
-                  <div class="row my-4">
+                     </div>
 
-                </div>
-                 <div class="row">
+                     <div class="col-md-4">
+                         {{ form.last_name.label }} : {{ form.last_name }}
 
-                       <div class="col-md-4">
-                     {{ form.dob.label }}  {{ form.dob }}
-
-                 </div>
-
-                 <div class="col-md-4">
-                     {{ form.phone_no.label }}  {{ form.phone_no }}
-
-                 </div>
+                     </div>
 
 
-                 <div class="col-md-4">
-                     {{ form.player_type.label}}  {{ form.player_type }}
 
-                 </div>
+                  </div>
 
-                 </div>
-                <div class="row my-4">
+                      <div class="row my-4">
 
-                </div>
+                      </div>
+
+                     <div class="row">
+
+                         <div class="col-md-1">
+
+                      </div>
+
+                           <div class="col-md-4">
+                         {{ form.dob.label }} &nbsp:  {{ form.dob }}
+
+                     </div>
+
+                     <div class="col-md-4">
+                         {{ form.phone_no.label }} : {{ form.phone_no }}
+
+                     </div>
+
+
+                     <div class="col-md-3">
+                         {{ form.player_type.label}}  {{ form.player_type }}
+
+                     </div>
+
+                   </div>
+
+                    <div class="row my-4">
+
+                    </div>
+
                 <div class="row">
 
-                     <div class="col-md-4">
-                     {{ form.nationality.label }}  {{ form.nationality }}
 
-                 </div>
+                    <div class="col-md-1">
 
-                 <div class="col-md-4">
-                     {{ form.state.label}}  {{ form.state}}
-
-                 </div>
+                      </div>
 
                      <div class="col-md-4">
-                     {{ form.district.label}}  {{ form.district}}
+                     {{ form.nationality.label }} &nbsp  &nbsp: {{ form.nationality }}
 
-                 </div>
+                      </div>
+
+                     <div class="col-md-3">
+                         {{ form.state.label}} : {{ form.state}}
+
+                     </div>
+
+                     <div class="col-md-4">
+                      {{ form.district.label}} : {{ form.district}}
+
+                     </div>
 
                 </div>
 
@@ -85,56 +110,77 @@
 
                  <div class="row my-4">
 
-                </div>
+                 </div>
+
+
                 <div class="row">
+
+                    <div class="col-md-1">
+
+                      </div>
 
                     <div class="col-md-4">
 
-                        {{ form.username.label }}{{ form.username }}
+                        {{ form.username.label }} &nbsp &nbsp : {{ form.username }}
 
 
                     </div>
 
                      <div class="col-md-4">
 
-                        {{ form.email.label }}  {{ form.email }}
-                    </div>
-
-
-                </div>
-                <div class="row my-4">
-
-                </div>
-                <div class="row">
-
-                     <div class="col-md-9">
-                     {{ form.password1.label }}  {{ form.password1}}
+                        Email : {{ form.email }}
 
                      </div>
 
+
                 </div>
+
                 <div class="row my-4">
 
                 </div>
+
                 <div class="row">
 
-                 <div class="col-md-9">
+                    <div class="col-md-1">
+
+                      </div>
+
+
+                     <div class="col-md-4">
+                     {{ form.password1.label }} &nbsp &nbsp : {{ form.password1}}
+
+                     </div>
+
+                     <div class="col-md-5">
                      {{ form.password2.label }}  {{ form.password2}}
 
                  </div>
-
-                </div>
-                 <div class="row my-5">
-
                 </div>
 
+
+                <div class="row my-4">
+
                 </div>
 
-   <input type="submit" class="btn btn-lg submit_buttons" value="SignUp" >
 
+
+
+
+                </div>
+             </div>
+
+             <div class="container col-md-1">
+
+           <input type="submit" class="btn btn-lg submit_buttons" value="SignUp" >
+
+             </div>
          </form>
 
        </div>
+
+
+             </div>
+
 
   {% endblock %}
 
