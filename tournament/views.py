@@ -377,22 +377,25 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                         performance = PerformanceTotal()
                         performance.player = bowler
                         performance.save()
-                    p = PerformanceMatchWise()
-                    p.save()
+                    q = PerformanceMatchWise()
+                    q.save()
                 else:
-                    p = find
-                p.player = bowler
-                p.match = match
-                p.tournament = tournament
-                p.team = bowling_team
+                    q = find
+                q.player = bowler
+                q.match = match
+                q.tournament = tournament
+                q.team = bowling_team
                 a = p.bowling_runs
                 b = a + run
-                p.bowling_runs = b
+                q.bowling_runs = b
                 if is_wicket:
-                    p.wickets += 1
-                if p.wickets:
-                    p.bowling_avg = (p.bowling_runs/p.wickets)
-                p.save()
+                    q.wickets += 1
+                    p.out = True
+                    p.out_type = wicket_type
+                    p.save()
+                if q.wickets:
+                    q.bowling_avg = (p.bowling_runs/p.wickets)
+                q.save()
                 form = ScoreUpdateForm(batting_team, bowling_team)
                 context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team,
                            'innings': innings}
@@ -408,28 +411,36 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
 
 
 def start_match(request, match_id):
-    match = Match.objects.get(id=match_id)
-    team1 = match.team_1
-    team2 = match.team_2
-    batting_team = team1
-    bowling_team = team2
-    tournament = Tournament.objects.get(pk=match.tournament.id)
-    match.match_status = 1
-    match.save()
-    form = TossForm(match)
-    team1_players = PerformanceMatchWise.objects.filter(team=batting_team)
-    team2_players = PerformanceMatchWise.objects.filter(team=bowling_team)
-    return render(request, 'tournament/match_templates/current_match.html',
-                  {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
-                   'bowling_team': bowling_team, 'form': form, 'team1_players': team1_players,
-                   'team2_players': team2_players})
+    try:
+        match = Match.objects.get(id=match_id)
+        team1 = match.team_1
+        team2 = match.team_2
+        batting_team = team1
+        bowling_team = team2
+        tournament = Tournament.objects.get(pk=match.tournament.id)
+        match.match_status = 1
+        match.save()
+        form = TossForm(match)
+        team1_players = PerformanceMatchWise.objects.filter(team=batting_team)
+        team2_players = PerformanceMatchWise.objects.filter(team=bowling_team)
+        return render(request, 'tournament/match_templates/current_match.html',
+                      {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
+                       'bowling_team': bowling_team, 'form': form, 'team1_players': team1_players,
+                       'team2_players': team2_players})
+    except Exception:
+        return redirect('login')
 
 
 def start_tournament(request, tournament_id):
-    current_tournament = Tournament.objects.get(pk=tournament_id)
-    teams = current_tournament.team_set.all()
-    current_tournament.tournament_status = 1
-    current_tournament.save()
-    context = {'current_tournament': current_tournament, 'teams': teams}
-    return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
+    try:
+        o = Organizer.objects.get(id=request.user.id)
+        current_tournament = Tournament.objects.get(pk=tournament_id)
+        teams = current_tournament.team_set.all()
+        current_tournament.tournament_status = 1
+        current_tournament.save()
+        context = {'current_tournament': current_tournament, 'teams': teams}
+        return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
+    except Exception:
+        return redirect('login')
+
 
