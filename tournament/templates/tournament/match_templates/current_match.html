@@ -264,6 +264,21 @@
 
             <div class="sticky-top" >
 
+            <!-- Over Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">Enter Overs Information</h5>
+                        <div class="card-body">
+                          <div class="row">
+                                 <form method="POST">
+                                  {% csrf_token %}
+                                     <p><input type="text" class="form-control" name="overs"  placeholder="Enter Overs"></p>
+                                     <button type="submit" class="btn btn-secondary submit_buttons">Save</button>
+                              </form>
+                          </div>
+                      </div>
+                      </div>
+
+
                  <!-- Toss Widget -->
                       <div class="card my-4">
                         <h5 class="card-header">Enter Toss Information</h5>

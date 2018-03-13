@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{frameworks-ea8cfb713b12, fusioncharts, fusioncharts.theme.fint, github-4ac5048db1ab}" />
+    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, holder, jquery-3.2.1.slim, popper}" />
   </component>
 </project>
