@@ -1,9 +1,65 @@
-{% extends 'cricket/base.html' %}
 
-{% block title %}SignUP{% endblock %}
 
-  {% block body %}
-       <div class="container">
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Player | SignUp</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+      {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'cricket/login.css' %}">
+  </head>
+
+  <body class="text-center">
+
+  <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+              // Store hash
+              var hash = this.hash;
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Cricky</h3>
+          <nav class="nav nav-masthead justify-content-center" >
+            <a class="nav-link"  href="{% url 'home_page' %} "><h5 style="color: #5cb85c">Home</h5></a>
+            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #5cb85c">Player</h5></a>
+            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #5cb85c">Organizer</h5></a>
+            <a class="nav-link" href="{% url 'live' %}"><h5 style="color: #5cb85c">Live Scores</h5></a>
+            <a class="nav-link" href="#"><h5 style="color: #5cb85c">Contact</h5></a>
+          </nav>
+        </div>
+      </header>
+<div>
+
      <br>   {% if errors %}
 
             {% for error in errors %}
@@ -15,6 +71,11 @@
         {% endif %}
 
      <br> <p>
+
+          <div class="card  my-4" style="width:700px">
+
+            <h5 class="card-header text-dark">SignUp Form</h5>
+            <div class="card-body text-dark"></div>
          <form method="post">
 
          {% csrf_token %}
@@ -23,12 +84,12 @@
 
              <div class="row">
 
-                 <div class="col-md-4">
+                 <div class="col-md-4 text-dark">
                      {{ form.first_name.label }}  {{ form.first_name }}
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-4 text-dark">
                      {{ form.last_name.label }}  {{ form.last_name }}
 
                  </div>
@@ -42,83 +103,76 @@
                 </div>
                  <div class="row">
 
-                       <div class="col-md-4">
+                       <div class="col-md-4 text-dark">
                      {{ form.dob.label }}  {{ form.dob }}
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-4 text-dark">
                      {{ form.phone_no.label }}  {{ form.phone_no }}
 
                  </div>
 
 
-                 <div class="col-md-4">
-                     {{ form.player_type.label}}  {{ form.player_type }}
+                 <div class="col-md-4 text-dark">
+                     {{ form.player_type.label}}<br>  {{ form.player_type }}
 
                  </div>
 
                  </div>
-                <div class="row my-4">
+                <div class="row my-4 text-dark">
 
                 </div>
                 <div class="row">
 
-                     <div class="col-md-4">
+                     <div class="col-md-4 text-dark">
                      {{ form.nationality.label }}  {{ form.nationality }}
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-4 text-dark">
                      {{ form.state.label}}  {{ form.state}}
 
                  </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-4 text-dark">
                      {{ form.district.label}}  {{ form.district}}
 
                  </div>
 
                 </div>
 
-
-
                  <div class="row my-4">
 
                 </div>
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-dark">
 
                         {{ form.username.label }}{{ form.username }}
 
 
                     </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-4 text-dark">
 
                         {{ form.email.label }}  {{ form.email }}
                     </div>
 
 
                 </div>
-                <div class="row my-4">
+                <div class="row my-4 text-dark">
 
                 </div>
                 <div class="row">
 
-                     <div class="col-md-9">
+                     <div class="col-md-4 text-dark">
                      {{ form.password1.label }}  {{ form.password1}}
 
                      </div>
 
-                </div>
-                <div class="row my-4">
 
-                </div>
-                <div class="row">
-
-                 <div class="col-md-9">
+                 <div class="col-md-4 text-dark">
                      {{ form.password2.label }}  {{ form.password2}}
 
                  </div>
@@ -130,11 +184,33 @@
 
                 </div>
 
-   <input type="submit" class="btn btn-lg submit_buttons" value="SignUp" >
+   <input type="submit" class="btn btn-lg submit_buttons text-dark" value="SignUp" >
 
          </form>
 
        </div>
+    </div>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+        </div>
 
-  {% endblock %}
+      </footer>
+    </div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+  </body>
+
+
+</html>
+
+
+
 
