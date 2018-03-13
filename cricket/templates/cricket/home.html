@@ -40,7 +40,7 @@
           });
         });
     </script>
-
+ <div class="container" style="width: 900px">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto" style="color: #5cb85c">
         <div class="inner" >
@@ -59,7 +59,9 @@
         <h1 class="cover-heading" style="color: black" >Cricky.com</h1>
         <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
         <p class="lead">
-          <a href="#more" class="btn btn-lg btn-secondary">Learn more</a>
+          <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control" style="width: 650px; color: black; type = "text" name="q" placeholder="Search  for matches, teams....." aria-label="Search">
+                </form>
         </p>
       </main>
       <footer class="mastfoot mt-auto">
@@ -69,6 +71,7 @@
       </footer>
 
 
+  <!---
       <div id="more" class="container" style="width: 700px">
         <div class="cover-container1 d-flex h-100 w-100 p-3 mx-auto flex-column" >
       <header class="masthead mb-auto" style="width: 700px; margin-left: 400px">
@@ -118,6 +121,7 @@
 
     </div>
       </div>
+      -->
     </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
