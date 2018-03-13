@@ -30,5 +30,6 @@ urlpatterns = [
     path('player/', include('player.urls'), name='player'),
     path('organizer/',include('organizer.urls'),name='organizer'),
     path('', views.home_page, name='home_page'),
+    path('live/', views.live ,name='live'),
     path('tournament/', include('tournament.urls'), name='tournament'),
 ]

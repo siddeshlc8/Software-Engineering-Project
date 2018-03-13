@@ -6,6 +6,7 @@ from player.models import Player
 from django.shortcuts import render, redirect
 from organizer.form import OrganizerSignupForm
 from organizer.models import Organizer
+from tournament.models import Tournament ,Match
 
 
 def organizers_page(request):
@@ -77,5 +78,8 @@ def signout(request):
 
     return redirect('login')
 
-
+def live(request):
+    match =Match.objects.filter(match_status=1)
+    tournament=Tournament.objects.filter(tournament_status=1)
+    return  render(request,'cricket/live.html',{'matches':match,'tournaments':tournament})
 

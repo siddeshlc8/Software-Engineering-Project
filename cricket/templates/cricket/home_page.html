@@ -18,7 +18,7 @@
 
     <main role="main">
 
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div id="myCarousel" class="carousel slide " data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -62,11 +62,56 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+
     </main>
 
 
 </body>
 
+  <div class="jumbotron my-5 login-jumbotron">
+
+      <h1 class="display-4"> </h1>
+
+
+      <div class="row">
+          <div class="col-md-4">
+
+                  <p class="lead">
+                      Cricky provides completly free feauture to organizer your tournaments
+                      and keep track of your tournament history
+                  </p>
+
+                <a class="btn submit_buttons  btn-lg" href="{% url 'organizers_page'  %}">Organizer</a>
+      </div>
+
+
+      <div class="col-md-4">
+
+                   <p class="lead">
+                      Cricky provides  great opportunity to players to create a acoount  and showcase thier performance to all other users
+
+                  </p>
+
+                <a class="btn submit_buttons  btn-lg" href="{% url 'players_page'  %}">Player</a>
+      </div>
+
+      <div class="col-md-4">
+
+          <p class="lead">
+              You can view the live matches and tournaments
+          </p>
+
+          <a class="btn submit_buttons btn-lg" href="#">Live</a>
+       </div>
+
+      </div>
+
+
+
+
+
+
+  </div>
 
 
 
@@ -86,8 +131,11 @@
     <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
     <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="https://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
-{% load staticfiles %}
+ <script src="https://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
+
+
+ {% load staticfiles %}
+
  <link  rel="stylesheet" type="text/css" href="{% static 'cricket/base.css' %}">
 <link  rel="stylesheet" type="text/css" href="{% static 'cricket/login.css' %}">
 
