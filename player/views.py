@@ -102,7 +102,7 @@ def my_tournaments(request):
 def my_matches(request):
     try:
         player = Player.objects.get(pk=request.user.id)
-        return render(request, 'player/performance_matches.html.html')
+        return render(request, 'player/my_matches.html')
     except Exception:
         return redirect('login')
 

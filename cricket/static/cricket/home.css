@@ -28,7 +28,19 @@ html,
 body {
   height: 100%;
   background-color: #545454;
+    background-image: url("https://qph.fs.quoracdn.net/main-qimg-4190cf78b97254a1c0bed6d6380dbc63");
+
+
+    /* Center and scale the image nicely */
+
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+.bg {
+   height: 10%;
+}
+
 
 body {
   display: -ms-flexbox;
