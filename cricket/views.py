@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from organizer.form import OrganizerSignupForm
 from organizer.models import Organizer
 from tournament.models import Tournament ,Match
+from performance.models import PerformanceTotal
 
 
 def organizers_page(request):
@@ -53,14 +54,26 @@ def player_signup(request):
         form = PlayerSignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'cricket/login.html')
+            username = request.POST['username']
+            password = request.POST['password1']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                player = request.user.id
+                player = Player.objects.get(id=player)
+                performance = PerformanceTotal()
+                performance.player = player
+                performance.save()
+                return redirect('player:player_home')
+            else:
+                return redirect('player_signup')
     else:
         form = PlayerSignUpForm()
     return render(request, 'cricket/player_signup.html', {'form': form})
 
 
 def organizer_signup(request):
-    if request.method=='POST':
+    if request.method =='POST':
         form=OrganizerSignupForm(request.POST)
         if form.is_valid():
             form.save()

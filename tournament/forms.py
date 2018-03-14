@@ -1,6 +1,7 @@
 from django import forms
 from .models import Team, Tournament, Match, Score
 from player.models import Player
+from performance.models import PerformanceMatchWise
 
 
 
@@ -59,60 +60,21 @@ class MatchCreationForm(forms.ModelForm):
             'overs'
         ]
 
-class ScoreForm(forms.ModelForm):
-
-    def __init__(self, tournament, match, batting, bowling,*args, **kwargs):
-        super(ScoreForm, self).__init__(*args, **kwargs)
-        self.fields['batting_team'] = forms.ChoiceField(
-            choices=[(match.team_1.id, str(match.team_1)), (match.team_2.id, str(match.team_2))]
-        )
-        self.fields['bowling_team'] = forms.ChoiceField(
-            choices=[(match.team_2.id, str(match.team_2)), (match.team_1.id, str(match.team_1))]
-        )
-        self.fields['bowler'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in Team.objects.get(id=bowling.id).players.all()]
-        )
-        self.fields['batsman'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in Team.objects.get(id=batting.id).players.all()]
-        )
-
-    class Meta:
-        model = Score
-        fields = [
-
-            'innings',
-            'batting_team',
-            'bowling_team' ,
-            'ball_number' ,
-            'over_number',
-            'batsman',
-            'bowler',
-            'run',
-            'extra_type',
-            'extra_run',
-            'is_wicket',
-            'wicket_type'
-        ]
-
-
-
-class Submit_match_form(forms.Form):
-     team1 = forms.CharField(label='team1 name', max_length=100)
-     team2 = forms.CharField(label='team2 name', max_length=100)
-
-
-class Submit_tournament_form(forms.Form):
-    tournament_name = forms.CharField(label='tournament name', max_length=100)
-
 
 class ScoreUpdateForm(forms.Form):
-    def __init__(self, batting, bowling, *args, **kwargs):
+    def __init__(self, batting, bowling, match,*args, **kwargs):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
         self.fields['bowler'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in Team.objects.get(id=bowling.id).players.all()]
+            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
+                match=match).filter(team=bowling).filter(out=False)]
         )
         self.fields['batsman'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in Team.objects.get(id=batting.id).players.all()]
+            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
+                match=match).filter(team=batting).filter(out=False)]
+        )
+        self.fields['out_batsman'] = forms.ChoiceField(
+            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
+                match=match).filter(team=batting).filter(out=False)]
         )
         self.fields['extra_type'] = forms.ChoiceField(
             choices=[
@@ -141,6 +103,12 @@ class ScoreUpdateForm(forms.Form):
     extra_run = forms.IntegerField(required=False)
     is_wicket = forms.BooleanField(required=False)
     wicket_type = forms.CharField(max_length=11, required=False)
+    six = forms.BooleanField(required=False)
+    four = forms.BooleanField(required=False)
+    out_batsman = forms.CharField(max_length=11)
+    commentary = forms.CharField(widget=forms.Textarea(attrs={'cols': '70', 'rows': '3'}))
+    is_extra = forms.BooleanField(required=False)
+
 
 
 class TossForm(forms.Form):

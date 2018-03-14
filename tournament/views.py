@@ -2,13 +2,14 @@ from django.db.models import Max
 from django.shortcuts import render, redirect
 
 from search.filters import PlayerFilter
-from .models import Team, Tournament, Match, ScoreCard
+from .models import Team, Tournament, Match, ScoreCard, Score
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreForm, Submit_match_form, Submit_tournament_form, ScoreUpdateForm, TossForm
+from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreUpdateForm, TossForm
 from django.contrib import messages
 from organizer.models import Organizer
 from .utils import rr_schedule
 from performance.models import PerformanceMatchWise, PerformanceTotal
+import itertools
 
 
 def create_tournament(request):
@@ -154,6 +155,10 @@ def match(request, tournament_id,match_id):
     team2 = match.team_2
     batting_team = team1
     bowling_team = team2
+    commentary_first_innings = Score.objects.filter(match=match).filter(innings='First').order_by(
+        'over_number')
+    commentary_second_innings = Score.objects.filter(match=match).filter(innings='Second').order_by(
+        'over_number')
     overs = request.POST.get('overs', False)
     if request.method == 'POST' and overs != 0:
         match.overs = overs
@@ -195,14 +200,16 @@ def match(request, tournament_id,match_id):
             match.save()
             form = TossForm(match)
             return render(request, 'tournament/match_templates/current_match.html',
-                      {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
-                       'bowling_team': bowling_team, 'form': form})
+                      {'all_scores': None, 'match': match, 'tournament': tournament,
+                       'batting_team': batting_team, 'bowling_team': bowling_team, 'form': form})
     else:
         form = TossForm(match)
-        score_card = ScoreCard.objects.filter(match=match).first()
         team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match)
-        team2_players =  PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match)
-        context = {'all_scores':None,'match':match,'tournament':tournament,'batting_team':batting_team,'bowling_team':bowling_team, 'form': form, 'team1_players': team1_players, 'team2_players': team2_players}
+        team2_players = PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match)
+        context = {'all_scores':None,'match':match,'tournament':tournament,'batting_team':batting_team,
+                   'bowling_team':bowling_team, 'form': form, 'team1_players': team1_players,
+                   'team2_players': team2_players, 'commentary_first_innings': commentary_first_innings,
+                   'commentary_second_innings': commentary_second_innings}
         return render(request,'tournament/match_templates/current_match.html',context)
 
 
@@ -342,6 +349,15 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         match.overs = 4
         match.name = match
         match.save()
+        team1_players = team_1.players.all()
+        team2_players = team_2.players.all()
+        for player in itertools.chain(team1_players, team2_players):
+            performance = PerformanceMatchWise()
+            performance.player = player
+            performance.match = match
+            performance.tournament = tournament
+            performance.save()
+
 
 
 def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_id, innings):
@@ -359,7 +375,7 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
         else:
             innings = 'Second'
         if request.method == 'POST':
-            form = ScoreUpdateForm(batting_team, bowling_team, request.POST)
+            form = ScoreUpdateForm(batting_team, bowling_team, match, request.POST)
             if form.is_valid():
                 ball_number = form.cleaned_data['ball_number']
                 over_number = form.cleaned_data['over_number']
@@ -369,34 +385,26 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                 extra_type = form.cleaned_data['extra_type']
                 extra_run = form.cleaned_data['extra_run']
                 is_wicket = form.cleaned_data['is_wicket']
+                is_extra = form.cleaned_data['is_extra']
                 wicket_type = form.cleaned_data['wicket_type']
+                commentary = form.cleaned_data['commentary']
+                four = form.cleaned_data['four']
+                six = form.cleaned_data['six']
+                out_batsman = form.cleaned_data['out_batsman']
 
                 batsman = Player.objects.get(id=batsman)
-                find = PerformanceMatchWise.objects.filter(player=batsman).filter(match=match).first()
-                if find is None:
-                    find = PerformanceTotal.objects.filter(player=batsman).first()
-                    if find is None:
-                        performance = PerformanceTotal()
-                        performance.player = batsman
-                        performance.save()
-                    p = PerformanceMatchWise()
-                    p.save()
-                else:
-                    p = find
-                a = p.batting_runs
-                b = a + run
-                p.batting_runs = b
+                p = PerformanceMatchWise.objects.filter(match=match).filter(player=batsman).first()
+                print(p)
+                p.batting_runs += run
+                p.played = True
                 match.team_1_score += run
-                p.match = match
-                p.tournament = tournament
                 p.team = batting_team
-                p.player = batsman
-                p.batting_balls += 1
-                p.save()
+                if not is_extra:
+                    p.batting_balls += 1
                 p.strike_rate = (p.batting_runs/p.batting_balls)*100
-                if run == 6:
+                if six:
                     p.sixes += 1
-                if run == 4:
+                if four:
                     p.fours += 1
                 p.status = 'batting'
                 if is_wicket:
@@ -404,42 +412,50 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     match.team_1_wickets += 1
                 p.save()
 
-
                 bowler = Player.objects.get(id=bowler)
-                find = PerformanceMatchWise.objects.filter(player=bowler).filter(match=match).first()
-                if find is None:
-                    find = PerformanceTotal.objects.filter(player=bowler).first()
-                    if find is None:
-                        performance = PerformanceTotal()
-                        performance.player = bowler
-                        performance.save()
-                    q = PerformanceMatchWise()
-                    q.save()
-                else:
-                    q = find
-                q.player = bowler
-                q.match = match
-                q.tournament = tournament
+                q = PerformanceMatchWise.objects.filter(match=match).filter(player=bowler).first()
+                print(q)
+                q.played = True
                 q.team = bowling_team
-                a = p.bowling_runs
-                b = a + run
-                q.bowling_runs = b
+                if ball_number >= 6:
+                    q.bowling_overs += 1
+                q.bowling_runs += run
+                if extra_run:
+                    q.bowling_runs += extra_run
                 if is_wicket:
                     q.wickets += 1
+                    out_batsman = Player.objects.get(id=out_batsman)
+                    p = PerformanceMatchWise.objects.filter(match=match).filter(player=out_batsman).first()
                     p.out = True
                     p.out_type = wicket_type
                     p.save()
+                    q.wickets_players.add(out_batsman)
                 if q.wickets:
-                    q.bowling_avg = (p.bowling_runs/p.wickets)
+                    q.bowling_avg = (q.bowling_runs/q.wickets)
                 q.save()
-                form = ScoreUpdateForm(batting_team, bowling_team)
-                context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team,
+
+                score = Score()
+                score.match = match
+                score.innings = innings
+                score.over_number = over_number
+                score.ball_number = ball_number
+                score.batsman = batsman
+                score.bowler = bowler
+                score.description = commentary
+                score.batting_team = batting_team
+                score.bowling_team = bowling_team
+                score.save()
+
+                form = ScoreUpdateForm(batting_team, bowling_team, match)
+                context = {'form': form, 'match': match, 'batting_team': batting_team,
+                           'bowling_team': bowling_team,
                            'innings': innings}
                 return render(request, 'tournament/score_templates/enter_score.html', context)
 
         else:
-            form = ScoreUpdateForm(batting_team, bowling_team)
-            context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team, 'innings': innings}
+            form = ScoreUpdateForm(batting_team, bowling_team, match)
+            context = {'form': form, 'match': match, 'batting_team': batting_team,
+                       'bowling_team': bowling_team, 'innings': innings}
             return render(request, 'tournament/score_templates/enter_score.html', context)
     else:
         messages.success(request, 'Please fill toss information first')

@@ -41,10 +41,14 @@ class PerformanceMatchWise(models.Model):
     batting_balls = models.BigIntegerField(default=0)
     bowling_overs = models.BigIntegerField(default=0)
     wickets = models.BigIntegerField(default=0)
+    wickets_players = models.ManyToManyField(Player, related_name='wicket_players')
     bowling_avg = models.FloatField(default=0)
     economy = models.FloatField(default=0)
     status = models.CharField(max_length=20)
     out = models.BooleanField(default=False)
     out_type = models.CharField(max_length=20)
     played = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.match.name + '-' + self.player.get_full_name()
 

@@ -134,6 +134,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -147,6 +148,7 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
                   <td>{{ player.wickets }}</td>
@@ -221,6 +223,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -232,6 +235,7 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
                   <td>{{ player.wickets }}</td>
@@ -249,6 +253,22 @@
              <div id="commentary">
                  <hr>
              <h2 class="my-4">Commentary</h2>
+
+                 <h2>First Innings</h2>
+
+                 {% for commentary in commentary_first_innings %}
+
+                 <p><h4>{{ commentary }}</h4></p>
+
+                 {% endfor %}
+
+                 <h2>Second Innings</h2>
+
+                 {% for commentary in commentary_second_innings %}
+
+                 <p><h4>{{ commentary }}</h4></p>
+
+                 {% endfor %}
 
                  <hr>
              </div>

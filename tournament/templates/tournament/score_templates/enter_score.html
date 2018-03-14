@@ -31,12 +31,10 @@
                    <form  name="score_form" method="POST">
 
                        {% csrf_token %}
-                         <div class="card h-75">
+                         <div class="card h-80">
                         <h5 class="card-header">SCORE</h5>
                         <div class="card-body">
                           <div class="row">
-
-
 
                                <div class="col-sm-5">
                                   {{ form.over_number.label }} {{ form.over_number }}
@@ -69,30 +67,54 @@
 
                                </div>
 
-                               <div class="col-sm-12">
+                               <div class="col-sm-4">
                                    {{ form.run.label }}  {{ form.run }}
+                              </div>
+
+                              <div class="col-sm-4">
+                                   {{ form.six.label }}  {{ form.six }}
+                              </div>
+
+                              <div class="col-sm-4">
+                                   {{ form.four.label }}  {{ form.four }}
                               </div>
 
                               <div class="col-lg-12 my-3" style="{height: 60px;}">
 
                                </div>
 
-                               <div class="col-sm-5">
+                              <div class="col-sm-3">
+                                    {{ form.is_extra.label }}   {{ form.is_extra }}
+                              </div>
+
+                               <div class="col-sm-4">
                                     {{ form.extra_type.label }}   {{ form.extra_type }}
                               </div>
 
-                               <div class="col-sm-7">
+                               <div class="col-sm-5">
                                     {{ form.extra_run.label }}  {{ form.extra_run }}
                               </div>
                                  <div class="col-lg-12 my-3" style="{height: 60px;}">
 
                                </div>
-                              <div class="col-sm-5">
+                              <div class="col-sm-3">
                                     {{ form.is_wicket.label }}  {{ form.is_wicket }}
                               </div>
 
-                              <div class="col-sm-7">
+                              <div class="col-sm-4">
+                                    {{ form.out_batsman.label }}  {{ form.out_batsman }}
+                              </div>
+
+                              <div class="col-sm-5">
                                    {{ form.wicket_type.label }}   {{ form.wicket_type }}
+                              </div>
+
+                              <div class="col-lg-12 my-3" style="{height: 60px;}">
+
+                               </div>
+
+                              <div class="col-sm-5">
+                                   {{ form.commentary.label }}   {{ form.commentary }}
                               </div>
 
                           </div>

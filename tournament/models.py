@@ -39,7 +39,8 @@ class Match(models.Model):
     overs = models.IntegerField()
     match_status = models.IntegerField(default=0)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
-    toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING, blank=True, null=True)
+    toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,
+                                    blank=True, null=True)
     toss_winner_choice = models.CharField(max_length=10, default='Select')
     toss_stored = models.BooleanField(default=False)
     team_1_score = models.BigIntegerField(default=0)
@@ -52,41 +53,18 @@ class Match(models.Model):
 
 
 class Score(models.Model):
-    match=models.ForeignKey(Match, on_delete=models.CASCADE)
-    innings_choice= [
-        ('First', 'First'),
-        ('Second', 'Second'),
-
-    ]
-    innings = models.CharField(max_length=11,choices=innings_choice)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    innings = models.CharField(max_length=11)
     batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING)
     bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING)
     ball_number = models.IntegerField()
     over_number = models.IntegerField()
     bowler = models.ForeignKey('player.Player',related_name='bowler',null=True , on_delete=models.DO_NOTHING)
-    batsman=models.ForeignKey('player.Player', related_name='batsman',null=True ,on_delete=models.DO_NOTHING)
-    run=models.IntegerField()
-    extra_type_choice =[
-        ('Wide', 'Wide'),
-        ('NoBall', 'NoBall'),
-        ('DeadBall', 'DeadBall')
-    ]
-    extra_type = models.CharField(max_length=11, choices=extra_type_choice,null=True,blank=True)
-    extra_run = models.IntegerField(default=0)
-    is_wicket = models.BooleanField(default=False)
-
-    wicket_type_choice = [
-        ('RunOut', 'RunOut'),
-        ('Catch', 'Catch'),
-        ('Bowled', 'Bowled'),
-        ('Lbw', 'Lbw'),
-        ('Stumps', 'Stumps'),
-        ('HitWicket', 'HitWicket')
-    ]
-    wicket_type = models.CharField(max_length=11, choices=wicket_type_choice, null=True, blank=True)
+    batsman = models.ForeignKey('player.Player', related_name='batsman',null=True ,on_delete=models.DO_NOTHING)
+    description = models.CharField(max_length=500)
 
     def __str__(self):
-        return '  ball =>  '+ str(self.ball_number) + '  runs => ' + str(self.run)
+        return str(self.over_number) + '.' + str(self.ball_number)
 
 
 class ScoreCard(models.Model):
