@@ -10,6 +10,7 @@ from organizer.models import Organizer
 from .utils import rr_schedule
 from performance.models import PerformanceMatchWise, PerformanceTotal
 import itertools
+from datetime import datetime
 
 
 def create_tournament(request):
@@ -160,7 +161,7 @@ def match(request, tournament_id,match_id):
     commentary_second_innings = Score.objects.filter(match=match).filter(innings='Second').order_by(
         'over_number')
     overs = request.POST.get('overs', False)
-    if request.method == 'POST' and overs != 0:
+    if request.method == 'POST' and match.overs == 0:
         match.overs = overs
         match.save()
         form = TossForm(match)
@@ -204,8 +205,10 @@ def match(request, tournament_id,match_id):
                        'batting_team': batting_team, 'bowling_team': bowling_team, 'form': form})
     else:
         form = TossForm(match)
-        team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match)
-        team2_players = PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match)
+        team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match).order_by(
+            '-started_time')
+        team2_players = PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match).order_by(
+            '-started_time')
         context = {'all_scores':None,'match':match,'tournament':tournament,'batting_team':batting_team,
                    'bowling_team':bowling_team, 'form': form, 'team1_players': team1_players,
                    'team2_players': team2_players, 'commentary_first_innings': commentary_first_innings,
@@ -346,16 +349,24 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         match.team_1 = team_1
         match.team_2 = team_2
         match.winner = match.team_1
-        match.overs = 4
+        match.overs = 0
         match.name = match
         match.save()
         team1_players = team_1.players.all()
         team2_players = team_2.players.all()
-        for player in itertools.chain(team1_players, team2_players):
+        for player in team1_players:
             performance = PerformanceMatchWise()
             performance.player = player
             performance.match = match
             performance.tournament = tournament
+            performance.team = team_1
+            performance.save()
+        for player in team2_players:
+            performance = PerformanceMatchWise()
+            performance.player = player
+            performance.match = match
+            performance.tournament = tournament
+            performance.team = team_2
             performance.save()
 
 
@@ -394,7 +405,8 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
 
                 batsman = Player.objects.get(id=batsman)
                 p = PerformanceMatchWise.objects.filter(match=match).filter(player=batsman).first()
-                print(p)
+                if p.started_time is None:
+                    p.started_time = datetime.now()
                 p.batting_runs += run
                 p.played = True
                 match.team_1_score += run
@@ -414,7 +426,8 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
 
                 bowler = Player.objects.get(id=bowler)
                 q = PerformanceMatchWise.objects.filter(match=match).filter(player=bowler).first()
-                print(q)
+                if q.started_time is None:
+                    q.started_time = datetime.now()
                 q.played = True
                 q.team = bowling_team
                 if ball_number >= 6:

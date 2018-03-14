@@ -48,6 +48,7 @@ class PerformanceMatchWise(models.Model):
     out = models.BooleanField(default=False)
     out_type = models.CharField(max_length=20)
     played = models.BooleanField(default=False)
+    started_time = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.match.name + '-' + self.player.get_full_name()

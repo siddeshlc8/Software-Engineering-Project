@@ -66,7 +66,7 @@ class ScoreUpdateForm(forms.Form):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
         self.fields['bowler'] = forms.ChoiceField(
             choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
-                match=match).filter(team=bowling).filter(out=False)]
+                match=match).filter(team=bowling)]
         )
         self.fields['batsman'] = forms.ChoiceField(
             choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(

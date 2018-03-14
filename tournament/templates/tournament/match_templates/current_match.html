@@ -258,7 +258,7 @@
 
                  {% for commentary in commentary_first_innings %}
 
-                 <p><h4>{{ commentary }}</h4></p>
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
 
                  {% endfor %}
 
@@ -266,7 +266,7 @@
 
                  {% for commentary in commentary_second_innings %}
 
-                 <p><h4>{{ commentary }}</h4></p>
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
 
                  {% endfor %}
 
@@ -331,13 +331,15 @@
                         <h5 class="card-header"><b>Update Score Card</b></h5>
                         <div class="card-body">
                           <div class="row">
-                              {% if match.match_status != 0 %}
+                              {% if match.match_status%}
 
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  batting_team.id bowling_team.id 0 %}">FIRST INNINGS</a></p>
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  bowling_team.id batting_team.id 1 %}">SECOND INNINGS</a></p>
                               <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
 
+
                               {% else %}
+
 
                                     <form method="POST" action="{% url 'tournament:start_match' match.id %}">
                                         {% csrf_token %}
