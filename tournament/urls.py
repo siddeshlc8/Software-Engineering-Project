@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:tournament_id>/', views.current_tournament, name='current_tournament'),
     path('<int:tournament_id>/edit', views.tournament_info_edit, name='tournament_info_edit'),
     path('team/<int:team_id>/', views.team_players, name='team_players'),
+    path('team/<int:team_id>/add_players', views.add_players, name='add_players'),
     path('team/<int:team_id>/<int:player_id>/', views.team_players_add, name='team_players_add'),
     path('<int:tournament_id>/create_match',views.create_match,name='create_match'),
     path('<int:tournament_id>/matches', views.all_matches, name='all_matches'),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('<int:match_id>/start_match/', views.start_match, name='start_match'),
     path('<int:tournament_id>/start_tournament/', views.start_tournament, name='start_tournament'),
     path('<int:tournament_id>/alerts',include('alerts.urls'), name='tournament_alerts'),
+
 ]

@@ -1,5 +1,7 @@
 from django.db.models import Max
 from django.shortcuts import render, redirect
+
+from search.filters import PlayerFilter
 from .models import Team, Tournament, Match, ScoreCard
 from player.models import Player
 from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreForm, Submit_match_form, Submit_tournament_form, ScoreUpdateForm, TossForm
@@ -88,13 +90,31 @@ def team_players(request, team_id):
 
 
 def team_players_add(request, team_id, player_id):
-    team_ = Team.objects.get(pk=team_id)
-    player_ = Player.objects.get(pk=player_id)
-    player_.active = True
-    player_.save()
-    team_.players.add(player_)
-    messages.success(request,'player added successfully')
-    return redirect('tournament:team_players', team_id)
+        team_ = Team.objects.get(pk=team_id)
+        player_ = Player.objects.get(pk=player_id)
+        player_.active = True
+        player_.save()
+        team_.players.add(player_)
+        messages.success(request,'player added successfully')
+        return redirect('tournament:team_players',team_id)
+
+def add_players(request, team_id):
+     team_ = Team.objects.get(pk=team_id)
+     players = Player.objects.all()
+     players_filter = PlayerFilter(request.GET, queryset=players)
+     try:
+         player = Player.objects.get(pk=request.user.id)
+         context = {'players': players, 'P': player, 'filter': players_filter}
+     except Exception:
+         try:
+             o = Organizer.objects.get(pk=request.user.id)
+             context = {'players': players, 'O': o, 'filter': players_filter,'team':team_}
+         except Exception:
+             return redirect('login')
+
+
+
+     return render(request,'tournament/team_templates/add_players.html',context)
 
 
 def all_matches(request, tournament_id):

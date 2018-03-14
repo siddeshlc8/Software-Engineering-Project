@@ -1,0 +1,43 @@
+{% extends 'organizer/base.html' %}
+
+{% block body %}
+    <br><br><br>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+      <form method="get">
+
+       {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+
+      </form>
+
+    <p><h3>Your Search Results:</h3></p>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Type</th>
+              <th>Add</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for player in filter.qs %}
+            <tr>
+              <td>{{ player.first_name }}</td>
+              <td>{{ player.last_name }}</td>
+              <td>{{ player.player_type }}</td>
+              <td><a href="{% url 'tournament:team_players_add' team.id player.id %}">add</a></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No data</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      </main>
+
+{% endblock %}
