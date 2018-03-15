@@ -69,12 +69,12 @@ class ScoreUpdateForm(forms.Form):
                 match=match).filter(team=bowling)]
         )
         self.fields['batsman'] = forms.ChoiceField(
-            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
-                match=match).filter(team=batting).filter(out=False)]
+            choices=[(match.striker_innings1.player.id, str(match.striker_innings1.player)),
+                     (match.non_striker_innings1.player.id, str(match.non_striker_innings1.player))]
         )
         self.fields['out_batsman'] = forms.ChoiceField(
-            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
-                match=match).filter(team=batting).filter(out=False)]
+            choices=[(match.striker_innings1.player.id, str(match.striker_innings1.player)),
+                     (match.non_striker_innings1.player.id, str(match.non_striker_innings1.player))]
         )
         self.fields['extra_type'] = forms.ChoiceField(
             choices=[

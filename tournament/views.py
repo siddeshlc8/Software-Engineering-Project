@@ -98,12 +98,13 @@ def team_players_add(request, team_id, player_id):
         player_.active = True
         player_.save()
         team_.players.add(player_)
-        messages.success(request,'player added successfully')
-        return redirect('tournament:team_players',team_id)
+        messages.success(request,'player' + player_.get_full_name() + ' added successfully')
+        return redirect('tournament:add_players', team_id)
+
 
 def add_players(request, team_id):
      team_ = Team.objects.get(pk=team_id)
-     players = Player.objects.all()
+     players = Player.objects.all().filter(active=False)
      players_filter = PlayerFilter(request.GET, queryset=players)
      try:
          player = Player.objects.get(pk=request.user.id)
@@ -114,9 +115,6 @@ def add_players(request, team_id):
              context = {'players': players, 'O': o, 'filter': players_filter,'team':team_}
          except Exception:
              return redirect('login')
-
-
-
      return render(request,'tournament/team_templates/add_players.html',context)
 
 
@@ -189,9 +187,9 @@ def match(request, tournament_id, match_id):
     opener_form1 = OpenerForm1(batting_team)
     opener_form2 = OpenerForm2(bowling_team)
     team1_players = PerformanceMatchWise.objects.filter(team=batting_team).filter(match=match).order_by(
-           '-started_time')
+           'started_time')
     team2_players = PerformanceMatchWise.objects.filter(team=bowling_team).filter(match=match).order_by(
-            '-started_time')
+            'started_time')
     context = {'all_scores':None,'match':match,'tournament':tournament,'batting_team':batting_team,
                    'bowling_team': bowling_team, 'toss_form': toss_form, 'overs_form': overs_form,
                     'team1_players': team1_players,'team2_players': team2_players,
@@ -379,7 +377,7 @@ def submit_tournament(request, tournament_id):
             performance.sixes += player.sixes
             performance.fours += player.fours
             performance.save()
-            player.player.active = 0
+            player.player.active = False
             player.player.save()
         tournament.tournament_status = 2
         tournament.save()
@@ -480,8 +478,10 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
     if match.toss_stored == True:
         if innings == 0:
             innings = 'First'
+            f = 0
         else:
             innings = 'Second'
+            f = 1
         if request.method == 'POST':
             form = ScoreUpdateForm(batting_team, bowling_team, match, request.POST)
             if form.is_valid():
@@ -539,7 +539,16 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     p.out = True
                     p.out_type = wicket_type
                     p.save()
+                    if match.striker_innings1 == p:
+                        match.striker_innings1 = PerformanceMatchWise.objects.filter(match=match).filter(
+                            team=batting_team).filter(out=False).exclude(id=match.non_striker_innings1.id).first()
+                        match.save()
+                    elif match.non_striker_innings1 == p:
+                        match.non_striker_innings1 = PerformanceMatchWise.objects.filter(match=match).filter(
+                            team=batting_team).filter(out=False).exclude(id=match.striker_innings1.id).first()
+                        match.save()
                     q.wickets_players.add(out_batsman)
+                    p.save()
                 if q.wickets:
                     q.bowling_avg = (q.bowling_runs/q.wickets)
                 q.save()
@@ -555,13 +564,8 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                 score.batting_team = batting_team
                 score.bowling_team = bowling_team
                 score.save()
-
-                form = ScoreUpdateForm(batting_team, bowling_team, match)
-                context = {'form': form, 'match': match, 'batting_team': batting_team,
-                           'bowling_team': bowling_team,
-                           'innings': innings}
-                return render(request, 'tournament/score_templates/enter_score.html', context)
-
+                return redirect('tournament:enter_score', tournament_id, match_id, batting_team,
+                                bowling_team, f)
         else:
             form = ScoreUpdateForm(batting_team, bowling_team, match)
             context = {'form': form, 'match': match, 'batting_team': batting_team,
