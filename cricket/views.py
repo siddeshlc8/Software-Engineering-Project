@@ -18,6 +18,12 @@ def organizers_page(request):
 def home_page(request):
     return render(request, 'cricket/home.html')
 
+#extra home
+
+def home(request):
+    return render(request, 'cricket/home_page.html')
+
+
 
 def players_page(request):
     all_players = Player.objects.all()
