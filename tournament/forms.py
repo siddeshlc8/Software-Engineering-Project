@@ -109,7 +109,14 @@ class ScoreUpdateForm(forms.Form):
 
 
 class SelectBatsmanForm(forms.Form):
-    pass
+    def __init__(self, match, team, *args, **kwargs):
+        super(SelectBatsmanForm, self).__init__(*args, **kwargs)
+        self.fields['player'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in PerformanceMatch.objects.filter(
+                match=match).filter(team=team).filter(batting_innings__out=False)]
+        )
+
+    player = forms.CharField(max_length=12)
 
 
 class TossForm(forms.Form):
