@@ -32,4 +32,5 @@ urlpatterns = [
     path('', views.home_page, name='home_page'),
     path('live/', views.live ,name='live'),
     path('tournament/', include('tournament.urls'), name='tournament'),
+    path('home/',views.home,name='home')
 ]
