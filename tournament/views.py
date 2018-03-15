@@ -259,9 +259,15 @@ def match_openers_innings1(request, tournament_id, match_id):
             striker_innings1 = form.cleaned_data['striker_innings1']
             match.striker_innings1 = PerformanceMatch.objects.filter(match=match).filter(
                 player=striker_innings1).first()
+            match.striker_innings1.batting_innings.status = 'batting'
+            match.striker_innings1.batting_innings.started_time = datetime.now()
+            match.striker_innings1.batting_innings.save()
             non_striker_innings1 = form.cleaned_data['non_striker_innings1']
             match.non_striker_innings1 = PerformanceMatch.objects.filter(match=match).filter(
                 player=non_striker_innings1).first()
+            match.non_striker_innings1.batting_innings.status = 'batting'
+            match.non_striker_innings1.batting_innings.started_time = datetime.now()
+            match.non_striker_innings1.batting_innings.save()
             match.openers_selected_innings1 = True
             match.save()
             return redirect('tournament:match', tournament_id, match_id)
@@ -296,9 +302,15 @@ def match_openers_innings2(request, tournament_id, match_id):
             striker_innings2 = form.cleaned_data['striker_innings2']
             match.striker_innings2 = PerformanceMatch.objects.filter(match=match).filter(
                 player=striker_innings2).first()
+            match.striker_innings2.batting_innings.status = 'batting'
+            match.striker_innings2.batting_innings.started_time = datetime.now()
+            match.striker_innings2.batting_innings.save()
             non_striker_innings2 = form.cleaned_data['non_striker_innings2']
             match.non_striker_innings2 = PerformanceMatch.objects.filter(match=match).filter(
                 player=non_striker_innings2).first()
+            match.non_striker_innings2.batting_innings.status = 'batting'
+            match.non_striker_innings2.batting_innings.started_time = datetime.now()
+            match.non_striker_innings2.batting_innings.save()
             match.openers_selected_innings2 = True
             match.save()
             return redirect('tournament:match', tournament_id, match_id)
@@ -334,6 +346,12 @@ def submit_match(request, match_id):
                 performance.batting_innings += 1
             if player.bowling_innings.played:
                 performance.bowling_innings += 1
+            if player.batting_innings.status == 'batting':
+                player.batting_innings.status = 'not out'
+                player.batting_innings.save()
+            elif player.batting_innings.status is None:
+                player.batting_innings.status = 'not played'
+                player.batting_innings.save()
             player.save()
             score_card.team_1_players.add(player)
         for player in team_2_players:
@@ -341,6 +359,16 @@ def submit_match(request, match_id):
             performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
             performance.matches += 1
             performance.save()
+            if player.batting_innings.played:
+                performance.batting_innings += 1
+            if player.bowling_innings.played:
+                performance.bowling_innings += 1
+            if player.batting_innings.status == 'batting':
+                player.batting_innings.status = 'not out'
+                player.batting_innings.save()
+            elif player.batting_innings.status is None:
+                player.batting_innings.status = 'not played'
+                player.batting_innings.save()
             player.save()
             score_card.team_2_players.add(player)
         score_card.save()
@@ -461,6 +489,7 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         batting_innings = BattingInnings()
         batting_innings.save()
         bowling_innings = BowlingInnings()
+        batting_innings.status = 'yet to play'
         bowling_innings.save()
         performance.batting_innings = batting_innings
         performance.bowling_innings = bowling_innings
@@ -473,6 +502,7 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
         performance.team = team_2
         performance.played = True
         batting_innings = BattingInnings()
+        batting_innings.status = 'yet to play'
         batting_innings.save()
         bowling_innings = BowlingInnings()
         bowling_innings.save()
@@ -497,8 +527,15 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
         else:
             innings = 'Second'
             f = 1
+
+        if innings == 'First':
+            player1 = match.striker_innings1
+            player2 = match.non_striker_innings1
+        else:
+            player1 = match.striker_innings2
+            player2 = match.non_striker_innings2
         if request.method == 'POST':
-            form = ScoreUpdateForm(batting_team, bowling_team, match, request.POST)
+            form = ScoreUpdateForm(player1, player2, bowling_team, match, request.POST)
             if form.is_valid():
                 ball_number = form.cleaned_data['ball_number']
                 over_number = form.cleaned_data['over_number']
@@ -518,8 +555,6 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                 batsman = Player.objects.get(id=batsman)
                 p = PerformanceMatch.objects.filter(match=match).filter(player=batsman).first()
                 p = p.batting_innings
-                if p.started_time is None:
-                    p.started_time = datetime.now()
                 p.batting_runs += run
                 p.played = True
                 match.team_1_score += run
@@ -531,17 +566,13 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     p.sixes += 1
                 if four:
                     p.fours += 1
-                p.status = 'batting'
                 if is_wicket:
-                    p.status = 'out'
                     match.team_1_wickets += 1
                 p.save()
 
                 bowler = Player.objects.get(id=bowler)
                 q = PerformanceMatch.objects.filter(match=match).filter(player=bowler).first()
                 q = q.bowling_innings
-                if q.started_time is None:
-                    q.started_time = datetime.now()
                 q.played = True
                 q.team = bowling_team
                 if ball_number >= 6:
@@ -556,32 +587,22 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                     p.batting_innings.out = True
                     p.batting_innings.out_type = wicket_type
                     p.batting_innings.save()
+                    p.batting_innings.status = 'out'
+                    p.batting_innings.save()
                     p.save()
                     if innings == 'First':
                         if match.striker_innings1 == p:
                             match.striker_innings1 = None
-                            match.striker_innings1 = PerformanceMatch.objects.filter(match=match).filter(
-                                team=batting_team).filter(batting_innings__out=False).exclude(
-                                id=match.non_striker_innings1.id).first()
                             match.save()
                         elif match.non_striker_innings1 == p:
                             match.non_striker_innings1 = None
-                            match.non_striker_innings1 = PerformanceMatch.objects.filter(match=match).filter(
-                                team=batting_team).filter(batting_innings__out=False).exclude(
-                                id=match.striker_innings1.id).first()
                             match.save()
                     else:
                         if match.striker_innings2 == p:
                             match.striker_innings2 = None
-                            match.striker_innings2 = PerformanceMatch.objects.filter(match=match).filter(
-                                team=batting_team).filter(batting_innings__out=False).exclude(
-                                id=match.non_striker_innings2.id).first()
                             match.save()
                         elif match.non_striker_innings2 == p:
                             match.non_striker_innings2 = None
-                            match.non_striker_innings2 = PerformanceMatch.objects.filter(match=match).filter(
-                                team=batting_team).filter(batting_innings__out=False).exclude(
-                                id=match.striker_innings2.id).first()
                             match.save()
                     q.wickets_players.add(out_batsman)
                     p.save()
@@ -607,17 +628,27 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
                 return redirect('tournament:match', tournament_id, match_id)
             bowling_team_players = PerformanceMatch.objects.filter(team=bowling_team).filter(
                 match=match).order_by('-batting_innings__started_time')
+            players = None
             if innings == 'First':
-                player1 = match.striker_innings1
-                player2 = match.non_striker_innings1
-            else:
-                player1 = match.striker_innings2
-                player2 = match.non_striker_innings2
-            select_new_batsman_form = SelectBatsmanForm(match, batting_team)
+                if match.striker_innings1 is not None:
+                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                        batting_innings__out=False).exclude(id=match.striker_innings1.id)
+                elif match.non_striker_innings1 is not None:
+                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                        batting_innings__out=False).exclude(id=match.non_striker_innings1.id)
+            elif innings == 'Second':
+                if match.striker_innings2 is not None:
+                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                        batting_innings__out=False).exclude(id=match.striker_innings2.id)
+                elif match.non_striker_innings2 is not None:
+                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                        batting_innings__out=False).exclude(id=match.non_striker_innings2.id)
+            select_new_batsman_form = SelectBatsmanForm(players)
+
             form = ScoreUpdateForm(player1, player2, bowling_team, match)
             context = {'form': form, 'match': match, 'batting_team': batting_team,
-                       'bowling_team': bowling_team, 'innings': innings, 'bowling_team_players':
-                           bowling_team_players, 'player1': player1, 'player2': player2,
+                       'bowling_team': bowling_team, 'innings': f, 'bowling_team_players':
+                             bowling_team_players, 'player1': player1, 'player2': player2,
                        'select_new_batsman_form': select_new_batsman_form}
             return render(request, 'tournament/score_templates/enter_score.html', context)
     else:
@@ -637,7 +668,22 @@ def select_new_batsman(request, tournament_id, match_id, batting_team_id, bowlin
         innings = 'Second'
         f = 1
 
-    form = SelectBatsmanForm(match,batting_team, request.POST)
+    players = None
+    if innings == 'First':
+        if match.striker_innings1 is not None:
+            players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                batting_innings__out=False).exclude(id=match.striker_innings1.id)
+        elif match.non_striker_innings1 is not None:
+            players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                batting_innings__out=False).exclude(id=match.non_striker_innings1.id)
+    elif innings == 'First':
+        if match.striker_innings2 is not None:
+            players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                batting_innings__out=False).exclude(id=match.striker_innings2.id)
+        elif match.non_striker_innings2 is not None:
+            players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                batting_innings__out=False).exclude(id=match.non_striker_innings2.id)
+    form = SelectBatsmanForm(players, request.POST)
     if form.is_valid():
         new_player = form.cleaned_data['player']
         new_player = PerformanceMatch.objects.filter(match=match).filter(player=new_player).first()
@@ -645,18 +691,28 @@ def select_new_batsman(request, tournament_id, match_id, batting_team_id, bowlin
             if match.striker_innings1 == None:
                 match.striker_innings1 = new_player
                 match.save()
+                match.striker_innings1.batting_innings.status = 'batting'
+                match.striker_innings1.batting_innings.started_time = datetime.now()
+                match.striker_innings1.batting_innings.save()
             elif match.non_striker_innings1 == None:
                 match.non_striker_innings1 = new_player
                 match.save()
+                match.non_striker_innings1.batting_innings.status = 'batting'
+                match.non_striker_innings1.batting_innings.started_time = datetime.now()
+                match.non_striker_innings1.batting_innings.save()
         else:
-            if match.striker_innings2 == p:
-                match.striker_innings2 = None
+            if match.striker_innings2 == None:
                 match.striker_innings2 = new_player
                 match.save()
-            elif match.non_striker_innings2 == p:
-                match.non_striker_innings2 = None
+                match.striker_innings2.batting_innings.status = 'batting'
+                match.striker_innings2.batting_innings.started_time = datetime.now()
+                match.striker_innings2.batting_innings.save()
+            elif match.non_striker_innings2 == None:
                 match.non_striker_innings2 = new_player
                 match.save()
+                match.non_striker_innings2.batting_innings.status = 'batting'
+                match.non_striker_innings2.batting_innings.started_time = datetime.now()
+                match.non_striker_innings2.batting_innings.save()
         return redirect('tournament:enter_score', tournament_id, match_id, batting_team_id, bowling_team_id, f)
     else:
         messages.success(request, 'Information is not valid')

@@ -64,33 +64,34 @@ class MatchCreationForm(forms.ModelForm):
 class ScoreUpdateForm(forms.Form):
     def __init__(self, player1, player2, bowling, match, *args, **kwargs):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['bowler'] = forms.ChoiceField(
-            choices=[(player.player.id, str(player.player)) for player in PerformanceMatch.objects.filter(
-                match=match).filter(team=bowling)]
-        )
-        self.fields['batsman'] = forms.ChoiceField(
-            choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
-        )
-        self.fields['out_batsman'] = forms.ChoiceField(
-            choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
-        )
-        self.fields['extra_type'] = forms.ChoiceField(
-            choices=[
-                ('Wide', 'Wide'),
-                ('NoBall', 'NoBall'),
-                ('DeadBall', 'DeadBall')
-            ]
-        )
-        self.fields['wicket_type'] = forms.ChoiceField(
-            choices=[
-                ('RunOut', 'RunOut'),
-                ('Catch', 'Catch'),
-                ('Bowled', 'Bowled'),
-                ('Lbw', 'Lbw'),
-                ('Stumps', 'Stumps'),
-                ('HitWicket', 'HitWicket')
-            ]
-        )
+        if player1 is not None and player2 is not None:
+            self.fields['bowler'] = forms.ChoiceField(
+                choices=[(player.player.id, str(player.player)) for player in PerformanceMatch.objects.filter(
+                    match=match).filter(team=bowling)]
+            )
+            self.fields['batsman'] = forms.ChoiceField(
+                choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
+            )
+            self.fields['out_batsman'] = forms.ChoiceField(
+                choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
+            )
+            self.fields['extra_type'] = forms.ChoiceField(
+                choices=[
+                    ('Wide', 'Wide'),
+                    ('NoBall', 'NoBall'),
+                    ('DeadBall', 'DeadBall')
+                ]
+            )
+            self.fields['wicket_type'] = forms.ChoiceField(
+                choices=[
+                    ('RunOut', 'RunOut'),
+                    ('Catch', 'Catch'),
+                    ('Bowled', 'Bowled'),
+                    ('Lbw', 'Lbw'),
+                    ('Stumps', 'Stumps'),
+                    ('HitWicket', 'HitWicket')
+                ]
+            )
 
     ball_number = forms.IntegerField()
     over_number = forms.IntegerField()
@@ -109,12 +110,12 @@ class ScoreUpdateForm(forms.Form):
 
 
 class SelectBatsmanForm(forms.Form):
-    def __init__(self, match, team, *args, **kwargs):
+    def __init__(self, players, *args, **kwargs):
         super(SelectBatsmanForm, self).__init__(*args, **kwargs)
-        self.fields['player'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in PerformanceMatch.objects.filter(
-                match=match).filter(team=team).filter(batting_innings__out=False)]
-        )
+        if players is not None:
+            self.fields['player'] = forms.ChoiceField(
+                choices=[(player.player.id, str(player.player)) for player in players]
+            )
 
     player = forms.CharField(max_length=12)
 

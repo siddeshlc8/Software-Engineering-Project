@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="af2b9177-37c3-4bd6-b9b8-870c73947b61" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change beforePath="$PROJECT_DIR$/organizer/templates/organizer/view_profile.html" afterPath="$PROJECT_DIR$/organizer/templates/organizer/view_profile.html" />
       <change beforePath="$PROJECT_DIR$/tournament/forms.py" afterPath="$PROJECT_DIR$/tournament/forms.py" />
       <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" />
       <change beforePath="$PROJECT_DIR$/tournament/views.py" afterPath="$PROJECT_DIR$/tournament/views.py" />
@@ -21,18 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="987">
-              <caret line="664" column="0" lean-forward="false" selection-start-line="664" selection-start-column="0" selection-end-line="664" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/admin.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,7 +62,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/performance/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
+            <state relative-caret-position="627">
               <caret line="81" column="37" lean-forward="false" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -81,11 +71,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enter_score.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tournament/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1248">
+              <caret line="496" column="32" lean-forward="true" selection-start-line="496" selection-start-column="32" selection-end-line="496" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enter_score.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="65" column="89" lean-forward="false" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
+            <state relative-caret-position="251">
+              <caret line="157" column="224" lean-forward="false" selection-start-line="157" selection-start-column="224" selection-end-line="157" selection-end-column="224" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
@@ -97,8 +99,8 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="579">
-              <caret line="116" column="9" lean-forward="false" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
+            <state relative-caret-position="-984">
+              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -109,7 +111,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
+            <state relative-caret-position="360">
               <caret line="29" column="83" lean-forward="false" selection-start-line="29" selection-start-column="83" selection-end-line="29" selection-end-column="83" />
               <folding />
             </state>
@@ -124,18 +126,6 @@
               <folding>
                 <element signature="e#13092#13099#1#HTML" expanded="true" />
                 <element signature="e#14276#14283#1#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="51" column="21" lean-forward="false" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -187,9 +177,10 @@
         <option value="$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html" />
         <option value="$PROJECT_DIR$/performance/models.py" />
         <option value="$PROJECT_DIR$/tournament/urls.py" />
+        <option value="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" />
         <option value="$PROJECT_DIR$/tournament/forms.py" />
         <option value="$PROJECT_DIR$/tournament/views.py" />
-        <option value="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" />
+        <option value="$PROJECT_DIR$/organizer/templates/organizer/view_profile.html" />
       </list>
     </option>
   </component>
@@ -235,6 +226,19 @@
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="organizer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -446,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521126019004</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Tournament App Updated">
+      <created>1521127444309</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1521127444309</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -496,13 +507,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/performance/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/search/templates/search/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -816,10 +820,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="51" column="21" lean-forward="false" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4875">
+          <caret line="229" column="46" lean-forward="false" selection-start-line="229" selection-start-column="46" selection-end-line="229" selection-end-column="46" />
+          <folding>
+            <element signature="e#13092#13099#1#HTML" expanded="true" />
+            <element signature="e#14276#14283#1#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="29" column="83" lean-forward="false" selection-start-line="29" selection-start-column="83" selection-end-line="29" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="157" column="224" lean-forward="false" selection-start-line="157" selection-start-column="224" selection-end-line="157" selection-end-column="224" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-984">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/performance/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="81" column="37" lean-forward="false" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tournament/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/performance/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -836,82 +910,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/models.py">
+    <entry file="file://$PROJECT_DIR$/organizer/templates/organizer/view_profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="51" column="21" lean-forward="false" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4875">
-          <caret line="229" column="46" lean-forward="false" selection-start-line="229" selection-start-column="46" selection-end-line="229" selection-end-column="46" />
-          <folding>
-            <element signature="e#13092#13099#1#HTML" expanded="true" />
-            <element signature="e#14276#14283#1#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/performance/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="81" column="37" lean-forward="false" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/performance/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="29" column="83" lean-forward="false" selection-start-line="29" selection-start-column="83" selection-end-line="29" selection-end-column="83" />
+        <state relative-caret-position="168">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="116" column="9" lean-forward="false" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tournament/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="664" column="0" lean-forward="false" selection-start-line="664" selection-start-column="0" selection-end-line="664" selection-end-column="0" />
+        <state relative-caret-position="-1248">
+          <caret line="496" column="32" lean-forward="true" selection-start-line="496" selection-start-column="32" selection-end-line="496" selection-end-column="32" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="65" column="89" lean-forward="false" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

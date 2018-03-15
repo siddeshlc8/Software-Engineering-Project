@@ -63,7 +63,7 @@
                         <div class="card-body">
                           <div class="row">
 
-                          <!--    {% if player1 is not None and player2 is not None %} -->
+                              {% if player1 is not None and player2 is not None %}
 
                                <div class="col-sm-5">
                                   {{ form.over_number.label }} {{ form.over_number }}
@@ -145,17 +145,19 @@
                               <div class="col-sm-5">
                                    {{ form.commentary.label }}   {{ form.commentary }}
                               </div>
-                           <!--
+
+
                               {% else %}
 
 
                                 <h3>Please Select New Batsman to continue:</h3>
 
-                                {{ bats }}
 
+                                    <p>{{ select_new_batsman_form.player }} </p>
 
+                                  <p><button type="submit" class="btn btn-primary" formaction="{% url 'tournament:select_new_batsman' match.tournament_id match.id batting_team.id bowling_team.id innings %}">Save</button></p>
 
-                                 {% endif %} -->
+                                 {% endif %}
 
                           </div>
 
