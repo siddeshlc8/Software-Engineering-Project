@@ -1,7 +1,7 @@
 from django.db import models
 from organizer.models import Organizer
 from player.models import Player
-from performance.models import PerformanceMatchWise
+from performance.models import PerformanceMatchWise, PerformanceMatch
 
 
 # Create your models here.
@@ -49,13 +49,13 @@ class Match(models.Model):
     team_1_wickets = models.IntegerField(default=0)
     openers_selected_innings1 = models.BooleanField(default=False)
     openers_selected_innings2 = models.BooleanField(default=False)
-    striker_innings1 = models.ForeignKey(PerformanceMatchWise, related_name='striker_innings1',
+    striker_innings1 = models.ForeignKey(PerformanceMatch, related_name='striker_innings1',
                                          on_delete=models.DO_NOTHING, blank=True, null=True)
-    non_striker_innings1 = models.ForeignKey(PerformanceMatchWise, related_name='non_striker_innings1',
+    non_striker_innings1 = models.ForeignKey(PerformanceMatch, related_name='non_striker_innings1',
                                              on_delete=models.DO_NOTHING, blank=True, null=True)
-    striker_innings2 = models.ForeignKey(PerformanceMatchWise, related_name='striker_innings2',
+    striker_innings2 = models.ForeignKey(PerformanceMatch, related_name='striker_innings2',
                                          on_delete=models.DO_NOTHING, blank=True, null=True)
-    non_striker_innings2 = models.ForeignKey(PerformanceMatchWise, related_name='non_striker_innings2',
+    non_striker_innings2 = models.ForeignKey(PerformanceMatch, related_name='non_striker_innings2',
                                              on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
@@ -83,8 +83,8 @@ class ScoreCard(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
     team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING, null=True, blank=True)
     team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING, null=True, blank=True)
-    team_1_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_1_players')
-    team_2_players = models.ManyToManyField(PerformanceMatchWise, related_name='team_2_players')
+    team_1_players = models.ManyToManyField(PerformanceMatch, related_name='team_1_players')
+    team_2_players = models.ManyToManyField(PerformanceMatch, related_name='team_2_players')
 
 
 

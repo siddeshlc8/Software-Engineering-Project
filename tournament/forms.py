@@ -1,7 +1,7 @@
 from django import forms
 from .models import Team, Tournament, Match, Score
 from player.models import Player
-from performance.models import PerformanceMatchWise
+from performance.models import PerformanceMatchWise, PerformanceMatch
 
 
 
@@ -62,19 +62,17 @@ class MatchCreationForm(forms.ModelForm):
 
 
 class ScoreUpdateForm(forms.Form):
-    def __init__(self, batting, bowling, match,*args, **kwargs):
+    def __init__(self, player1, player2, bowling, match, *args, **kwargs):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
         self.fields['bowler'] = forms.ChoiceField(
-            choices=[(player.player.id, str(player.player)) for player in PerformanceMatchWise.objects.filter(
+            choices=[(player.player.id, str(player.player)) for player in PerformanceMatch.objects.filter(
                 match=match).filter(team=bowling)]
         )
         self.fields['batsman'] = forms.ChoiceField(
-            choices=[(match.striker_innings1.player.id, str(match.striker_innings1.player)),
-                     (match.non_striker_innings1.player.id, str(match.non_striker_innings1.player))]
+            choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
         )
         self.fields['out_batsman'] = forms.ChoiceField(
-            choices=[(match.striker_innings1.player.id, str(match.striker_innings1.player)),
-                     (match.non_striker_innings1.player.id, str(match.non_striker_innings1.player))]
+            choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
         )
         self.fields['extra_type'] = forms.ChoiceField(
             choices=[
@@ -108,6 +106,10 @@ class ScoreUpdateForm(forms.Form):
     out_batsman = forms.CharField(max_length=11)
     commentary = forms.CharField(widget=forms.Textarea(attrs={'cols': '70', 'rows': '3'}))
     is_extra = forms.BooleanField(required=False)
+
+
+class SelectBatsmanForm(forms.Form):
+    pass
 
 
 class TossForm(forms.Form):

@@ -13,28 +13,57 @@
     <br><br><br><br>
 
 
-         <p>Match : {{ match.name }}</p><br>
+             <div class="col-lg-20" style="margin-left: 100px">
 
-         <p>Batting Team : {{ batting_team }}</p><br>
-
-         <p>Bowling Team  : {{ bowling_team }}</p><br>
-
-         <p>Innings  : {{ innings }}</p><br>
+    <div class="row">
 
 
-       <div class="row">
-             <div class="col-lg-5">
+                                      <div class="col-sm-3" >
+
+                                          <h3><b>Match : {{ match.name }}</b></h3>
+
+                                      </div>
+
+                                      <div class="col-sm-3 ">
+
+                                         <h3><b> Batting Team : {{ batting_team.name }}</b></h3>
+                                      </div>
+
+
+                                      <div class="col-sm-3 ">
+
+                                        <h3><b>Bowling Team : {{ bowling_team.name }}</b></h3>
+
+                                      </div>
+
+                                      <div class="col-sm-3">
+
+                                         <h3><b> Innings : {{ innings }}</b></h3>
+
+                                      </div>
+
+                                  </div>
+                              </div>
+
+                      </div>
+
+
+       <div class="row" style="margin-left: 10px">
+
+             <div class="col-lg-6">
 
                  <div class="score_details">
-                <p> <h1>Fill the Details:</h1></p>
+                <br><br>
 
                    <form  name="score_form" method="POST">
 
                        {% csrf_token %}
                          <div class="card h-80">
-                        <h5 class="card-header">SCORE</h5>
+                        <h2 class="card-header"><b>FILL SCORE DETAILS:</b></h2>
                         <div class="card-body">
                           <div class="row">
+
+                              {% if player1 is not None and player2 is not None %}
 
                                <div class="col-sm-5">
                                   {{ form.over_number.label }} {{ form.over_number }}
@@ -117,6 +146,15 @@
                                    {{ form.commentary.label }}   {{ form.commentary }}
                               </div>
 
+                              {% else %}
+
+
+
+
+
+
+                              {% endif %}
+
                           </div>
 
 
@@ -186,35 +224,36 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
+                  <td>{{ player1.player.get_full_name }}</td>
+                  <td>{{ player1.batting_innings.status }}</td>
+                  <td>{{ player1.batting_innings.batting_runs }}</td>
+                  <td>{{ player1.batting_innings.batting_balls }}</td>
+                  <td>{{ player1.batting_innings.sixes }}</td>
+                  <td>{{ player1.batting_innings.fours }}</td>
+                  <td>{{ player1.batting_innings.strike_rate }}</td>
                 </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
+                 <tr>
+                  <td>{{ player2.player.get_full_name }}</td>
+                  <td>{{ player2.batting_innings.status }}</td>
+                  <td>{{ player2.batting_innings.batting_runs }}</td>
+                  <td>{{ player2.batting_innings.batting_balls }}</td>
+                  <td>{{ player2.batting_innings.sixes }}</td>
+                  <td>{{ player2.batting_innings.fours }}</td>
+                  <td>{{ player2.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
             </table>
 
 
 
-        <br><br><br>
+
 
 
             <table class="table table-bordered" align="center">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -222,36 +261,21 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
+              {% for player in bowling_team_players %}
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg }}</td>
+                  <td>0</td>
                 </tr>
               </tbody>
+                            {% endfor %}
             </table>
 
-
-        <br><br>
 
             <table class="table table-bordered" align="center">
               <thead class="thead-dark">

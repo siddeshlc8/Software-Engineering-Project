@@ -105,12 +105,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -148,11 +148,11 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.bowling_runs }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg}}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg}}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -193,12 +193,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -235,11 +235,11 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.bowling_runs }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg }}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg }}</td>
                   <td>0</td>
                 </tr>
               </tbody>
