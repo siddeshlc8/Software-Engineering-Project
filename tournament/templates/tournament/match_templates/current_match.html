@@ -289,10 +289,11 @@
                         <h5 class="card-header">Enter Overs Information</h5>
                         <div class="card-body">
                           <div class="row">
-                                 <form method="POST">
+                                 <form method="POST" action="{% url 'tournament:match_overs' tournament.id match.id %}">
                                   {% csrf_token %}
-                                     <p><input type="text" class="form-control" name="overs"  placeholder="Enter Overs"></p>
-                                     <button type="submit" class="btn btn-secondary submit_buttons">Save</button>
+                                     <p> {{ overs_form.overs.label }} : {{ overs_form.overs }}</p>
+                                     <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
                               </form>
                           </div>
                       </div>
@@ -304,10 +305,10 @@
                         <h5 class="card-header">Enter Toss Information</h5>
                         <div class="card-body">
                           <div class="row">
-                                 <form method="POST">
+                                 <form method="POST" action="{% url 'tournament:match_toss' tournament.id match.id%}">
                                   {% csrf_token %}
-                                      <p>Select Team :  {{ form.toss_winner }}</p>
-                                      <p>Select Choice :  {{ form.toss_winner_choice }}</p>
+                                      <p>Select Team :  {{ toss_form.toss_winner }}</p>
+                                      <p>Select Choice :  {{ toss_form.toss_winner_choice }}</p>
                                      <button class="btn btn-secondary" type="submit" value="continue">Save</button>
                               </form>
                           </div>
@@ -333,8 +334,19 @@
                           <div class="row">
                               {% if match.match_status%}
 
+                              {% if match.openers_selected_innings1 or match.toss_stored == False %}
+
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  batting_team.id bowling_team.id 0 %}">FIRST INNINGS</a></p>
+                              {% else %}
+                               <p><a data-toggle="modal" href="#exampleModalCenter1">FIRST INNINGS</a></p>
+                              {% endif %}
+
+                              {% if match.openers_selected_innings2 or match.toss_stored == False %}
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  bowling_team.id batting_team.id 1 %}">SECOND INNINGS</a></p>
+                              {% else %}
+                              <p><a data-toggle="modal" href="#exampleModalCenter2">SECOND INNINGS</a></p>
+                              {% endif %}
+
                               <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
 
 
@@ -362,6 +374,64 @@
 
     </div>
 
-    <!-------------  -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select the Opening Batsmen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form method="POST" action="{% url 'tournament:match_openers_innings1' tournament.id match.id %}">
+                                  {% csrf_token %}
+          <h4>Strike : {{ opener_form1.striker_innings1 }}</h4>
+          <h4>Non Strike : {{ opener_form1.non_striker_innings1 }}</h4>
+              <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select the Opening Batsmen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form method="POST" action="{% url 'tournament:match_openers_innings2' tournament.id match.id%}">
+                                  {% csrf_token %}
+          <h4>Strike : {{ opener_form2.striker_innings2 }}</h4>
+          <h4>Non Strike : {{ opener_form2.non_striker_innings2 }}</h4>
+            <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

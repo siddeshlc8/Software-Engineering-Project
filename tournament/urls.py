@@ -15,9 +15,17 @@ urlpatterns = [
     path('team/<int:team_id>/<int:player_id>/', views.team_players_add, name='team_players_add'),
     path('<int:tournament_id>/create_match',views.create_match,name='create_match'),
     path('<int:tournament_id>/matches', views.all_matches, name='all_matches'),
+
     path('<int:tournament_id>/<int:match_id>/match', views.match, name='match'),
-    path('<int:tournament_id>/<int:match_id>/<int:batting_team_id>/<int:bowling_team_id>/<int:innings>/enter_score',
-         views.enter_score, name='enter_score'),
+    path('<int:tournament_id>/<int:match_id>/match/overs/', views.match_overs, name='match_overs'),
+    path('<int:tournament_id>/<int:match_id>/match/toss/', views.match_toss, name='match_toss'),
+    path('<int:tournament_id>/<int:match_id>/match/openers_innings1/', views.match_openers_innings1,
+         name='match_openers_innings1'),
+    path('<int:tournament_id>/<int:match_id>/match/openers_innings2/', views.match_openers_innings2,
+         name='match_openers_innings2'),
+
+    path('<int:tournament_id>/<int:match_id>/<int:batting_team_id>/<int:bowling_team_id>/<int:innings'
+         '>/enter_score', views.enter_score, name='enter_score'),
     path('<int:match_id>/submit_match', views.submit_match, name='submit_match'),
     path('<int:tournament_id>/submit_tournament', views.submit_tournament, name='submit_tournament'),
     path('<int:tournament_id>/create_schedule/', views.create_schedule, name='create_schedule'),

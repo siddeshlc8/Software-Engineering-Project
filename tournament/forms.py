@@ -110,7 +110,6 @@ class ScoreUpdateForm(forms.Form):
     is_extra = forms.BooleanField(required=False)
 
 
-
 class TossForm(forms.Form):
     def __init__(self, match, *args, **kwargs):
         super(TossForm, self).__init__(*args, **kwargs)
@@ -126,4 +125,33 @@ class TossForm(forms.Form):
     toss_winner_choice = forms.CharField(max_length=10)
 
 
+class OverForm(forms.Form):
+    overs = forms.IntegerField()
 
+
+class OpenerForm1(forms.Form):
+    def __init__(self, team, *args, **kwargs):
+        super(OpenerForm1, self).__init__(*args, **kwargs)
+        self.fields['striker_innings1'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+        self.fields['non_striker_innings1'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+
+    striker_innings1 = forms.CharField(required=False)
+    non_striker_innings1 = forms.CharField(required=False)
+
+
+class OpenerForm2(forms.Form):
+    def __init__(self, team, *args, **kwargs):
+        super(OpenerForm2, self).__init__(*args, **kwargs)
+        self.fields['striker_innings2'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+        self.fields['non_striker_innings2'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+
+    striker_innings2 = forms.CharField(required=False)
+    non_striker_innings2 = forms.CharField(required=False)

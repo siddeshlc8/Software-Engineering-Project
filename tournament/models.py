@@ -47,6 +47,16 @@ class Match(models.Model):
     team_2_score = models.BigIntegerField(default=0)
     team_2_wickets = models.IntegerField(default=0)
     team_1_wickets = models.IntegerField(default=0)
+    openers_selected_innings1 = models.BooleanField(default=False)
+    openers_selected_innings2 = models.BooleanField(default=False)
+    striker_innings1 = models.ForeignKey(PerformanceMatchWise, related_name='striker_innings1',
+                                         on_delete=models.DO_NOTHING, blank=True, null=True)
+    non_striker_innings1 = models.ForeignKey(PerformanceMatchWise, related_name='non_striker_innings1',
+                                             on_delete=models.DO_NOTHING, blank=True, null=True)
+    striker_innings2 = models.ForeignKey(PerformanceMatchWise, related_name='striker_innings2',
+                                         on_delete=models.DO_NOTHING, blank=True, null=True)
+    non_striker_innings2 = models.ForeignKey(PerformanceMatchWise, related_name='non_striker_innings2',
+                                             on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
