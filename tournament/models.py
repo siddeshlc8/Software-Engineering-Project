@@ -63,15 +63,23 @@ class Match(models.Model):
 
 
 class Score(models.Model):
-    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True, blank=True)
     innings = models.CharField(max_length=11)
-    batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING)
-    bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING)
-    ball_number = models.IntegerField()
-    over_number = models.IntegerField()
-    bowler = models.ForeignKey('player.Player',related_name='bowler',null=True , on_delete=models.DO_NOTHING)
-    batsman = models.ForeignKey('player.Player', related_name='batsman',null=True ,on_delete=models.DO_NOTHING)
-    description = models.CharField(max_length=500)
+    batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING, null=True, blank=True)
+    bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING, null=True, blank=True)
+    ball_number = models.IntegerField(null=True, blank=True)
+    over_number = models.IntegerField(null=True, blank=True)
+    bowler = models.ForeignKey('player.Player', related_name='bowler', null=True, on_delete=models.DO_NOTHING)
+    batsman = models.ForeignKey('player.Player',related_name='batsman', null=True,
+                                on_delete=models.DO_NOTHING)
+    description = models.CharField(max_length=500, null=True, blank=True)
+    wicket = models.BooleanField(default=False)
+    six = models.BooleanField(default=False)
+    four = models.BooleanField(default=False)
+    is_highlight = models.BooleanField(default=False)
+    highlight = models.CharField(max_length=20, null=True, blank=True)
+    out_batsman = models.ForeignKey('player.Player', related_name='out_batsman', null=True, blank=True,
+                                    on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.over_number) + '.' + str(self.ball_number)

@@ -147,7 +147,7 @@
                               </div>
 
 
-                              {% else %}
+                              {% elif player1 is not None and player2 is not None and players is not None %}
 
 
                                 <h3>Please Select New Batsman to continue:</h3>
@@ -156,8 +156,11 @@
                                     <p>{{ select_new_batsman_form.player }} </p>
 
                                   <p><button type="submit" class="btn btn-primary" formaction="{% url 'tournament:select_new_batsman' match.tournament_id match.id batting_team.id bowling_team.id innings %}">Save</button></p>
+                              {% else %}
 
-                                 {% endif %}
+                              <h3>All-Out</h3>
+
+                              {% endif %}
 
                           </div>
 
@@ -270,7 +273,7 @@
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
                   <td>{{ player.bowling_innings.bowling_runs }}</td>
-                  <td>0</td>
+                  <td>{{ player.bowling_innings.bowling_overs }}</td>
                   <td>0</td>
                   <td>{{ player.bowling_innings.wickets }}</td>
                   <td>{{ player.bowling_innings.bowling_avg }}</td>

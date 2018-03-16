@@ -101,7 +101,7 @@
                   <th scope="col">SR</th>
                 </tr>
               </thead>
-                            {% for player in team1_players %}
+                            {% for player in innings1_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
@@ -125,6 +125,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings1_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -144,7 +151,7 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings1_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
@@ -189,7 +196,7 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings2_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
@@ -214,6 +221,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings2_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -231,7 +245,7 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
-              {% for player in team1_players %}
+              {% for player in innings2_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
