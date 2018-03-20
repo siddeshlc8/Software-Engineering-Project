@@ -36,7 +36,8 @@ class Match(models.Model):
     name = models.CharField(max_length=10)
     team_1 = models.ForeignKey('Team', related_name='team_1',on_delete=models.DO_NOTHING)
     team_2 = models.ForeignKey('Team', related_name='team_2',on_delete=models.DO_NOTHING)
-    overs = models.IntegerField()
+    overs = models.IntegerField(default=0)
+    current_over = models.IntegerField(default=0)
     match_status = models.IntegerField(default=0)
     winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,

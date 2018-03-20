@@ -535,157 +535,183 @@ def enter_score(request, tournament_id, match_id, batting_team_id, bowling_team_
     tournament = Tournament.objects.get(pk=tournament_id)
     batting_team = Team.objects.get(pk=batting_team_id)
     bowling_team = Team.objects.get(pk=bowling_team_id)
+    try:
+        organizer = request.user.id
+        organizer = Organizer.objects.get(id=organizer)
 
-    if match.match_status == 2:
-        messages.success(request, 'Match already Submitted')
-        return redirect('tournament:match', tournament_id, match_id)
-    if match.toss_stored == True:
+        if match.match_status == 2:
+            messages.success(request, 'Match already Submitted')
+            return redirect('tournament:match', tournament_id, match_id)
+        if match.toss_stored == True:
+            if innings == 0:
+                innings = 'First'
+                f = 0
+            else:
+                innings = 'Second'
+                f = 1
+
+            if innings == 'First':
+                player1 = match.striker_innings1
+                player2 = match.non_striker_innings1
+            else:
+                player1 = match.striker_innings2
+                player2 = match.non_striker_innings2
+            if request.method == 'POST':
+                form = ScoreUpdateForm(player1, player2, bowling_team, match, request.POST)
+                if form.is_valid():
+                    ball_number = form.cleaned_data['ball_number']
+                    over_number = form.cleaned_data['over_number']
+                    bowler = form.cleaned_data['bowler']
+                    batsman = form.cleaned_data['batsman']
+                    run = form.cleaned_data['run']
+                    extra_type = form.cleaned_data['extra_type']
+                    extra_run = form.cleaned_data['extra_run']
+                    is_wicket = form.cleaned_data['is_wicket']
+                    is_extra = form.cleaned_data['is_extra']
+                    wicket_type = form.cleaned_data['wicket_type']
+                    commentary = form.cleaned_data['commentary']
+                    four = form.cleaned_data['four']
+                    six = form.cleaned_data['six']
+                    out_batsman = form.cleaned_data['out_batsman']
+
+                    score = Score()
+                    score.save()
+
+                    batsman = Player.objects.get(id=batsman)
+                    p = PerformanceMatch.objects.filter(match=match).filter(player=batsman).first()
+                    p = p.batting_innings
+                    p.batting_runs += run
+                    p.batting_innings.played = True
+                    match.team_1_score += run
+                    p.team = batting_team
+                    if not is_extra:
+                        p.batting_balls += 1
+                    p.strike_rate = (p.batting_runs / p.batting_balls) * 100
+                    if six:
+                        p.sixes += 1
+                        score.six = True
+                        score.save()
+                    if four:
+                        p.fours += 1
+                        score.four = True
+                        score.save()
+                    if is_wicket:
+                        match.team_1_wickets += 1
+                    p.save()
+
+                    bowler = Player.objects.get(id=bowler)
+                    q = PerformanceMatch.objects.filter(match=match).filter(player=bowler).first()
+                    q = q.bowling_innings
+                    if q.started_time is None:
+                        q.started_time = datetime.now()
+                    q.played = True
+                    q.save()
+                    q.team = bowling_team
+                    if ball_number >= 6:
+                        q.bowling_overs += 1
+                        over_number += 1
+                        q.save()
+                    q.bowling_runs += run
+                    match.current_over = over_number
+                    match.save()
+                    if extra_run:
+                        q.bowling_runs += extra_run
+                    if is_wicket:
+                        q.wickets += 1
+                        out_batsman = Player.objects.get(id=out_batsman)
+                        p = PerformanceMatch.objects.filter(match=match).filter(player=out_batsman).first()
+                        p.batting_innings.out = True
+                        p.batting_innings.out_type = wicket_type
+                        p.batting_innings.save()
+                        p.batting_innings.status = 'out'
+                        p.batting_innings.save()
+                        p.save()
+                        score.wicket = True
+                        score.out_batsman = out_batsman
+                        score.save()
+                        if innings == 'First':
+                            if match.striker_innings1 == p:
+                                match.striker_innings1 = None
+                                match.save()
+                            elif match.non_striker_innings1 == p:
+                                match.non_striker_innings1 = None
+                                match.save()
+                        else:
+                            if match.striker_innings2 == p:
+                                match.striker_innings2 = None
+                                match.save()
+                            elif match.non_striker_innings2 == p:
+                                match.non_striker_innings2 = None
+                                match.save()
+                        q.wickets_players.add(out_batsman)
+                        p.save()
+                    if q.wickets:
+                        q.bowling_avg = (q.bowling_runs / q.wickets)
+                    q.save()
+
+                    score.match = match
+                    score.innings = innings
+                    score.over_number = over_number
+                    score.ball_number = ball_number
+                    score.batsman = batsman
+                    score.bowler = bowler
+                    score.description = commentary
+                    score.batting_team = batting_team
+                    score.bowling_team = bowling_team
+                    score.save()
+                    return redirect('tournament:enter_score', tournament_id, match_id, batting_team_id, bowling_team_id, f)
+            else:
+                if match.striker_innings1 is None and match.non_striker_innings1 is None:
+                    messages.success(request, 'All-Out  ')
+                    return redirect('tournament:match', tournament_id, match_id)
+                bowling_team_players = PerformanceMatch.objects.filter(team=bowling_team).filter(
+                    match=match).filter(bowling_innings__played=True).order_by('-batting_innings__started_time')
+                players = None
+                if innings == 'First':
+                    if match.striker_innings1 is not None:
+                        players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                            batting_innings__out=False).exclude(id=match.striker_innings1.id)
+                    elif match.non_striker_innings1 is not None:
+                        players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                            batting_innings__out=False).exclude(id=match.non_striker_innings1.id)
+                elif innings == 'Second':
+                    if match.striker_innings2 is not None:
+                        players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                            batting_innings__out=False).exclude(id=match.striker_innings2.id)
+                    elif match.non_striker_innings2 is not None:
+                        players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
+                            batting_innings__out=False).exclude(id=match.non_striker_innings2.id)
+                select_new_batsman_form = SelectBatsmanForm(players)
+
+                form = ScoreUpdateForm(player1, player2, bowling_team, match, initial={'over_number':
+                                                                                           match.current_over})
+                recent = Score.objects.filter(match=match).filter(innings=innings).order_by(
+                    'over_number')
+                recent = recent[:5]
+                context = {'form': form, 'match': match, 'batting_team': batting_team,
+                           'bowling_team': bowling_team, 'innings': f,
+                           'bowling_team_players':bowling_team_players, 'player1': player1, 'player2': player2,
+                           'select_new_batsman_form': select_new_batsman_form, 'players': players,
+                           'recent': recent}
+                return render(request, 'tournament/score_templates/enter_score.html', context)
+        else:
+            messages.success(request, 'Please fill toss information first')
+            return redirect('tournament:match', tournament_id, match_id)
+    except Exception:
         if innings == 0:
             innings = 'First'
             f = 0
         else:
             innings = 'Second'
             f = 1
+        recent = Score.objects.filter(match=match).filter(innings=innings).order_by(
+            'over_number')
+        recent = recent[:5]
+        context = { 'match': match, 'batting_team': batting_team,
+                   'bowling_team': bowling_team, 'innings': f,
+                   'recent': recent}
+        return render(request, 'tournament/score_templates/live_score.html', context)
 
-        if innings == 'First':
-            player1 = match.striker_innings1
-            player2 = match.non_striker_innings1
-        else:
-            player1 = match.striker_innings2
-            player2 = match.non_striker_innings2
-        if request.method == 'POST':
-            form = ScoreUpdateForm(player1, player2, bowling_team, match, request.POST)
-            if form.is_valid():
-                ball_number = form.cleaned_data['ball_number']
-                over_number = form.cleaned_data['over_number']
-                bowler = form.cleaned_data['bowler']
-                batsman = form.cleaned_data['batsman']
-                run = form.cleaned_data['run']
-                extra_type = form.cleaned_data['extra_type']
-                extra_run = form.cleaned_data['extra_run']
-                is_wicket = form.cleaned_data['is_wicket']
-                is_extra = form.cleaned_data['is_extra']
-                wicket_type = form.cleaned_data['wicket_type']
-                commentary = form.cleaned_data['commentary']
-                four = form.cleaned_data['four']
-                six = form.cleaned_data['six']
-                out_batsman = form.cleaned_data['out_batsman']
-
-                score = Score()
-                score.save()
-
-                batsman = Player.objects.get(id=batsman)
-                p = PerformanceMatch.objects.filter(match=match).filter(player=batsman).first()
-                p = p.batting_innings
-                p.batting_runs += run
-                p.batting_innings.played = True
-                match.team_1_score += run
-                p.team = batting_team
-                if not is_extra:
-                    p.batting_balls += 1
-                p.strike_rate = (p.batting_runs / p.batting_balls) * 100
-                if six:
-                    p.sixes += 1
-                    score.six = True
-                    score.save()
-                if four:
-                    p.fours += 1
-                    score.four = True
-                    score.save()
-                if is_wicket:
-                    match.team_1_wickets += 1
-                p.save()
-
-                bowler = Player.objects.get(id=bowler)
-                q = PerformanceMatch.objects.filter(match=match).filter(player=bowler).first()
-                q = q.bowling_innings
-                if q.started_time is None:
-                    q.started_time = datetime.now()
-                q.played = True
-                q.save()
-                q.team = bowling_team
-                if ball_number >= 6:
-                    q.bowling_overs += 1
-                    q.save()
-                q.bowling_runs += run
-                if extra_run:
-                    q.bowling_runs += extra_run
-                if is_wicket:
-                    q.wickets += 1
-                    out_batsman = Player.objects.get(id=out_batsman)
-                    p = PerformanceMatch.objects.filter(match=match).filter(player=out_batsman).first()
-                    p.batting_innings.out = True
-                    p.batting_innings.out_type = wicket_type
-                    p.batting_innings.save()
-                    p.batting_innings.status = 'out'
-                    p.batting_innings.save()
-                    p.save()
-                    score.wicket = True
-                    score.out_batsman = out_batsman
-                    score.save()
-                    if innings == 'First':
-                        if match.striker_innings1 == p:
-                            match.striker_innings1 = None
-                            match.save()
-                        elif match.non_striker_innings1 == p:
-                            match.non_striker_innings1 = None
-                            match.save()
-                    else:
-                        if match.striker_innings2 == p:
-                            match.striker_innings2 = None
-                            match.save()
-                        elif match.non_striker_innings2 == p:
-                            match.non_striker_innings2 = None
-                            match.save()
-                    q.wickets_players.add(out_batsman)
-                    p.save()
-                if q.wickets:
-                    q.bowling_avg = (q.bowling_runs / q.wickets)
-                q.save()
-
-                score.match = match
-                score.innings = innings
-                score.over_number = over_number
-                score.ball_number = ball_number
-                score.batsman = batsman
-                score.bowler = bowler
-                score.description = commentary
-                score.batting_team = batting_team
-                score.bowling_team = bowling_team
-                score.save()
-                return redirect('tournament:enter_score', tournament_id, match_id, batting_team_id, bowling_team_id, f)
-        else:
-            if match.striker_innings1 is None and match.non_striker_innings1 is None:
-                messages.success(request, 'All-Out  ')
-                return redirect('tournament:match', tournament_id, match_id)
-            bowling_team_players = PerformanceMatch.objects.filter(team=bowling_team).filter(
-                match=match).filter(bowling_innings__played=True).order_by('-batting_innings__started_time')
-            players = None
-            if innings == 'First':
-                if match.striker_innings1 is not None:
-                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
-                        batting_innings__out=False).exclude(id=match.striker_innings1.id)
-                elif match.non_striker_innings1 is not None:
-                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
-                        batting_innings__out=False).exclude(id=match.non_striker_innings1.id)
-            elif innings == 'Second':
-                if match.striker_innings2 is not None:
-                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
-                        batting_innings__out=False).exclude(id=match.striker_innings2.id)
-                elif match.non_striker_innings2 is not None:
-                    players = PerformanceMatch.objects.filter(match=match).filter(team=batting_team).filter(
-                        batting_innings__out=False).exclude(id=match.non_striker_innings2.id)
-            select_new_batsman_form = SelectBatsmanForm(players)
-
-            form = ScoreUpdateForm(player1, player2, bowling_team, match)
-            context = {'form': form, 'match': match, 'batting_team': batting_team,
-                       'bowling_team': bowling_team, 'innings': f,
-                       'bowling_team_players':bowling_team_players, 'player1': player1, 'player2': player2,
-                       'select_new_batsman_form': select_new_batsman_form, 'players': players}
-            return render(request, 'tournament/score_templates/enter_score.html', context)
-    else:
-        messages.success(request, 'Please fill toss information first')
-        return redirect('tournament:match', tournament_id, match_id)
 
 
 def select_new_batsman(request, tournament_id, match_id, batting_team_id, bowling_team_id, innings):

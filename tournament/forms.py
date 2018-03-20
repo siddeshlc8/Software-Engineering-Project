@@ -94,7 +94,7 @@ class ScoreUpdateForm(forms.Form):
             )
 
     ball_number = forms.IntegerField()
-    over_number = forms.IntegerField()
+    over_number = forms.IntegerField(initial='class')
     bowler = forms.CharField(max_length=11)
     batsman = forms.CharField(max_length=11)
     run = forms.IntegerField(required=False)

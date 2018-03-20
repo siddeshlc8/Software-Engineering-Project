@@ -290,6 +290,13 @@
                   <th scope="col">Recent</th>
                 </tr>
               </thead>
+            <tbody>
+             {% for recent in recent %}
+            <tr>
+                  <td>{{ recent.over_number }}.{{ recent.ball_number }} : {{ recent.description }}</td>
+            </tr>
+             {% endfor %}
+            </tbody>
             </table>
 
             </div>
