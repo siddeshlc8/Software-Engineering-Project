@@ -101,16 +101,16 @@
                   <th scope="col">SR</th>
                 </tr>
               </thead>
-                            {% for player in team1_players %}
+                            {% for player in innings1_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -125,6 +125,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings1_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -134,6 +141,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -143,14 +151,15 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings1_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg}}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg}}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -187,16 +196,16 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings2_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -212,6 +221,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings2_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -221,6 +237,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -228,14 +245,15 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
-              {% for player in team1_players %}
+              {% for player in innings2_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg }}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg }}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -249,6 +267,22 @@
              <div id="commentary">
                  <hr>
              <h2 class="my-4">Commentary</h2>
+
+                 <h2>First Innings</h2>
+
+                 {% for commentary in commentary_first_innings %}
+
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
+
+                 {% endfor %}
+
+                 <h2>Second Innings</h2>
+
+                 {% for commentary in commentary_second_innings %}
+
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
+
+                 {% endfor %}
 
                  <hr>
              </div>
@@ -269,10 +303,11 @@
                         <h5 class="card-header">Enter Overs Information</h5>
                         <div class="card-body">
                           <div class="row">
-                                 <form method="POST">
+                                 <form method="POST" action="{% url 'tournament:match_overs' tournament.id match.id %}">
                                   {% csrf_token %}
-                                     <p><input type="text" class="form-control" name="overs"  placeholder="Enter Overs"></p>
-                                     <button type="submit" class="btn btn-secondary submit_buttons">Save</button>
+                                     <p> {{ overs_form.overs.label }} : {{ overs_form.overs }}</p>
+                                     <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
                               </form>
                           </div>
                       </div>
@@ -284,10 +319,10 @@
                         <h5 class="card-header">Enter Toss Information</h5>
                         <div class="card-body">
                           <div class="row">
-                                 <form method="POST">
+                                 <form method="POST" action="{% url 'tournament:match_toss' tournament.id match.id%}">
                                   {% csrf_token %}
-                                      <p>Select Team :  {{ form.toss_winner }}</p>
-                                      <p>Select Choice :  {{ form.toss_winner_choice }}</p>
+                                      <p>Select Team :  {{ toss_form.toss_winner }}</p>
+                                      <p>Select Choice :  {{ toss_form.toss_winner_choice }}</p>
                                      <button class="btn btn-secondary" type="submit" value="continue">Save</button>
                               </form>
                           </div>
@@ -311,13 +346,26 @@
                         <h5 class="card-header"><b>Update Score Card</b></h5>
                         <div class="card-body">
                           <div class="row">
-                              {% if match.match_status != 0 %}
+                              {% if match.match_status%}
+
+                              {% if match.openers_selected_innings1 or match.toss_stored == False %}
 
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  batting_team.id bowling_team.id 0 %}">FIRST INNINGS</a></p>
+                              {% else %}
+                               <p><a data-toggle="modal" href="#exampleModalCenter1">FIRST INNINGS</a></p>
+                              {% endif %}
+
+                              {% if match.openers_selected_innings2 or match.toss_stored == False %}
                               <p><a href="{% url 'tournament:enter_score' tournament.id match.id  bowling_team.id batting_team.id 1 %}">SECOND INNINGS</a></p>
+                              {% else %}
+                              <p><a data-toggle="modal" href="#exampleModalCenter2">SECOND INNINGS</a></p>
+                              {% endif %}
+
                               <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
 
+
                               {% else %}
+
 
                                     <form method="POST" action="{% url 'tournament:start_match' match.id %}">
                                         {% csrf_token %}
@@ -340,6 +388,64 @@
 
     </div>
 
-    <!-------------  -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select the Opening Batsmen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form method="POST" action="{% url 'tournament:match_openers_innings1' tournament.id match.id %}">
+                                  {% csrf_token %}
+          <h4>Strike : {{ opener_form1.striker_innings1 }}</h4>
+          <h4>Non Strike : {{ opener_form1.non_striker_innings1 }}</h4>
+              <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select the Opening Batsmen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form method="POST" action="{% url 'tournament:match_openers_innings2' tournament.id match.id%}">
+                                  {% csrf_token %}
+          <h4>Strike : {{ opener_form2.striker_innings2 }}</h4>
+          <h4>Non Strike : {{ opener_form2.non_striker_innings2 }}</h4>
+            <button type="submit" class="btn btn-secondary
+                                     submit_buttons">Save</button>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

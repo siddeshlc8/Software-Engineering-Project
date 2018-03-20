@@ -4,6 +4,8 @@
 
 {% block body %}
 
+
+
     {% load staticfiles %}
     <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
 <br>
@@ -106,13 +108,9 @@
 <!--------- ---->
 
 
-    <p><h2>List of Players You can Add:</h2></p>
+    <p><h2><a href="{% url 'tournament:add_players' team.id %}">Add Players</a></h2></p>
 
-    {% for player in available_players %}
 
-        <a href="{% url 'tournament:team_players_add' team.id  player.id %}"><h3>{{ player.get_full_name }}</h3></a>
-
-    {% endfor %}
 
 </div>
 

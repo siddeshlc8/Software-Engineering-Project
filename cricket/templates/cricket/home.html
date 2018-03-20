@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cricky</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+      {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'cricket/home.css' %}">
+  </head>
+
+  <body class="text-center">
+
+  <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+              // Store hash
+              var hash = this.hash;
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+ <div class="container" style="width: 900px">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto" style="color: #5cb85c">
+        <div class="inner" >
+          <h3 class="masthead-brand">Cricky</h3>
+          <nav class="nav nav-masthead justify-content-center" >
+            <a class="nav-link active"  href="{% url 'home_page' %} "><h5 style="color: #5cb85c">Home</h5></a>
+            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #5cb85c">Player</h5></a>
+            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #5cb85c">Organizer</h5></a>
+            <a class="nav-link" href="{% url 'live' %}"><h5 style="color: #5cb85c">Live Scores</h5></a>
+            <a class="nav-link" href="#"><h5 style="color: #5cb85c">Contact</h5></a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner-cover">
+        <h1 class="cover-heading" style="color: black" ></h1>
+        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+        <p class="lead">
+          <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control" style="width: 650px; color: black; type = "text" name="q" placeholder="Search  for matches, teams....." aria-label="Search">
+                </form>
+        </p>
+      </main>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+        </div>
+
+      </footer>
+
+
+  <!---
+      <div id="more" class="container" style="width: 700px">
+        <div class="cover-container1 d-flex h-100 w-100 p-3 mx-auto flex-column" >
+      <header class="masthead mb-auto" style="width: 700px; margin-left: 400px">
+        <div class="inner">
+          <h3 class="masthead-brand" style="color: #f2eeff">Cricky</h3>
+          <nav class="nav nav-masthead justify-content-center" >
+            <a class="nav-link active"  href="{% url 'home_page' %} "><h5 style="color: #f2eeff">Home</h5></a>
+            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #f2eeff">Player</h5></a>
+            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #f2eeff">Organizer</h5></a>
+            <a class="nav-link" href="{% url 'live' %}"><h5 style="color: #f2eeff">Live Scores</h5></a>
+            <a class="nav-link" href="#"><h5 style="color: #f2eeff">Contact</h5></a>
+          </nav>
+        </div>
+      </header>
+
+            <div class="row">
+          <div class="col-md-4">
+
+                  <p class="lead">
+                      Cricky provides completly free feauture to organizer your tournaments
+                      and keep track of your tournament history
+                  </p>
+
+              <a href="{% url 'organizers_page'  %}" class="btn btn-lg btn-secondary">Organizer</a>
+      </div>
+
+
+      <div class="col-md-4">
+
+                   <p class="lead">
+                      Cricky provides  great opportunity to players to create a acoount  and showcase thier performance to all other users
+
+                  </p>
+
+          <a href="{% url 'players_page'  %}" class="btn btn-lg btn-secondary">Player</a>
+      </div>
+
+      <div class="col-md-4">
+
+          <p class="lead">
+              You can view the live matches and tournaments
+          </p>
+          <a href="#" class="btn btn-lg btn-secondary">Live Scores</a>
+       </div>
+
+      </div>
+
+    </div>
+      </div>
+      -->
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+  </body>
+
+
+</html>
