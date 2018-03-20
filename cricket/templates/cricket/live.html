@@ -73,7 +73,7 @@
 
                        <div class="card">
 
-                             {{ match.name }}
+                             <a href="{% url 'tournament:live_scores' match.id %}" style="color: black">{{ match }}</a>
 
                        </div>
 

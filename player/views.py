@@ -4,7 +4,7 @@ from .models import Player
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from performance.models import PerformanceMatchWise, PerformanceTotal
+from performance.models import PerformanceMatch, PerformanceTotal
 
 
 def player_home(request):
@@ -19,16 +19,16 @@ def player_home(request):
 def player_performance(request):
     try:
         player = Player.objects.get(pk=request.user.id)
-        data = PerformanceMatchWise.objects.filter(player=player).order_by('match__name')
+        data = PerformanceMatch.objects.filter(player=player)
         labels = []
         values = []
         labels1 = []
         values1 = []
         for key in data:
             labels.append(key.id)
-            values.append(key.batting_runs)
+            values.append(key.batting_innings.batting_runs)
             labels1.append(key.id)
-            values1.append(key.wickets)
+            values1.append(key.bowling_innings.wickets)
         total_data = PerformanceTotal.objects.get(player=player)
         context = {'labels': labels, 'values': values, 'labels1': labels1, 'values1': values1, 'total_data': total_data}
         return render(request, 'player/performance.html', context)

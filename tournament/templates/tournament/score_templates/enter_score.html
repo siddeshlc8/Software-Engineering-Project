@@ -36,11 +36,22 @@
 
                                       </div>
 
-                                      <div class="col-sm-3">
 
-                                         <h3><b> Innings : {{ innings }}</b></h3>
+
+                                        <div class="col-sm-3">
+
+                                         <h3><b> Innings : {{ match.match_additional.current_innings }}</b></h3>
 
                                       </div>
+
+                                      <div class="col-sm-3">
+
+                                         <a href="{% url 'tournament:submit_innings' match.id %}"><h3><b> SUBMIT INNINGS</b></h3></a>
+
+                                      </div>
+
+
+
 
                                   </div>
                               </div>
@@ -155,7 +166,7 @@
 
                                     <p>{{ select_new_batsman_form.player }} </p>
 
-                                  <p><button type="submit" class="btn btn-primary" formaction="{% url 'tournament:select_new_batsman' match.tournament_id match.id batting_team.id bowling_team.id innings %}">Save</button></p>
+                                  <p><button type="submit" class="btn btn-primary" formaction="{% url 'tournament:select_new_batsman'  match.id  %}">Save</button></p>
                               {% else %}
 
                               <h3>All-Out</h3>
@@ -303,6 +314,7 @@
         </div>
     </div>
        </div>
+
 
 
 

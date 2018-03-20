@@ -139,6 +139,20 @@ class OverForm(forms.Form):
     overs = forms.IntegerField()
 
 
+class OpenerForm(forms.Form):
+    def __init__(self, team, *args, **kwargs):
+        super(OpenerForm, self).__init__(*args, **kwargs)
+        self.fields['striker'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+        self.fields['non_striker'] = forms.ChoiceField(
+            choices=[(player.id, str(player)) for player in team.players.all()]
+        )
+
+    striker = forms.CharField(required=False)
+    non_striker = forms.CharField(required=False)
+
+
 class OpenerForm1(forms.Form):
     def __init__(self, team, *args, **kwargs):
         super(OpenerForm1, self).__init__(*args, **kwargs)

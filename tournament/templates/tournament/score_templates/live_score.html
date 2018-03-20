@@ -1,10 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends 'search/base.html' %}
+
+
+
+{% block title %}{{ organizer.get_full_name }} | Enter Score{% endblock %}
+
+{% block body %}
+
+    {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
+    <br><br><br><br>
+
+
+             <div class="col-lg-20" style="margin-left: 100px">
+
+    <div class="row">
+
+
+                                      <div class="col-sm-3" >
+
+                                          <h3><b>Match : {{ match.name }}</b></h3>
+
+                                      </div>
+
+                                      <div class="col-sm-3 ">
+
+                                         <h3><b> Batting Team : {{ batting_team.name }}</b></h3>
+                                      </div>
+
+
+                                      <div class="col-sm-3 ">
+
+                                        <h3><b>Bowling Team : {{ bowling_team.name }}</b></h3>
+
+                                      </div>
+
+
+
+                                        <div class="col-sm-3">
+
+                                         <h3><b> Innings : {{ match.match_additional.current_innings }}</b></h3>
+
+                                      </div>
+
+
+
+
+                                  </div>
+                              </div>
+
+                      </div>
+
+
+    <div class="col-md-6" style="margin-left: 350px">  <br><br>
+        <div class="card h-90">
+           <h2 class="card-header"><b>LIVE SCORES:</b></h2>
+
+            <div class="card-body">
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Runs</th>
+                  <th scope="col">Balls</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ player1.player.get_full_name }}</td>
+                  <td>{{ player1.batting_innings.status }}</td>
+                  <td>{{ player1.batting_innings.batting_runs }}</td>
+                  <td>{{ player1.batting_innings.batting_balls }}</td>
+                  <td>{{ player1.batting_innings.sixes }}</td>
+                  <td>{{ player1.batting_innings.fours }}</td>
+                  <td>{{ player1.batting_innings.strike_rate }}</td>
+                </tr>
+                 <tr>
+                  <td>{{ player2.player.get_full_name }}</td>
+                  <td>{{ player2.batting_innings.status }}</td>
+                  <td>{{ player2.batting_innings.batting_runs }}</td>
+                  <td>{{ player2.batting_innings.batting_balls }}</td>
+                  <td>{{ player2.batting_innings.sixes }}</td>
+                  <td>{{ player2.batting_innings.fours }}</td>
+                  <td>{{ player2.batting_innings.strike_rate }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+
+
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
+                  <th scope="col">Overs</th>
+                  <th scope="col">Maidens</th>
+                  <th scope="col">Wickets</th>
+                  <th scope="col">Average</th>
+                  <th scope="col">Economy</th>
+                </tr>
+              </thead>
+              {% for player in bowling_team_players %}
+              <tbody>
+                <tr>
+                  <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
+                  <td>{{ player.bowling_innings.bowling_overs }}</td>
+                  <td>0</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg }}</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
+            </table>
+
+
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Recent</th>
+                </tr>
+              </thead>
+            <tbody>
+             {% for recent in recent %}
+            <tr>
+                  <td>{{ recent.over_number }}.{{ recent.ball_number }} : {{ recent.description }}</td>
+            </tr>
+             {% endfor %}
+            </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+       </div>
+
+
+{% endblock %}
