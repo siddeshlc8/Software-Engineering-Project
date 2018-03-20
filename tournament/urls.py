@@ -36,4 +36,6 @@ urlpatterns = [
     path('<int:tournament_id>/start_tournament/', views.start_tournament, name='start_tournament'),
     path('<int:tournament_id>/alerts',include('alerts.urls'), name='tournament_alerts'),
 
+
+
 ]

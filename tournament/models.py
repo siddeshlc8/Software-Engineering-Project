@@ -31,33 +31,52 @@ class Team(models.Model):
         return self.name
 
 
-class Match(models.Model):
-    tournament = models.ForeignKey(Tournament,on_delete=models.CASCADE)
-    name = models.CharField(max_length=10)
-    team_1 = models.ForeignKey('Team', related_name='team_1',on_delete=models.DO_NOTHING)
-    team_2 = models.ForeignKey('Team', related_name='team_2',on_delete=models.DO_NOTHING)
-    overs = models.IntegerField(default=0)
+class FirstInnings(models.Model):
+    completed = models.BooleanField(default=False)
+    batting_team = models.ForeignKey(Team, related_name='batting_team1', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    bowling_team = models.ForeignKey(Team, related_name='bowling_team1', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
     current_over = models.IntegerField(default=0)
+    openers_selected = models.BooleanField(default=False)
+    striker = models.ForeignKey(PerformanceMatch, related_name='striker1', on_delete=models.DO_NOTHING,
+                                blank=True, null=True)
+    non_striker = models.ForeignKey(PerformanceMatch, related_name='non_strike1',
+                                    on_delete=models.DO_NOTHING, blank=True, null=True)
+
+
+class SecondInnings(models.Model):
+    completed = models.BooleanField(default=False)
+    batting_team = models.ForeignKey(Team, related_name='batting_team2', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    bowling_team = models.ForeignKey(Team, related_name='bowling_team2', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    current_over = models.IntegerField(default=0)
+    openers_selected = models.BooleanField(default=False)
+    striker = models.ForeignKey(PerformanceMatch, related_name='striker2', on_delete=models.DO_NOTHING,
+                                blank=True, null=True)
+    non_striker = models.ForeignKey(PerformanceMatch, related_name='non_striker2',
+                                    on_delete=models.DO_NOTHING, blank=True, null=True)
+
+
+class MatchAdditional(models.Model):
+    current_innings = models.CharField(max_length=10, blank=True, null=True)
+    toss_stored = models.BooleanField(default=False)
+
+
+class Match(models.Model):
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    team_1 = models.ForeignKey('Team', related_name='team_1', on_delete=models.DO_NOTHING)
+    team_2 = models.ForeignKey('Team', related_name='team_2', on_delete=models.DO_NOTHING)
+    overs = models.IntegerField(default=0)
     match_status = models.IntegerField(default=0)
-    winner = models.ForeignKey('Team', related_name='winner',on_delete=models.DO_NOTHING)
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,
                                     blank=True, null=True)
     toss_winner_choice = models.CharField(max_length=10, default='Select')
-    toss_stored = models.BooleanField(default=False)
-    team_1_score = models.BigIntegerField(default=0)
-    team_2_score = models.BigIntegerField(default=0)
-    team_2_wickets = models.IntegerField(default=0)
-    team_1_wickets = models.IntegerField(default=0)
-    openers_selected_innings1 = models.BooleanField(default=False)
-    openers_selected_innings2 = models.BooleanField(default=False)
-    striker_innings1 = models.ForeignKey(PerformanceMatch, related_name='striker_innings1',
-                                         on_delete=models.DO_NOTHING, blank=True, null=True)
-    non_striker_innings1 = models.ForeignKey(PerformanceMatch, related_name='non_striker_innings1',
-                                             on_delete=models.DO_NOTHING, blank=True, null=True)
-    striker_innings2 = models.ForeignKey(PerformanceMatch, related_name='striker_innings2',
-                                         on_delete=models.DO_NOTHING, blank=True, null=True)
-    non_striker_innings2 = models.ForeignKey(PerformanceMatch, related_name='non_striker_innings2',
-                                             on_delete=models.DO_NOTHING, blank=True, null=True)
+    first_innings = models.ForeignKey(FirstInnings, on_delete=models.DO_NOTHING, blank=True, null=True)
+    second_innings = models.ForeignKey(SecondInnings, on_delete=models.DO_NOTHING, blank=True, null=True)
+    match_additional = models.ForeignKey(MatchAdditional, on_delete=models.DO_NOTHING, blank=True,
+                                         null=True)
 
     def __str__(self):
         return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
@@ -66,8 +85,10 @@ class Match(models.Model):
 class Score(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True, blank=True)
     innings = models.CharField(max_length=11)
-    batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING, null=True, blank=True)
-    bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING, null=True, blank=True)
+    batting_team = models.ForeignKey('Team', related_name='batting_team', on_delete=models.DO_NOTHING,
+                                     null=True, blank=True)
+    bowling_team = models.ForeignKey('Team', related_name='bowling_team', on_delete=models.DO_NOTHING,
+                                     null=True, blank=True)
     ball_number = models.IntegerField(null=True, blank=True)
     over_number = models.IntegerField(null=True, blank=True)
     bowler = models.ForeignKey('player.Player', related_name='bowler', null=True, on_delete=models.DO_NOTHING)
@@ -87,13 +108,13 @@ class Score(models.Model):
 
 
 class ScoreCard(models.Model):
-    name = models.CharField(max_length=20, unique=True, blank=True, null=True)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True, blank=True)
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
-    team_1 = models.ForeignKey(Team, related_name='team1', on_delete=models.DO_NOTHING, null=True, blank=True)
-    team_2 = models.ForeignKey(Team, related_name='team2', on_delete=models.DO_NOTHING, null=True, blank=True)
-    team_1_players = models.ManyToManyField(PerformanceMatch, related_name='team_1_players')
-    team_2_players = models.ManyToManyField(PerformanceMatch, related_name='team_2_players')
+    winner = models.ForeignKey('Team', related_name='winner', on_delete=models.DO_NOTHING, blank=True,
+                               null=True)
+    team_1_score = models.BigIntegerField(default=0)
+    team_2_score = models.BigIntegerField(default=0)
+    team_2_wickets = models.IntegerField(default=0)
+    team_1_wickets = models.IntegerField(default=0)
+
 
 
 
