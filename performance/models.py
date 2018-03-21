@@ -3,7 +3,7 @@ from player.models import Player
 
 
 class PerformanceTotal(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
     tournaments = models.BigIntegerField(default=0)
     matches = models.BigIntegerField(default=0)
     batting_innings = models.BigIntegerField(default=0)
@@ -29,10 +29,10 @@ class PerformanceTotal(models.Model):
 
 
 class PerformanceMatchWise(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
-    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True)
-    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True)
-    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
+    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True, blank=True)
+    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True, blank=True)
     batting_runs = models.BigIntegerField(default=0)
     strike_rate = models.FloatField(default=0)
     sixes = models.IntegerField(default=0)
@@ -80,10 +80,10 @@ class BowlingInnings(models.Model):
 
 
 class PerformanceMatch(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
-    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True)
-    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True)
-    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
+    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True, blank=True)
+    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True, blank=True)
     batting_innings = models.ForeignKey(BattingInnings, related_name='batting_innings',
                                         on_delete=models.CASCADE, null=True, blank=True)
     bowling_innings = models.ForeignKey(BowlingInnings, related_name='bowling_innings',
@@ -91,7 +91,7 @@ class PerformanceMatch(models.Model):
     played = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.match.name + '-' + self.player.get_full_name()
+        return self.player.get_full_name() + ' - ' + str(self.match)
 
 
 

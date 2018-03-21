@@ -12,7 +12,7 @@ class Tournament(models.Model):
     place = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField(default=None)
-    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE, null=True, blank=True)
     tournament_status = models.IntegerField(default=0)
     tournament_schedule = models.IntegerField(default=0)
 
@@ -24,7 +24,7 @@ class Team(models.Model):
     name = models.CharField(max_length=20, unique=True)
     owner = models.CharField(max_length=20)
     logo = models.ImageField()
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
     players = models.ManyToManyField(Player)
 
     def __str__(self):
@@ -65,9 +65,10 @@ class MatchAdditional(models.Model):
 
 
 class Match(models.Model):
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
-    team_1 = models.ForeignKey('Team', related_name='team_1', on_delete=models.DO_NOTHING)
-    team_2 = models.ForeignKey('Team', related_name='team_2', on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=10, blank=True, null=True)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
+    team_1 = models.ForeignKey('Team', related_name='team_1', on_delete=models.DO_NOTHING, null=True, blank=True)
+    team_2 = models.ForeignKey('Team', related_name='team_2', on_delete=models.DO_NOTHING, null=True, blank=True)
     overs = models.IntegerField(default=0)
     match_status = models.IntegerField(default=0)
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,
@@ -79,7 +80,7 @@ class Match(models.Model):
                                          null=True)
 
     def __str__(self):
-        return '  ' + self.team_1.name + '  vs  ' + self.team_2.name
+        return str(self.team_1) + ' vs ' + str(self.team_2)
 
 
 class Score(models.Model):

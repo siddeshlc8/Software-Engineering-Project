@@ -185,7 +185,7 @@ def create_match1(request, tournament_id, team_1_id, team_2_id):
     match.tournament = tournament
     match.team_1 = team_1
     match.team_2 = team_2
-    match.name = match
+    match.name = team_1.name + ' vs ' + team_2.name
     match.save()
 
     first_innings = FirstInnings()
@@ -451,6 +451,8 @@ def submit_match(request, match_id):
 
         match.match_status = 2
         match.save()
+        match.match_additional.delete()
+        match.save()
         messages.success(request, 'Successfully Submitted')
         return redirect('tournament:match', match_id)
     else:
@@ -520,9 +522,11 @@ def submit_innings(request, match_id):
     if innings == 'First':
         match.match_additional.current_innings = 'Second'
         match.match_additional.save()
+
     else:
         match.match_additional.current_innings = 'Over'
         match.match_additional.save()
+    match.save()
 
     return redirect('tournament:match', match_id)
 

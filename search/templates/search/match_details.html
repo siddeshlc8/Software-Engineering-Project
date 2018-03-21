@@ -4,34 +4,8 @@
 
 {% block body %}
 
-    {% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'search/base.css' %}">
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
-{% if messages %}
-
-<br><br><br><br>
-
-       {% for message in messages %}
-
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
-
-              <strong> {{ message }}  </strong>
-
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-
-              <span aria-hidden="true">&times;</span>
-
-              </button>
-
-        </div>
-
-       {% endfor %}
-
-{% endif %}
-
-
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <div class="container">
      <br>
     <br>
@@ -78,11 +52,12 @@
 
     <div class="container">
 
+
       <div class="row">
 
         <!-- Blog Entries Column class="col-md-9" -->
         <div  class="col-md-9">
-
+      {% if match.match_additional.toss_stored is True %}
 
             <hr>
             <h2 class="my-4" style="{text-align: center;}">First Innings : {{ team1.name }}
@@ -103,16 +78,16 @@
                   <th scope="col">SR</th>
                 </tr>
               </thead>
-                            {% for player in team1_players %}
+                            {% for player in innings1_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -127,6 +102,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings1_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -136,6 +118,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -145,14 +128,15 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings1_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg}}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg}}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -189,16 +173,16 @@
               </thead>
               <tbody>
                 <tr>
-                  {% for player in team2_players %}
+                  {% for player in innings2_batting %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.status }}</td>
-                  <td>{{ player.batting_runs }}</td>
-                  <td>{{ player.batting_balls }}</td>
-                  <td>{{ player.fours }}</td>
-                  <td>{{ player.sixes }}</td>
-                  <td>{{ player.strike_rate }}</td>
+                  <td>{{ player.batting_innings.status }}</td>
+                  <td>{{ player.batting_innings.batting_runs }}</td>
+                  <td>{{ player.batting_innings.batting_balls }}</td>
+                  <td>{{ player.batting_innings.fours }}</td>
+                  <td>{{ player.batting_innings.sixes }}</td>
+                  <td>{{ player.batting_innings.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -214,6 +198,13 @@
                   <th scope="col">Fall of Wickets</th>
                 </tr>
               </thead>
+                {% for wicket in innings2_fallofwicket %}
+              <tbody>
+                <tr>
+                  <td>{{ wicket.over_number }}.{{ wicket.ball_number }} - {{ wicket.out_batsman.get_full_name }}</td>
+                </tr>
+              </tbody>
+                            {% endfor %}
             </table>
 
         <br><br><br>
@@ -223,6 +214,7 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Bowler</th>
+                  <th scope="col">Runs</th>
                   <th scope="col">Overs</th>
                   <th scope="col">Maidens</th>
                   <th scope="col">Wickets</th>
@@ -230,14 +222,15 @@
                   <th scope="col">Economy</th>
                 </tr>
               </thead>
-              {% for player in team1_players %}
+              {% for player in innings2_bowling %}
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
+                  <td>{{ player.bowling_innings.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg }}</td>
+                  <td>{{ player.bowling_innings.wickets }}</td>
+                  <td>{{ player.bowling_innings.bowling_avg }}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -252,56 +245,32 @@
                  <hr>
              <h2 class="my-4">Commentary</h2>
 
+                 <h2>First Innings</h2>
+
+                 {% for commentary in commentary_first_innings %}
+
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
+
+                 {% endfor %}
+
+                 <h2>Second Innings</h2>
+
+                 {% for commentary in commentary_second_innings %}
+
+                 <p><h4>{{ commentary }} : {{ commentary.description }}</h4></p>
+
+                 {% endfor %}
+
                  <hr>
              </div>
         </div>
-
-
-
-
-
-
-        <!-- Sidebar Widgets Column class="col-md-3" -->
-        <div   class="col-md-3 ">
-
-            <div class="sticky-top" >
-
-                 <!-- Toss Widget -->
-                      <div class="card my-4">
-                        <h5 class="card-header">Toss Information</h5>
-                        <div class="card-body">
-                          <div class="row">
-                          </div>
-                      </div>
-                      </div>
-
-                  <!-- Categories Widget -->
-                      <div class="card my-4">
-                        <h5 class="card-header">Go To</h5>
-                        <div class="card-body">
-                          <div class="row">
-                              <p><a href="#firstinnings">FIRST INNINGS</a></p>
-                              <p><a href="#secondinnings">SECOND INNINGS</a></p>
-                              <p><a href="#commentary">COMMENTARY</a></p>
-                          </div>
-                      </div>
-                      </div>
-
-                  <!-- Side Widget -->
-
-
-            </div>
-
-        </div>
-
-
+   {% endif %}
       </div>
-      <!-- /.row -->
-
     </div>
-
-    <!-------------  -->
 </div>
-    </main>
+</main>
+
+
+
 
 {% endblock %}
