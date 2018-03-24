@@ -100,5 +100,6 @@ def signout(request):
 
 def live_scores(request):
     matches = Match.objects.filter(match_status=1)
-    return  render(request, 'cricket/live.html', {'matches': matches})
+    tournaments = Tournament.objects.filter(tournament_status=1)
+    return  render(request, 'cricket/live.html', {'matches': matches, 'tournaments': tournaments})
 

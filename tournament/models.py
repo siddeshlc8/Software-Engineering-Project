@@ -42,7 +42,7 @@ class Match(models.Model):
     toss_winner_choice = models.CharField(max_length=10, default='Select')
 
     def __str__(self):
-        return str(self.team_1) + ' vs ' + str(self.team_2)
+        return self.name
 
 
 class FirstInningss(models.Model):
@@ -59,6 +59,9 @@ class FirstInningss(models.Model):
     non_striker = models.ForeignKey(Player, related_name='non_strike1',
                                     on_delete=models.DO_NOTHING, blank=True, null=True)
 
+    def __str__(self):
+        return self.match.name
+
 
 class SecondInnings(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
@@ -74,11 +77,17 @@ class SecondInnings(models.Model):
     non_striker = models.ForeignKey(Player, related_name='non_striker2',
                                     on_delete=models.DO_NOTHING, blank=True, null=True)
 
+    def __str__(self):
+        return self.match.name
+
 
 class MatchAdditional(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
     current_innings = models.CharField(max_length=10, blank=True, null=True)
     toss_stored = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.match.name
 
 
 class Score(models.Model):
@@ -103,7 +112,7 @@ class Score(models.Model):
                                     on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.over_number) + '.' + str(self.ball_number)
+        return self.match.name + ' - ' + self.innings +  ' - ' + str(self.over_number) + '.' + str(self.ball_number)
 
 
 class ScoreCard(models.Model):

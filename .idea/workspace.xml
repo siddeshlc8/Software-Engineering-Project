@@ -2,127 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af2b9177-37c3-4bd6-b9b8-870c73947b61" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/alerts/migrations/0002_tournamentalerts_tournament.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/organizer/migrations/0002_auto_20180324_1844.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/performance/migrations/0002_auto_20180324_1832.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/player/migrations/0002_auto_20180324_1844.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/cricket.iml" afterPath="$PROJECT_DIR$/.idea/cricket.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/live_tournaments.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/alerts/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/alerts/migrations/0001_initial.py" />
+      <change beforePath="$PROJECT_DIR$/cricket/templates/cricket/live.html" afterPath="$PROJECT_DIR$/cricket/templates/cricket/live.html" />
+      <change beforePath="$PROJECT_DIR$/cricket/views.py" afterPath="$PROJECT_DIR$/cricket/views.py" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/organizer/form.py" afterPath="$PROJECT_DIR$/organizer/form.py" />
-      <change beforePath="$PROJECT_DIR$/organizer/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/organizer/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/organizer/migrations/0002_remove_organizer_dob.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/organizer/migrations/0003_auto_20180219_2138.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/organizer/migrations/0004_organizer.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/organizer/models.py" afterPath="$PROJECT_DIR$/organizer/models.py" />
-      <change beforePath="$PROJECT_DIR$/performance/admin.py" afterPath="$PROJECT_DIR$/performance/admin.py" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0002_performancematchwise_player.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0003_auto_20180306_1940.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0004_auto_20180307_1850.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0005_remove_performancematchwise_match.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0006_auto_20180311_2114.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0007_auto_20180311_2334.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0008_auto_20180312_1242.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0009_auto_20180312_1249.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0010_auto_20180312_1250.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0011_auto_20180312_1257.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0012_performancematchwise_team.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0013_performancematchwise_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0014_auto_20180312_1913.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0015_performancematchwise_tournament.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0016_auto_20180312_2113.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0017_performancematchwise_batting_balls.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0018_auto_20180312_2220.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0019_performancetotal_batting_balls.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0020_auto_20180313_0903.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0021_performancematchwise_wickets_players.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0022_performancematchwise_bowling_balls.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0023_remove_performancematchwise_bowling_balls.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0024_performancematchwise_started_time.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0025_auto_20180315_0013.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0026_auto_20180315_0014.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0027_auto_20180315_0014.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0028_auto_20180315_0017.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0029_remove_performancematchwise_started_time.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0030_performancematchwise_started_time.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0031_battinginnings_bowlinginnings_performancematch.py" afterPath="$PROJECT_DIR$/performance/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0032_auto_20180315_1750.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0033_auto_20180315_1751.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0034_auto_20180315_1759.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/migrations/0035_remove_performancematch_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/performance/models.py" afterPath="$PROJECT_DIR$/performance/models.py" />
-      <change beforePath="$PROJECT_DIR$/player/forms.py" afterPath="$PROJECT_DIR$/player/forms.py" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/player/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0002_player_team.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0003_auto_20180219_2146.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0004_auto_20180219_2157.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0005_auto_20180220_0203.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0006_auto_20180305_1308.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0007_auto_20180305_2249.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0008_player_active.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0009_auto_20180306_1835.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/migrations/0010_remove_player_team.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/player/models.py" afterPath="$PROJECT_DIR$/player/models.py" />
-      <change beforePath="$PROJECT_DIR$/player/views.py" afterPath="$PROJECT_DIR$/player/views.py" />
-      <change beforePath="$PROJECT_DIR$/search/templates/search/match_details.html" afterPath="$PROJECT_DIR$/search/templates/search/match_details.html" />
-      <change beforePath="$PROJECT_DIR$/search/views.py" afterPath="$PROJECT_DIR$/search/views.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/admin.py" afterPath="$PROJECT_DIR$/tournament/admin.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/forms.py" afterPath="$PROJECT_DIR$/tournament/forms.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/tournament/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0002_auto_20180219_2106.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0003_match_score.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0004_tournament_organizer.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0005_auto_20180223_0032.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0006_auto_20180304_1650.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0007_auto_20180304_1702.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0008_auto_20180304_1705.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0009_auto_20180304_1712.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0010_remove_match_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0011_match_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0012_auto_20180305_1547.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0013_auto_20180305_1550.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0014_auto_20180305_1550.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0015_remove_match_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0016_auto_20180308_1155.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0017_tournament_tournament_schedule.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0018_auto_20180311_1602.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0019_match_name.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0020_auto_20180311_2114.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0021_team_players_count.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0022_auto_20180311_2214.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0023_auto_20180311_2226.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0024_auto_20180312_1434.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0025_auto_20180312_1600.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0026_auto_20180312_1601.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0027_auto_20180312_1605.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0028_auto_20180312_1606.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0029_auto_20180312_1608.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0030_auto_20180312_1609.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0031_auto_20180312_1609.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0032_auto_20180312_1610.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0033_match_toss_stored.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0034_scorecard_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0035_remove_scorecard_status.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0036_auto_20180312_1751.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0037_auto_20180312_1823.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0038_auto_20180312_1824.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0039_auto_20180312_2213.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0040_auto_20180314_2148.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0041_match_openers_selected.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0042_remove_match_openers_selected.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0043_auto_20180315_1111.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0044_match_openers_selected.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0045_auto_20180315_1319.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0046_auto_20180315_1414.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0047_auto_20180315_1826.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0048_auto_20180316_1714.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0049_auto_20180316_1728.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0050_auto_20180320_0941.py" afterPath="" />
       <change beforePath="$PROJECT_DIR$/tournament/models.py" afterPath="$PROJECT_DIR$/tournament/models.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html" />
-      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" />
+      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html" />
       <change beforePath="$PROJECT_DIR$/tournament/urls.py" afterPath="$PROJECT_DIR$/tournament/urls.py" />
       <change beforePath="$PROJECT_DIR$/tournament/views.py" afterPath="$PROJECT_DIR$/tournament/views.py" />
     </list>
@@ -139,114 +25,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-21">
-              <caret line="14" column="66" lean-forward="false" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="286" column="40" lean-forward="false" selection-start-line="235" selection-start-column="4" selection-end-line="286" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-                <element signature="e#33526#33738#0" expanded="false" />
-                <element signature="e#33791#34284#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/performance/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-196">
-              <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="53" selection-end-line="39" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="match_details.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/search/templates/search/match_details.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4197">
-              <caret line="59" column="12" lean-forward="false" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/performance/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="current_match.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="275" column="80" lean-forward="false" selection-start-line="275" selection-start-column="80" selection-end-line="275" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="enter_score.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="160" column="48" lean-forward="false" selection-start-line="160" selection-start-column="48" selection-end-line="160" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/search/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1611">
-              <caret line="293" column="21" lean-forward="true" selection-start-line="293" selection-start-column="21" selection-end-line="293" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="912">
-              <caret line="37" column="32" lean-forward="false" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-912">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -293,16 +72,11 @@
         <option value="$PROJECT_DIR$/cricket/templates/cricket/organizer_signup.html" />
         <option value="$PROJECT_DIR$/cricket/templates/cricket/base.html" />
         <option value="$PROJECT_DIR$/cricket/urls.py" />
-        <option value="$PROJECT_DIR$/cricket/views.py" />
         <option value="$PROJECT_DIR$/tournament/templates/tournament/match_templates/matches.html" />
         <option value="$PROJECT_DIR$/player/templates/player/performance.html" />
-        <option value="$PROJECT_DIR$/cricket/templates/cricket/live.html" />
-        <option value="$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html" />
         <option value="$PROJECT_DIR$/performance/admin.py" />
         <option value="$PROJECT_DIR$/tournament/forms.py" />
-        <option value="$PROJECT_DIR$/tournament/urls.py" />
         <option value="$PROJECT_DIR$/tournament/admin.py" />
-        <option value="$PROJECT_DIR$/tournament/models.py" />
         <option value="$PROJECT_DIR$/organizer/form.py" />
         <option value="$PROJECT_DIR$/player/forms.py" />
         <option value="$PROJECT_DIR$/player/models.py" />
@@ -310,10 +84,16 @@
         <option value="$PROJECT_DIR$/tournament/templates/tournament/match_templates/current_match.html" />
         <option value="$PROJECT_DIR$/performance/models.py" />
         <option value="$PROJECT_DIR$/tournament/templates/tournament/score_templates/enter_score.html" />
-        <option value="$PROJECT_DIR$/tournament/views.py" />
         <option value="$PROJECT_DIR$/player/views.py" />
         <option value="$PROJECT_DIR$/search/templates/search/match_details.html" />
         <option value="$PROJECT_DIR$/search/views.py" />
+        <option value="$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html" />
+        <option value="$PROJECT_DIR$/tournament/urls.py" />
+        <option value="$PROJECT_DIR$/tournament/views.py" />
+        <option value="$PROJECT_DIR$/tournament/models.py" />
+        <option value="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/live_tournaments.html" />
+        <option value="$PROJECT_DIR$/cricket/views.py" />
+        <option value="$PROJECT_DIR$/cricket/templates/cricket/live.html" />
       </list>
     </option>
   </component>
@@ -355,25 +135,20 @@
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="organizer" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="organizer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="performance" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
@@ -407,12 +182,6 @@
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
               <item name="tournament" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="tournament" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -421,14 +190,6 @@
               <item name="tournament" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="tournament" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="tournament" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="tournament" type="462c0819:PsiDirectoryNode" />
-              <item name="match_templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
@@ -437,6 +198,14 @@
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="tournament" type="462c0819:PsiDirectoryNode" />
               <item name="score_templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="tournament" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tournament" type="462c0819:PsiDirectoryNode" />
+              <item name="tournament_templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -636,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521520484543</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Tournament App Updated">
+      <created>1521901045511</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1521901045512</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -680,18 +456,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/organizers_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/player_page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -757,13 +526,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cricket/static/cricket/home_page.css" />
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="61" column="84" lean-forward="false" selection-start-line="61" selection-start-column="84" selection-end-line="61" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/player/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -782,13 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2256">
           <caret line="94" column="23" lean-forward="false" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -861,30 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cricket/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2232">
-          <caret line="102" column="69" lean-forward="false" selection-start-line="102" selection-start-column="69" selection-end-line="102" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/live.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1992">
-          <caret line="83" column="21" lean-forward="false" selection-start-line="83" selection-start-column="21" selection-end-line="83" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3528">
-          <caret line="147" column="14" lean-forward="false" selection-start-line="147" selection-start-column="14" selection-end-line="147" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/search/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -897,22 +628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search/templates/search/tournaments_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -965,16 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" column="64" lean-forward="false" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#28#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="47" column="18" lean-forward="false" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
           <folding>
             <element signature="e#0#28#0" expanded="false" />
           </folding>
@@ -1045,28 +750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="37" column="32" lean-forward="false" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="286" column="40" lean-forward="false" selection-start-line="235" selection-start-column="4" selection-end-line="286" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#33526#33738#0" expanded="false" />
-            <element signature="e#33791#34284#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/search/templates/search/match_details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4197">
@@ -1077,8 +760,107 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/search/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1611">
-          <caret line="293" column="21" lean-forward="true" selection-start-line="293" selection-start-column="21" selection-end-line="293" selection-end-column="21" />
+        <state relative-caret-position="2475">
+          <caret line="299" column="69" lean-forward="false" selection-start-line="299" selection-start-column="69" selection-end-line="299" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/search/templates/search/tournaments_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="256" column="0" lean-forward="false" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/live_tournaments.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2499">
+          <caret line="257" column="0" lean-forward="false" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="699">
+          <caret line="744" column="0" lean-forward="false" selection-start-line="744" selection-start-column="0" selection-end-line="744" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#33798#34010#0" expanded="false" />
+            <element signature="e#34063#34556#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-669">
+          <caret line="37" column="32" lean-forward="false" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="103" column="96" lean-forward="false" selection-start-line="103" selection-start-column="85" selection-end-line="103" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/live.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="131" column="0" lean-forward="true" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2421">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2784">
+          <caret line="61" column="84" lean-forward="false" selection-start-line="61" selection-start-column="84" selection-end-line="61" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/score_templates/live_score.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3267">
+          <caret line="147" column="14" lean-forward="false" selection-start-line="147" selection-start-column="14" selection-end-line="147" selection-end-column="14" />
           <folding />
         </state>
       </provider>

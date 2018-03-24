@@ -99,166 +99,18 @@
                <div class="card-body text-dark">
                <div class="row livetournaments">
 
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                           tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                             tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                            tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                            tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                            tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                            tournament name
-
-                       </div>
-
-                   </div>
-                    <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                          tournament name
-                       </div>
-
-                   </div>
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                           tournament name
-
-                       </div>
-
-                   </div>
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                        tournament name
-
-                       </div>
-
-                   </div>
 
                    <div class="col-md-6 my-1">
+                       {% for tournament in tournaments %}
 
                        <div class="card">
 
-                          tournament name
+                          <a href="{% url 'search:tournaments_details' tournament.id %}">{{ tournament.name }}</a>
 
                        </div>
 
                    </div>
-
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                            tournament name
-
-                       </div>
-
-                   </div>
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                           tournament name
-
-                       </div>
-
-                   </div>
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                          tournament name
-
-                       </div>
-
-                   </div>
-
-
-
-
-                   <div class="col-md-6 my-1">
-                          <div class="card">
-
-                            tournament name
-                       </div>
-
-                   </div>
-
-
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                          tournament name
-
-                       </div>
-
-                   </div>
-                   <div class="col-md-6 my-1">
-                          <div class="card">
-
-                           tournament name
-
-                       </div>
-
-                   </div>
-
-
-                   <div class="col-md-6 my-1">
-
-                       <div class="card">
-
-                           tournament name
-
-                       </div>
-
-                   </div>
-
+                  {% endfor %}
 
                </div>
 

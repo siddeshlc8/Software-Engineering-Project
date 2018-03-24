@@ -723,32 +723,36 @@ def enter_score(request, match_id):
         return redirect('tournament:match', match_id)
 
 
-'''def live_scores(request, match_id):
+def live_scores(request, match_id):
     match = Match.objects.get(pk=match_id)
-    if match.match_status == 1:
-        innings = match.match_additional.current_innings
+    match_additional = MatchAdditional.objects.get(match=match)
+    innings = match_additional.current_innings
 
+    if match.match_status == 1:
         if innings == 'First':
-            current_innings = match.first_innings
-            bowling_team = match.first_innings.bowling_team
-            batting_team = match.first_innings.batting_team
+            current_innings = FirstInningss.objects.get(match=match)
+            bowling_team = current_innings.bowling_team
+            batting_team = current_innings.batting_team
         else:
-            current_innings = match.second_innings
-            bowling_team = match.second_innings.bowling_team
-            batting_team = match.second_innings.batting_team
+            current_innings = SecondInnings.objects.get(match=match)
+            bowling_team = current_innings.bowling_team
+            batting_team = current_innings.batting_team
 
         player1 = current_innings.striker
+        player1 = BattingInnings.objects.filter(player_id=player1).filter(match=match).first()
         player2 = current_innings.non_striker
+        player2 = BattingInnings.objects.filter(player_id=player2).filter(match=match).first()
 
-        bowling_team_players = PerformanceMatch.objects.filter(team=bowling_team).filter(
-            match=match).filter(bowling_innings__played=True).order_by('-batting_innings__started_time')
+        bowling_team_players = BowlingInnings.objects.filter(team=bowling_team).filter(
+            match=match).filter(played=True).order_by('-started_time')
 
         recent = Score.objects.filter(match=match).filter(innings=innings).order_by(
             'over_number')
         recent = recent[:5]
-        context = {'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team, 'player1': player1,
-                   'player2': player2, 'recent': recent, 'bowling_team_players': bowling_team_players}
-        return render(request, 'tournament/score_templates/live_score.html', context)'''
+        context = {'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team, 'player1':
+            player1, 'player2': player2, 'recent': recent, 'bowling_team_players': bowling_team_players,
+                   'match_additional' : match_additional}
+        return render(request, 'tournament/score_templates/live_score.html', context)
 
 
 def select_new_batsman(request, match_id):

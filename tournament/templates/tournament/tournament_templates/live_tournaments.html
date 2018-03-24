@@ -1,0 +1,257 @@
+{% extends 'search/base.html' %}
+<!-----
+
+
+
+<br><br>
+
+      <p>Tournament Details:</p>
+
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+         <b><p>Tournament Name:</p></b>
+        <p>{{ tournament.name }}</p>
+
+     </main>
+
+   ------->
+
+
+{% block title %}Tournaments{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+    {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
+    <br><br><br>
+
+ {% if messages %}
+
+       {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+
+              <strong> {{ message }}  </strong>
+
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+              </button>
+
+        </div>
+
+
+       {% endfor %}
+
+
+    {% endif %}
+<!-------------
+ -------->
+   <!-- Page Content -->
+    <div class="container">
+
+      <!-- Heading Row -->
+      <div class="row my-4">
+        <div class="col-lg-8">
+          <img class="img-fluid rounded" src="http://placehold.it/900x400" alt="">
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4">
+
+            <h1>{{ current_tournament.name }}</h1>
+
+            <p><b>orgainzed by </b> :{{ current_tournament.organizer}}</p>
+
+            <p> <b>Location</b> :{{ current_tournament.place}}</p>
+
+            <p> <b>Start-date </b> :{{ current_tournament.start_date}}</p>
+
+
+
+        </div>
+        <!-- /.col-md-4 -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Call to Action Well -->
+      <div class="row">
+          <div class="col-md-8">
+
+               <div class="card text-white bg-secondary my-4 text-center">
+                <div class="card-body">
+                    <p class="text-white m-0">
+
+                      {% if current_tournament.tournament_status == 0 %}
+                         <h6> Tournament   is    Yet    to   start</h6>
+
+                      {% elif  current_tournament.tournament_status == 1%}
+
+                         <h6>  Tournament    is    ongoing</h6>
+
+                      {% elif current_tournament.tournament_status == 2%}
+
+                          <h6>  Tournament         has        finished</h6>
+
+                      {% endif %}
+
+
+                  </p>
+                </div>
+              </div>
+
+          </div>
+
+          <div class="col-md-4">
+
+               <div class="card text-white bg-secondary my-4 text-center">
+
+                <div class="card-body">
+
+                  <p class="text-white m-0"> <a class="text-white m-0" href="{% url 'search:tournaments_matches' current_tournament.id %}"><b> Matches </b></a></p>
+
+                </div>
+
+              </div>
+
+
+          </div>
+
+
+      </div>
+
+
+      <!-- teams layout -->
+
+
+      <div class="row">
+
+
+
+            <div class="col-md-4 mb-4 ">
+
+              <div class="card h-75">
+
+              <h5 class="card-header">Teams</h5>
+
+                <div class="card-body">
+
+                     {% for team in teams %}
+
+                         <p> <a href="{% url 'search:teams_details' team.id %}"><h5>{{ team.name }}</h5></a></p>
+
+                     {% endfor %}
+
+
+                </div>
+
+                <div class="card-footer">
+
+
+                </div>
+
+              </div>
+
+            </div>
+
+        <!-- right to teams -->
+        <div class="col-md-8 mb-4">
+
+            <div class="row">
+
+                 <div class="col-md-6 mb-4">
+
+                      <div class="card  h-25">
+
+                        <h5 class="card-header">WINNER</h5>
+
+                        <div class="card-body">
+
+                         <p>   name of winning team </p>
+
+                        </div>
+
+                      </div>
+
+                 </div>
+
+                <div class="col-md-6 mb-4">
+
+
+                     <div class="card h-25">
+
+                        <h5 class="card-header">TOTAL MATCHES</h5>
+
+                        <div class="card-body">
+
+                        <p> total matches in tournament</p>
+
+                      </div>
+
+                     </div>
+
+                </div>
+            </div>
+
+             <div class="row">
+
+                 <div class="col-md-6 mb-4">
+
+                      <div class="card h-25">
+                        <h5 class="card-header">OTHER</h5>
+                        <div class="card-body">
+                              <p>OTHER description about tournament</p>
+                      </div>
+                      </div>
+
+                 </div>
+
+                <div class="col-md-6 mb-4">
+
+
+                     <div class="card h-25">
+
+                        <h5 class="card-header">Other</h5>
+                        <div class="card-body">
+                            <p>OTHER description about tournament</p>
+                      </div>
+                      </div>
+
+                </div>
+
+             </div>
+
+            <div class="row">
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+      <!--- end of right to teams -->
+      </div>
+
+
+
+
+
+
+
+        </div>
+        <!-- /.col-md-4 -->
+    </main>
+
+
+{% endblock %}
+
+
+    <!---------------   -------->
+
+
