@@ -1,7 +1,6 @@
 from django.db import models
 from organizer.models import Organizer
 from player.models import Player
-from performance.models import PerformanceMatchWise, PerformanceMatch
 
 
 # Create your models here.
@@ -31,39 +30,6 @@ class Team(models.Model):
         return self.name
 
 
-class FirstInnings(models.Model):
-    completed = models.BooleanField(default=False)
-    batting_team = models.ForeignKey(Team, related_name='batting_team1', on_delete=models.DO_NOTHING,
-                                     blank=True, null=True)
-    bowling_team = models.ForeignKey(Team, related_name='bowling_team1', on_delete=models.DO_NOTHING,
-                                     blank=True, null=True)
-    current_over = models.IntegerField(default=0)
-    openers_selected = models.BooleanField(default=False)
-    striker = models.ForeignKey(PerformanceMatch, related_name='striker1', on_delete=models.DO_NOTHING,
-                                blank=True, null=True)
-    non_striker = models.ForeignKey(PerformanceMatch, related_name='non_strike1',
-                                    on_delete=models.DO_NOTHING, blank=True, null=True)
-
-
-class SecondInnings(models.Model):
-    completed = models.BooleanField(default=False)
-    batting_team = models.ForeignKey(Team, related_name='batting_team2', on_delete=models.DO_NOTHING,
-                                     blank=True, null=True)
-    bowling_team = models.ForeignKey(Team, related_name='bowling_team2', on_delete=models.DO_NOTHING,
-                                     blank=True, null=True)
-    current_over = models.IntegerField(default=0)
-    openers_selected = models.BooleanField(default=False)
-    striker = models.ForeignKey(PerformanceMatch, related_name='striker2', on_delete=models.DO_NOTHING,
-                                blank=True, null=True)
-    non_striker = models.ForeignKey(PerformanceMatch, related_name='non_striker2',
-                                    on_delete=models.DO_NOTHING, blank=True, null=True)
-
-
-class MatchAdditional(models.Model):
-    current_innings = models.CharField(max_length=10, blank=True, null=True)
-    toss_stored = models.BooleanField(default=False)
-
-
 class Match(models.Model):
     name = models.CharField(max_length=10, blank=True, null=True)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
@@ -74,13 +40,45 @@ class Match(models.Model):
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,
                                     blank=True, null=True)
     toss_winner_choice = models.CharField(max_length=10, default='Select')
-    first_innings = models.ForeignKey(FirstInnings, on_delete=models.DO_NOTHING, blank=True, null=True)
-    second_innings = models.ForeignKey(SecondInnings, on_delete=models.DO_NOTHING, blank=True, null=True)
-    match_additional = models.ForeignKey(MatchAdditional, on_delete=models.DO_NOTHING, blank=True,
-                                         null=True)
 
     def __str__(self):
         return str(self.team_1) + ' vs ' + str(self.team_2)
+
+
+class FirstInningss(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
+    completed = models.BooleanField(default=False)
+    batting_team = models.ForeignKey(Team, related_name='batting_team1', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    bowling_team = models.ForeignKey(Team, related_name='bowling_team1', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    current_over = models.IntegerField(default=0)
+    openers_selected = models.BooleanField(default=False)
+    striker = models.ForeignKey(Player, related_name='striker1', on_delete=models.DO_NOTHING,
+                                blank=True, null=True)
+    non_striker = models.ForeignKey(Player, related_name='non_strike1',
+                                    on_delete=models.DO_NOTHING, blank=True, null=True)
+
+
+class SecondInnings(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
+    completed = models.BooleanField(default=False)
+    batting_team = models.ForeignKey('Team', related_name='batting_team2', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    bowling_team = models.ForeignKey('Team', related_name='bowling_team2', on_delete=models.DO_NOTHING,
+                                     blank=True, null=True)
+    current_over = models.IntegerField(default=0)
+    openers_selected = models.BooleanField(default=False)
+    striker = models.ForeignKey(Player, related_name='striker2', on_delete=models.DO_NOTHING,
+                                blank=True, null=True)
+    non_striker = models.ForeignKey(Player, related_name='non_striker2',
+                                    on_delete=models.DO_NOTHING, blank=True, null=True)
+
+
+class MatchAdditional(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
+    current_innings = models.CharField(max_length=10, blank=True, null=True)
+    toss_stored = models.BooleanField(default=False)
 
 
 class Score(models.Model):

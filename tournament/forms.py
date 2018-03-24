@@ -1,7 +1,7 @@
 from django import forms
 from .models import Team, Tournament, Match, Score
 from player.models import Player
-from performance.models import PerformanceMatchWise, PerformanceMatch
+from performance.models import BattingInnings, BowlingInnings
 
 
 
@@ -66,8 +66,8 @@ class ScoreUpdateForm(forms.Form):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
         if player1 is not None and player2 is not None:
             self.fields['bowler'] = forms.ChoiceField(
-                choices=[(player.player.id, str(player.player)) for player in PerformanceMatch.objects.filter(
-                    match=match).filter(team=bowling)]
+                choices=[(player.player.id, str(player.player)) for player in
+                         BowlingInnings.objects.filter(match=match).filter(team=bowling)]
             )
             self.fields['batsman'] = forms.ChoiceField(
                 choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]

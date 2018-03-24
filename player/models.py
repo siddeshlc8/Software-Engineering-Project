@@ -10,11 +10,11 @@ class Player(User):
         ('All_Rounder', 'All_Rounder')
     ]
     player_type = models.CharField(max_length=11, choices=PLAYER_TYPE_CHOICES)
-    phone_no = models.CharField(max_length=10)
-    nationality = models.CharField(max_length=20)
-    state = models.CharField(max_length=20)
-    district = models.CharField(max_length=20)
-    dob = models.DateField()
+    phone_no = models.CharField(max_length=10, null=True, blank=True)
+    nationality = models.CharField(max_length=20, null=True, blank=True)
+    state = models.CharField(max_length=20, null=True, blank=True)
+    district = models.CharField(max_length=20, null=True, blank=True)
+    dob = models.DateField(null=True, blank=True)
     active = models.BooleanField(default=False)
 
     def profile(self):

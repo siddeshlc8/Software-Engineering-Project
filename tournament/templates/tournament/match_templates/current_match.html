@@ -81,7 +81,7 @@
 
         <!-- Blog Entries Column class="col-md-9" -->
         <div  class="col-md-9">
-      {% if match.match_additional.toss_stored is True %}
+      {% if match_additional.toss_stored is True %}
 
             <hr>
             <h2 class="my-4" style="{text-align: center;}">First Innings : {{ team1.name }}
@@ -106,12 +106,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.batting_innings.status }}</td>
-                  <td>{{ player.batting_innings.batting_runs }}</td>
-                  <td>{{ player.batting_innings.batting_balls }}</td>
-                  <td>{{ player.batting_innings.fours }}</td>
-                  <td>{{ player.batting_innings.sixes }}</td>
-                  <td>{{ player.batting_innings.strike_rate }}</td>
+                  <td>{{ player.status }}</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -156,11 +156,11 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.bowling_innings.bowling_runs }}</td>
+                  <td>{{ player.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.bowling_innings.wickets }}</td>
-                  <td>{{ player.bowling_innings.bowling_avg}}</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg}}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -201,12 +201,12 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.batting_innings.status }}</td>
-                  <td>{{ player.batting_innings.batting_runs }}</td>
-                  <td>{{ player.batting_innings.batting_balls }}</td>
-                  <td>{{ player.batting_innings.fours }}</td>
-                  <td>{{ player.batting_innings.sixes }}</td>
-                  <td>{{ player.batting_innings.strike_rate }}</td>
+                  <td>{{ player.status }}</td>
+                  <td>{{ player.batting_runs }}</td>
+                  <td>{{ player.batting_balls }}</td>
+                  <td>{{ player.fours }}</td>
+                  <td>{{ player.sixes }}</td>
+                  <td>{{ player.strike_rate }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -250,11 +250,11 @@
               <tbody>
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.bowling_innings.bowling_runs }}</td>
+                  <td>{{ player.bowling_runs }}</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>{{ player.bowling_innings.wickets }}</td>
-                  <td>{{ player.bowling_innings.bowling_avg }}</td>
+                  <td>{{ player.wickets }}</td>
+                  <td>{{ player.bowling_avg }}</td>
                   <td>0</td>
                 </tr>
               </tbody>
@@ -357,11 +357,11 @@
                                          <button class="btn btn-primary" type="submit" value="continue">Start Match</button>
                                     </form>
 
-                              {% elif match.match_additional.current_innings == 'First' %}
+                              {% elif match_additional.current_innings == 'First' %}
 
-                                  {% if match.first_innings.openers_selected or match.match_additional.toss_stored == False %}
+                                  {% if current_innings.openers_selected  or match_additional.toss_stored == False %}
 
-                                    <p><a href="{% url 'tournament:enter_score' match.id   %}">FIRST INNINGS</a></p>
+                                    <p><a href="{% url 'tournament:enter_score' match.id   %}">{{ match_additional.current_innings }}</a></p>
 
                                   {% else %}
 
@@ -369,11 +369,11 @@
 
                                   {% endif %}
 
-                              {% elif match.match_additional.current_innings == 'Second' %}
+                              {% elif match_additional.current_innings == 'Second' %}
 
-                                  {% if match.second_innings.openers_selected or match.match_additional.toss_stored == False %}
+                                  {% if current_innings.openers_selected or match_additional.toss_stored == False %}
 
-                                    <p><a href="{% url 'tournament:enter_score' match.id   %}">SECOND INNINGS</a></p>
+                                    <p><a href="{% url 'tournament:enter_score' match.id   %}">{{ match_additional.current_innings }}</a></p>
 
                                   {% else %}
 
@@ -381,7 +381,7 @@
 
                                   {% endif %}
 
-                              {% elif match.match_additional.current_innings == 'Over' %}
+                              {% elif match_additional.current_innings == 'Over' %}
 
                                     <p><a href="{% url 'tournament:submit_match'  match.id %}">SUBMIT MATCH</a></p>
 

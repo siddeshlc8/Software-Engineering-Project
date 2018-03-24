@@ -28,7 +28,7 @@ class PerformanceTotal(models.Model):
         return self.player.get_full_name()
 
 
-class PerformanceMatchWise(models.Model):
+class BattingInnings(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
     match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True, blank=True)
     tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True, blank=True)
@@ -37,6 +37,23 @@ class PerformanceMatchWise(models.Model):
     strike_rate = models.FloatField(default=0)
     sixes = models.IntegerField(default=0)
     fours = models.IntegerField(default=0)
+    batting_balls = models.BigIntegerField(default=0)
+    status = models.CharField(max_length=20)
+    out = models.BooleanField(default=False)
+    out_type = models.CharField(max_length=20)
+    played = models.BooleanField(default=False)
+    started_time = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.player.get_full_name() + ' - ' + self.match.name
+
+
+class BowlingInnings(models.Model):
+    player = models.ForeignKey(Player, related_name='player', on_delete=models.CASCADE, null=True,
+                               blank=True)
+    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True, blank=True)
+    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True, blank=True)
     bowling_runs = models.BigIntegerField(default=0)
     batting_balls = models.BigIntegerField(default=0)
     bowling_overs = models.BigIntegerField(default=0)
@@ -44,54 +61,10 @@ class PerformanceMatchWise(models.Model):
     wickets_players = models.ManyToManyField(Player, related_name='wicket_players')
     bowling_avg = models.FloatField(default=0)
     economy = models.FloatField(default=0)
-    status = models.CharField(max_length=20)
-    out = models.BooleanField(default=False)
-    out_type = models.CharField(max_length=20)
-    played = models.BooleanField(default=False)
-    started_time = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        return self.match.name + '-' + self.player.get_full_name()
-
-
-class BattingInnings(models.Model):
-    batting_runs = models.BigIntegerField(default=0)
-    strike_rate = models.FloatField(default=0)
-    sixes = models.IntegerField(default=0)
-    fours = models.IntegerField(default=0)
-    batting_balls = models.BigIntegerField(default=0)
-    status = models.CharField(max_length=20)
-    out = models.BooleanField(default=False)
-    out_type = models.CharField(max_length=20)
     played = models.BooleanField(default=False)
     started_time = models.DateTimeField(blank=True, null=True)
 
 
-class BowlingInnings(models.Model):
-    bowling_runs = models.BigIntegerField(default=0)
-    batting_balls = models.BigIntegerField(default=0)
-    bowling_overs = models.BigIntegerField(default=0)
-    wickets = models.BigIntegerField(default=0)
-    wickets_players = models.ManyToManyField(Player)
-    bowling_avg = models.FloatField(default=0)
-    economy = models.FloatField(default=0)
-    played = models.BooleanField(default=False)
-    started_time = models.DateTimeField(blank=True, null=True)
-
-
-class PerformanceMatch(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
-    match = models.ForeignKey('tournament.Match', on_delete=models.CASCADE, null=True, blank=True)
-    tournament = models.ForeignKey('tournament.Tournament', on_delete=models.CASCADE, null=True, blank=True)
-    team = models.ForeignKey('tournament.Team', on_delete=models.CASCADE, null=True, blank=True)
-    batting_innings = models.ForeignKey(BattingInnings, related_name='batting_innings',
-                                        on_delete=models.CASCADE, null=True, blank=True)
-    bowling_innings = models.ForeignKey(BowlingInnings, related_name='bowling_innings',
-                                        on_delete=models.CASCADE, null=True, blank=True)
-    played = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.player.get_full_name() + ' - ' + str(self.match)
 
 
 

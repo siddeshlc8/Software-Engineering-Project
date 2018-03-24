@@ -9,18 +9,9 @@ class PlayerSignUpForm(UserCreationForm):
     class Meta:
         model = Player
         fields = [
-            'first_name',
-            'last_name',
-            'dob',
-            'phone_no',
-            'nationality',
-            'state',
-            'district',
-            'player_type',
             'username',
             'password1',
             'password2',
-            'email'
         ]
 
         labels = {
@@ -39,6 +30,7 @@ class PlayerProfileForm(forms.ModelForm):
             'phone_no',
             'email',
             'nationality',
+            'player_type',
             'state',
             'district'
         ]

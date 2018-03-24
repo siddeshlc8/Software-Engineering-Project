@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from player.models import Player
-from tournament.models import Team, Tournament, Match, Score
+from tournament.models import Team, Tournament, Match, Score, FirstInningss, SecondInnings, MatchAdditional
 from .filters import PlayerFilter, TournamentFilter, TeamFilter, OrganizerFilter
 from organizer.models import Organizer
-from performance.models import PerformanceMatch
+from performance.models import BattingInnings, BowlingInnings
 
 
 def nav_search_matches(request):
@@ -222,40 +222,48 @@ def match_details(request, match_id):
         except Exception:
             context = {'match': match, 'O': None}
     match = Match.objects.get(id=match_id)
-    innings = match.match_additional.current_innings
+    match_additional = MatchAdditional.objects.get(match=match)
+    innings = match_additional.current_innings
 
     if innings == 'First':
-        current_innings = match.first_innings
-        bowling_team = match.first_innings.bowling_team
-        batting_team = match.first_innings.batting_team
+        current_innings = FirstInningss.objects.get(match=match)
+        bowling_team = current_innings.bowling_team
+        batting_team = current_innings.batting_team
     else:
-        current_innings = match.second_innings
-        bowling_team = match.second_innings.bowling_team
-        batting_team = match.second_innings.batting_team
-    innings1_batting = PerformanceMatch.objects.filter(team=match.first_innings.batting_team).filter(
-        match=match).filter(
-        batting_innings__played=True).filter(batting_innings__played=True).order_by(
-        'batting_innings__started_time')
-    innings1_bowling = PerformanceMatch.objects.filter(team=match.first_innings.bowling_team).filter(
-        match=match).filter(
-        bowling_innings__played=True).filter(bowling_innings__played=True).order_by(
-        'bowling_innings__started_time')
-    innings2_batting = PerformanceMatch.objects.filter(team=match.second_innings.batting_team).filter(
-        match=match).filter(
-        batting_innings__played=True).filter(batting_innings__played=True).order_by(
-        'batting_innings__started_time')
-    innings2_bowling = PerformanceMatch.objects.filter(team=match.second_innings.bowling_team).filter(
-        match=match).filter(
-        bowling_innings__played=True).filter(bowling_innings__played=True).order_by(
-        'bowling_innings__started_time')
+        current_innings = SecondInnings.objects.get(match=match)
+        bowling_team = current_innings.bowling_team
+        batting_team = current_innings.batting_team
+
+    commentary_first_innings = Score.objects.filter(match=match).filter(innings='First').order_by(
+        'over_number')
+    commentary_second_innings = Score.objects.filter(match=match).filter(innings='Second').order_by(
+        'over_number')
+
+    team_batting = FirstInningss.objects.get(match=match)
+    team_bowling = team_batting.bowling_team
+    team_batting = team_batting.batting_team
+
+    innings1_batting = BattingInnings.objects.filter(match=match).filter(team=team_batting).filter(
+        played=True).order_by('started_time')
+
+    innings1_bowling = BowlingInnings.objects.filter(match=match).filter(team=team_bowling).filter(
+        played=True).order_by('started_time')
+
+    innings2_batting = BattingInnings.objects.filter(match=match).filter(team=team_bowling).filter(
+        played=True).order_by('started_time')
+
+    innings2_bowling = BowlingInnings.objects.filter(match=match).filter(team=team_batting).filter(
+        played=True).order_by('started_time')
+
     innings1_fallofwicket = Score.objects.filter(match=match).filter(innings='First').filter(wicket=True)
     innings2_fallofwicket = Score.objects.filter(match=match).filter(innings='Second').filter(wicket=True)
-    context.update({'all_scores': None, 'match': match, 'batting_team': batting_team,
-               'bowling_team': bowling_team,
-               'innings1_batting': innings1_batting, 'innings1_bowling': innings1_bowling,
-               'innings2_batting': innings2_batting, 'innings2_bowling': innings2_bowling,
-               'innings1_fallofwicket': innings1_fallofwicket, 'innings2_fallofwicket': innings2_fallofwicket})
-
+    context.update({'all_scores': None, 'match': match, 'batting_team': batting_team, 'bowling_team':
+        bowling_team, 'innings1_batting': innings1_batting, 'innings1_bowling': innings1_bowling,
+                    'innings2_batting': innings2_batting, 'innings2_bowling': innings2_bowling,
+                    'innings1_fallofwicket': innings1_fallofwicket, 'innings2_fallofwicket':
+                        innings2_fallofwicket, 'match_additional': match_additional, 'current_innings':
+                        current_innings, 'commentary_first_innings' : commentary_first_innings,
+                    'commentary_second_innings' : commentary_second_innings})
     return render(request, 'search/match_details.html',context)
 
 
