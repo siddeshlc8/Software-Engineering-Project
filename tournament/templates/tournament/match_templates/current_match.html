@@ -157,11 +157,11 @@
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
                   <td>{{ player.bowling_runs }}</td>
-                  <td>0</td>
+                  <td>{{ player.bowling_overs }}</td>
                   <td>0</td>
                   <td>{{ player.wickets }}</td>
                   <td>{{ player.bowling_avg}}</td>
-                  <td>0</td>
+                  <td>{{ player.economy }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -251,11 +251,11 @@
                 <tr>
                   <td>{{ player.player.get_full_name }}</td>
                   <td>{{ player.bowling_runs }}</td>
-                  <td>0</td>
+                  <td>{{ player.bowling_overs }}</td>
                   <td>0</td>
                   <td>{{ player.wickets }}</td>
                   <td>{{ player.bowling_avg }}</td>
-                  <td>0</td>
+                  <td>{{ player.economy }}</td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -299,7 +299,7 @@
         <div   class="col-md-3 ">
 
             <div class="sticky-top" >
-
+          {% if match.overs == 0 %}
             <!-- Over Widget -->
                       <div class="card my-4">
                         <h5 class="card-header">Enter Overs Information</h5>
@@ -314,8 +314,21 @@
                           </div>
                       </div>
                       </div>
+            {% else %}
+
+                    <div class="card my-4">
+                        <h5 class="card-header"><b>Overs Information</b></h5>
+                        <div class="card-body">
+                          <div class="row">
+                                 <h4>Overs : {{ match.overs }}</h4>
+                          </div>
+                      </div>
+                      </div>
+
+            {% endif %}
 
 
+            {% if match_additional.toss_stored is False %}
                  <!-- Toss Widget -->
                       <div class="card my-4">
                         <h5 class="card-header">Enter Toss Information</h5>
@@ -330,6 +343,18 @@
                           </div>
                       </div>
                       </div>
+            {% else %}
+                  <!-- Toss Widget -->
+                      <div class="card my-4">
+                          <h5 class="card-header"><b>Toss Information</b></h5>
+                        <div class="card-body">
+                          <div class="row">
+                                <h4>Winner : {{ match.toss_winner }}</h4>
+                                <h4>Selection : {{ match.toss_winner_choice }}</h4>
+                          </div>
+                      </div>
+                      </div>
+            {% endif %}
 
                   <!-- Categories Widget -->
                       <div class="card my-4">

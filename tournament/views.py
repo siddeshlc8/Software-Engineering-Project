@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect
 from search.filters import PlayerFilter
 from .models import Team, Tournament, Match, ScoreCard, Score, FirstInningss, SecondInnings, MatchAdditional
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreUpdateForm, TossForm,\
-    OverForm, OpenerForm1, OpenerForm2, SelectBatsmanForm, OpenerForm
+from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreUpdateForm, TossForm,OverForm, SelectBatsmanForm, OpenerForm, SelectBowlerForm
 from django.contrib import messages
 from organizer.models import Organizer
 from .utils import rr_schedule
@@ -598,11 +597,10 @@ def enter_score(request, match_id):
         player2 = BattingInnings.objects.filter(player=player2).filter(match=match).first()
 
         if request.method == 'POST':
-            form = ScoreUpdateForm(player1, player2, bowling_team, match, request.POST)
+            form = ScoreUpdateForm(player1, player2, request.POST)
             if form.is_valid():
                 ball_number = form.cleaned_data['ball_number']
                 over_number = form.cleaned_data['over_number']
-                bowler = form.cleaned_data['bowler']
                 batsman = form.cleaned_data['batsman']
                 run = form.cleaned_data['run']
                 extra_type = form.cleaned_data['extra_type']
@@ -637,16 +635,19 @@ def enter_score(request, match_id):
                     score.save()
                 p.save()
 
+                bowler = current_innings.current_bowler.id
+
                 bowler = Player.objects.get(id=bowler)
                 q = BowlingInnings.objects.filter(match=match).filter(player=bowler).first()
-                if q.started_time is None:
-                    q.started_time = datetime.now()
                 q.played = True
                 q.save()
 
                 if ball_number >= 6:
                     q.bowling_overs += 1
                     over_number += 1
+                    current_innings.previous_bowler = current_innings.current_bowler
+                    current_innings.current_bowler = None
+                    current_innings.save()
                     q.save()
                 q.bowling_runs += run
                 current_innings.current_over = over_number
@@ -677,6 +678,10 @@ def enter_score(request, match_id):
                     p.save()
                 if q.wickets:
                     q.bowling_avg = (q.bowling_runs / q.wickets)
+
+                if q.bowling_overs:
+                    q.economy = q.bowling_runs/q.bowling_overs;
+
                 q.save()
 
                 score.match = match
@@ -696,7 +701,7 @@ def enter_score(request, match_id):
                 return redirect('tournament:match', match_id)
 
             bowling_team_players = BowlingInnings.objects.filter(team=bowling_team).filter(
-                match=match).filter(played=True).order_by('-started_time')
+                match=match).filter(played=True).order_by('started_time')
 
             player = None
             if current_innings.striker is None:
@@ -707,16 +712,22 @@ def enter_score(request, match_id):
             players = BattingInnings.objects.filter(match=match).filter(team=batting_team).filter(
                 out=False).exclude(player_id=player)
 
+            bowlers = BowlingInnings.objects.filter(match=match).filter(team=bowling_team).exclude(
+                player_id=current_innings.previous_bowler_id)
+
             select_new_batsman_form = SelectBatsmanForm(players)
 
-            form = ScoreUpdateForm(player1, player2, bowling_team, match,
-                                   initial={'over_number': current_innings.current_over})
-            recent = Score.objects.filter(match=match).filter(innings=innings).order_by(
-                'over_number')
+            select_new_bowler_form = SelectBowlerForm(bowlers)
+
+            form = ScoreUpdateForm(player1, player2, initial={'over_number':current_innings.current_over})
+            recent = Score.objects.filter(match=match).filter(innings=innings).order_by('over_number')
             recent = recent[:5]
-            context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team': bowling_team,
-                       'bowling_team_players': bowling_team_players, 'player1': player1, 'player2': player2,
-                       'select_new_batsman_form': select_new_batsman_form, 'players': players, 'recent': recent, 'match_additional' : match_additional}
+            context = {'form': form, 'match': match, 'batting_team': batting_team, 'bowling_team':
+                bowling_team, 'bowling_team_players': bowling_team_players, 'player1': player1,
+                       'player2': player2, 'select_new_batsman_form': select_new_batsman_form, 'players':
+                           players, 'recent': recent, 'match_additional': match_additional,
+                       'current_innings': current_innings, 'select_new_bowler_form':
+                           select_new_bowler_form}
             return render(request, 'tournament/score_templates/enter_score.html', context)
     else:
         messages.success(request, 'Please fill toss information first')
@@ -753,6 +764,41 @@ def live_scores(request, match_id):
             player1, 'player2': player2, 'recent': recent, 'bowling_team_players': bowling_team_players,
                    'match_additional' : match_additional}
         return render(request, 'tournament/score_templates/live_score.html', context)
+
+
+def select_new_bowler(request, match_id):
+    match = Match.objects.get(pk=match_id)
+    match_additional = MatchAdditional.objects.get(match=match)
+    innings = match_additional.current_innings
+
+    if innings == 'First':
+        current_innings = FirstInningss.objects.get(match=match)
+        bowling_team = current_innings.bowling_team
+    else:
+        current_innings = SecondInnings.objects.get(match=match)
+        bowling_team = current_innings.bowling_team
+
+    bowlers = BowlingInnings.objects.filter(match=match).filter(team=bowling_team).exclude(
+        id=current_innings.previous_bowler_id)
+
+    form = SelectBowlerForm(bowlers, request.POST)
+    if form.is_valid():
+        new_player = form.cleaned_data['player']
+        new_player = Player.objects.get(id=new_player)
+
+        current_innings.current_bowler = new_player
+        current_innings.save()
+
+        q = BowlingInnings.objects.filter(match=match).filter(player=new_player).first()
+
+        if q.started_time is None:
+            q.started_time = datetime.now()
+            q.played = True
+            q.save()
+        return redirect('tournament:enter_score', match_id)
+    else:
+        messages.success(request, 'Information is not valid')
+        return redirect('tournament:enter_score', match_id)
 
 
 def select_new_batsman(request, match_id):

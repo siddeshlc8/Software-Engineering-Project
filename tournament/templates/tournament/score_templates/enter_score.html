@@ -74,7 +74,18 @@
                         <div class="card-body">
                           <div class="row">
 
-                              {% if player1 is not None and player2 is not None %}
+                              {% if current_innings.current_bowler is None %}
+
+
+                              <h3>Please Select Bowler to continue:</h3>
+
+
+                                    <p>{{ select_new_bowler_form.player }} </p>
+
+                                  <p><button type="submit" class="btn btn-primary" formaction="{% url 'tournament:select_new_bowler'  match.id  %}">Continue</button></p>
+
+
+                              {% elif player1 is not None and player2 is not None %}
 
                                <div class="col-sm-5">
                                   {{ form.over_number.label }} {{ form.over_number }}
@@ -100,7 +111,9 @@
                               </div>
 
                               <div class="col-sm-6">
-                                  {{ form.bowler.label }}   {{ form.bowler }}
+
+                                 Bowler : {{ current_innings.current_bowler }}
+
                               </div>
 
                                   <div class="col-lg-12 my-3" style="{height: 60px;}">

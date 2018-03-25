@@ -62,13 +62,9 @@ class MatchCreationForm(forms.ModelForm):
 
 
 class ScoreUpdateForm(forms.Form):
-    def __init__(self, player1, player2, bowling, match, *args, **kwargs):
+    def __init__(self, player1, player2, *args, **kwargs):
         super(ScoreUpdateForm, self).__init__(*args, **kwargs)
         if player1 is not None and player2 is not None:
-            self.fields['bowler'] = forms.ChoiceField(
-                choices=[(player.player.id, str(player.player)) for player in
-                         BowlingInnings.objects.filter(match=match).filter(team=bowling)]
-            )
             self.fields['batsman'] = forms.ChoiceField(
                 choices=[(player1.player.id, str(player1.player)), (player2.player.id, str(player2.player))]
             )
@@ -95,7 +91,6 @@ class ScoreUpdateForm(forms.Form):
 
     ball_number = forms.IntegerField()
     over_number = forms.IntegerField(initial='class')
-    bowler = forms.CharField(max_length=11)
     batsman = forms.CharField(max_length=11)
     run = forms.IntegerField(required=False)
     extra_type = forms.CharField(max_length=11, required=False,)
@@ -112,6 +107,17 @@ class ScoreUpdateForm(forms.Form):
 class SelectBatsmanForm(forms.Form):
     def __init__(self, players, *args, **kwargs):
         super(SelectBatsmanForm, self).__init__(*args, **kwargs)
+        if players is not None:
+            self.fields['player'] = forms.ChoiceField(
+                choices=[(player.player.id, str(player.player)) for player in players]
+            )
+
+    player = forms.CharField(max_length=12)
+
+
+class SelectBowlerForm(forms.Form):
+    def __init__(self, players, *args, **kwargs):
+        super(SelectBowlerForm, self).__init__(*args, **kwargs)
         if players is not None:
             self.fields['player'] = forms.ChoiceField(
                 choices=[(player.player.id, str(player.player)) for player in players]
@@ -153,29 +159,3 @@ class OpenerForm(forms.Form):
     non_striker = forms.CharField(required=False)
 
 
-class OpenerForm1(forms.Form):
-    def __init__(self, team, *args, **kwargs):
-        super(OpenerForm1, self).__init__(*args, **kwargs)
-        self.fields['striker_innings1'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in team.players.all()]
-        )
-        self.fields['non_striker_innings1'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in team.players.all()]
-        )
-
-    striker_innings1 = forms.CharField(required=False)
-    non_striker_innings1 = forms.CharField(required=False)
-
-
-class OpenerForm2(forms.Form):
-    def __init__(self, team, *args, **kwargs):
-        super(OpenerForm2, self).__init__(*args, **kwargs)
-        self.fields['striker_innings2'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in team.players.all()]
-        )
-        self.fields['non_striker_innings2'] = forms.ChoiceField(
-            choices=[(player.id, str(player)) for player in team.players.all()]
-        )
-
-    striker_innings2 = forms.CharField(required=False)
-    non_striker_innings2 = forms.CharField(required=False)

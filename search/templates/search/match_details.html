@@ -264,6 +264,50 @@
                  <hr>
              </div>
         </div>
+
+
+
+           <!-- Sidebar Widgets Column class="col-md-3" -->
+        <div   class="col-md-3 ">
+
+            <div class="sticky-top" >
+
+                    <div class="card my-4">
+                        <h5 class="card-header"><b>Overs Information</b></h5>
+                        <div class="card-body">
+                          <div class="row">
+                                 <h4>Overs : {{ match.overs }}</h4>
+                          </div>
+                      </div>
+                      </div>
+
+
+                  <!-- Toss Widget -->
+                      <div class="card my-4">
+                          <h5 class="card-header"><b>Toss Information</b></h5>
+                        <div class="card-body">
+                          <div class="row">
+                                <h4>Winner : {{ match.toss_winner }}</h4>
+                                <h4>Selection : {{ match.toss_winner_choice }}</h4>
+                          </div>
+                      </div>
+
+
+                  <!-- Categories Widget -->
+                      <div class="card my-4">
+                        <h5 class="card-header">Go To</h5>
+                        <div class="card-body">
+                          <div class="row">
+                              <p><a href="#firstinnings">FIRST INNINGS</a></p>
+                              <p><a href="#secondinnings">SECOND INNINGS</a></p>
+                              <p><a href="#commentary">COMMENTARY</a></p>
+                          </div>
+                      </div>
+                      </div>
+                      </div>
+            </div>
+        </div>
+
    {% endif %}
       </div>
     </div>

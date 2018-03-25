@@ -58,6 +58,10 @@ class FirstInningss(models.Model):
                                 blank=True, null=True)
     non_striker = models.ForeignKey(Player, related_name='non_strike1',
                                     on_delete=models.DO_NOTHING, blank=True, null=True)
+    previous_bowler = models.ForeignKey(Player, related_name='previous_bowler1',
+                                        on_delete=models.DO_NOTHING, blank=True, null=True)
+    current_bowler = models.ForeignKey(Player, related_name='current_bowler1',
+                                       on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return self.match.name
@@ -76,6 +80,10 @@ class SecondInnings(models.Model):
                                 blank=True, null=True)
     non_striker = models.ForeignKey(Player, related_name='non_striker2',
                                     on_delete=models.DO_NOTHING, blank=True, null=True)
+    previous_bowler = models.ForeignKey(Player, related_name='previous_bowler2',
+                                        on_delete=models.DO_NOTHING, blank=True, null=True)
+    current_bowler = models.ForeignKey(Player, related_name='current_bowler2',
+                                       on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return self.match.name

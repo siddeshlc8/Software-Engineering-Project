@@ -25,6 +25,7 @@ urlpatterns = [
     path('<int:match_id>/enter_score', views.enter_score, name='enter_score'),
     path('<int:match_id>/live-score', views.live_scores, name='live_scores'),
     path('<int:match_id>/select-new-batsman', views.select_new_batsman, name='select_new_batsman'),
+    path('<int:match_id>/select-new-bowler', views.select_new_bowler, name='select_new_bowler'),
 
     path('<int:match_id>/submit_match', views.submit_match, name='submit_match'),
     path('<int:match_id>/submit-innings/', views.submit_innings, name='submit_innings'),
