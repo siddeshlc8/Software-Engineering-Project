@@ -45,16 +45,12 @@
         });
     </script>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex h-50 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
-          <h3 class="masthead-brand">Cricky</h3>
+
           <nav class="nav nav-masthead justify-content-center" >
-            <a class="nav-link "  href="{% url 'home_page' %} "><h5 style="color: #5cb85c">Home</h5></a>
-            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #5cb85c">Player</h5></a>
-            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #5cb85c">Organizer</h5></a>
-            <a class="nav-link" href="{% url 'live' %}"><h5 style="color: #5cb85c">Live Scores</h5></a>
-            <a class="nav-link" href="#"><h5 style="color: #5cb85c">Contact</h5></a>
+            <a class="nav-link "  href="{% url 'home_page' %} "><h5 style="color: #5cb85c; margin-right: 300px">Home</h5></a>
           </nav>
         </div>
       </header>
@@ -82,48 +78,6 @@
 
             <div class="container">
 
-             <div class="row">
-
-                 <div class="col-md-4 text-dark">
-                     {{ form.first_name.label }}  {{ form.first_name }}
-
-                 </div>
-
-                 <div class="col-md-4 text-dark">
-                     {{ form.last_name.label }}  {{ form.last_name }}
-
-                 </div>
-
-
-
-             </div>
-                <div class="row my-4">
-
-                </div>
-                <div class="row">
-
-                     <div class="col-md-4 text-dark">
-                     {{ form.nationality.label }}  {{ form.nationality }}
-
-                 </div>
-
-                 <div class="col-md-4 text-dark">
-                     {{ form.state.label}}  {{ form.state}}
-
-                 </div>
-
-                     <div class="col-md-4 text-dark">
-                     {{ form.phone_no.label}}  {{ form.phone_no}}
-
-                 </div>
-
-                </div>
-
-
-
-                 <div class="row my-4">
-
-                </div>
                 <div class="row">
 
                     <div class="col-md-4  text-dark">
