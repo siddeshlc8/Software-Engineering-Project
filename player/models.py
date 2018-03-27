@@ -9,6 +9,7 @@ class Player(User):
         ('Bowler', 'Bowler'),
         ('All_Rounder', 'All_Rounder')
     ]
+    image = models.ImageField(blank=True, upload_to='players')
     player_type = models.CharField(max_length=11, choices=PLAYER_TYPE_CHOICES)
     phone_no = models.CharField(max_length=10, null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, blank=True)
@@ -21,6 +22,7 @@ class Player(User):
         value = {
             'First Name': getattr(self, 'first_name'),
             'Last Name': getattr(self, 'last_name'),
+            'Profile Picture': getattr(self, 'image'),
             'Phone Number': getattr(self, 'phone_no'),
             'Email Address': getattr(self, 'email'),
             'Nationality': getattr(self, 'nationality'),

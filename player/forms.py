@@ -27,6 +27,7 @@ class PlayerProfileForm(forms.ModelForm):
         fields = [
             'first_name',
             'last_name',
+            'image',
             'phone_no',
             'email',
             'nationality',

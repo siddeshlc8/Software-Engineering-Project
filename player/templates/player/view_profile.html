@@ -39,6 +39,7 @@
             <div class="card my-5" >
                         <div class="card-header "><h2 class="center">Your Profile</h2></div>
                         <div class="card-body">
+                         <img src="{{ P.image.url }}" class="rounded-circle img-fluid d-block mx-auto">
                           <div class="row">
 
                                 {% for field_name, field in player.items %}
@@ -51,18 +52,22 @@
                                         <b>{{ field_name }}:</b>
 
                                     </div>
+
                                    <div class="col-md-5">
 
 
                                          <p> {{ field }}</p>
                                     </div>
                                      <div class="col-md-1">
+                                     
+
 
 
                                     </div>
 
                                 {% endfor %}
-                          </div>
+
+                 </div>
                       </div>
                       </div>
 

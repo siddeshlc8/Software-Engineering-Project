@@ -5,6 +5,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from performance.models import BattingInnings, BowlingInnings, PerformanceTotal
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 
 def player_home(request):
@@ -53,7 +55,7 @@ def player_edit_profile(request):
     if request.user.username:
         player = Player.objects.get(pk=request.user.id)
         if request.method == 'POST':
-            form = PlayerProfileForm(request.POST, instance=player)
+            form = PlayerProfileForm(request.POST, request.FILES, instance=player)
             if form.is_valid():
                 form.save()
                 messages.success(request,'successfully edited your profile !')

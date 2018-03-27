@@ -69,14 +69,14 @@ def tournament(request):
 
 
 def current_tournament(request, tournament_id):
-    try:
+    #try:
         Organizer.objects.get(pk=request.user.id)
         current_tournament = Tournament.objects.get(pk=tournament_id)
         teams = current_tournament.team_set.all()
         context = {'current_tournament': current_tournament, 'teams': teams}
         return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
-    except Exception:
-        return redirect('login')
+    #except Exception:
+        #return redirect('login')
 
 
 def team_players(request, team_id):
@@ -539,11 +539,11 @@ def submit_tournament(request, tournament_id):
 
 
 def tournament_info_edit(request,tournament_id):
-    try:
+    #try:
         Organizer.objects.get(pk=request.user.id)
         tournament = Tournament.objects.get(pk=tournament_id)
         if request.method == 'POST':
-            form = TournamentCreationForm(request.POST, instance=tournament)
+            form = TournamentCreationForm(request.POST, request.FILES, instance=tournament)
             if form.is_valid():
                 form.save()
                 messages.success(request,'successfully edited information !')
@@ -552,8 +552,8 @@ def tournament_info_edit(request,tournament_id):
             form = TournamentCreationForm(instance=tournament)
             context = {'form': form }
             return render(request, 'tournament/tournament_templates/tournament_details_edit.html', context)
-    except Exception:
-        return redirect('login')
+    #except Exception:
+        #   return redirect('login')
 
 
 def submit_innings(request, match_id):
@@ -826,6 +826,7 @@ def select_new_batsman(request, match_id):
     form = SelectBatsmanForm(players, request.POST)
     if form.is_valid():
         new_player = form.cleaned_data['player']
+        player = new_player
         new_player = BattingInnings.objects.filter(match=match).filter(player=new_player).first()
         new_player.played = True
         new_player.status = 'batting'

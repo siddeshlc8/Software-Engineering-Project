@@ -31,12 +31,14 @@ class TournamentCreationForm(forms.ModelForm):
             'name',
             'place',
             'start_date',
-            'end_date'
+            'end_date',
+            'image',
         ]
         labels = {
             'name': 'Tournament Name',
             'start_date': 'Tournament Starting Date',
-            'end_date': 'Tournament Ending Date'
+            'end_date': 'Tournament Ending Date',
+            'image' : 'Select an Image',
         }
 
 

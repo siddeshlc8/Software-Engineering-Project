@@ -8,6 +8,7 @@ from player.models import Player
 
 class Tournament(models.Model):
     name = models.CharField(max_length=20, unique=True)
+    image = models.ImageField(blank=True, upload_to='tournaments', default='media/tournament/e.jpeg')
     place = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField(default=None)
