@@ -4,36 +4,51 @@
 {% block title %} Profile{% endblock %}
 
 {% block body %}
-
+ <div  class="mt-5">
     {% load staticfiles %}
     <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
 
     {% if user.username %}
 
        <div >
+           <br><br>
 
-        <p><h1>Your Profile</h1></p>
-
+             <div class="container col-md-6 my-3" style="border: 4px double #545454;padding-top: 60px;">
            <form  method="POST">
 
             {% csrf_token %}
+           {% load widget_tweaks %}
                  {% for field in form %}
 
-                     <div class="form-group">
+                     <div class="form-group row">
 
-                     {{ field.errors }}
+                         <div class="col-md-2">
 
-                     <b>{{ field.label_tag }}</b>
 
-                     <p> {{ field }}</p>
+                         </div>
+
+                         <div class="col-md-4">
+                          {{ field.label_tag }}
+
+                         </div>
+
+                          <div class="col-md-6">
+                             {{  field }}
+
+
+                         </div>
+
+
+
 
                      </div>
 
                  {% endfor %}
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-
+               <div class=" row">
+                   <button type="submit" class="btn btn-primary mx-auto">Save Changes</button>
+                </div>
           </form>
+       </div>
         </div>
 
     {% else %}
@@ -41,6 +56,8 @@
             <p><a href="{% url 'organizer:login' %}">You are not logged in.Click here to login</a></p>
 
     {% endif %}
+
+    </div>
 
 {% endblock %}
 

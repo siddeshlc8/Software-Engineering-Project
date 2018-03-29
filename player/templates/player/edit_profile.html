@@ -10,27 +10,44 @@
 
        <div class="container">
 
-        <p><h1>Your Profile</h1></p>
+
+       <div  class="container col-md-8" style="border: 3px double #17252A;padding-top: 30px">
 
            <form  method="POST" enctype="multipart/form-data">
 
             {% csrf_token %}
                  {% for field in form %}
 
-                     <div class="form-group">
+                     <div class="form-group row">
 
-                     {{ field.errors }}
-                     <b>{{ field.label_tag }}</b>
-                     <p> {{ field }}</p>
+                         <div class="col-md-2">
+
+
+                         </div>
+
+                         <div class="col-md-4">
+                          {{ field.label_tag }}
+
+                         </div>
+
+                          <div class="col-md-6">
+                             {{  field }}
+
+
+                         </div>
+
+
+
 
                      </div>
 
                  {% endfor %}
+                <div class=" row ">
 
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-
+                            <button type="submit" class="btn btn-primary mx-auto">Save Changes</button>
+                </div>
           </form>
+       </div>
         </div>
 
      </main>
