@@ -44,92 +44,187 @@
           });
         });
     </script>
+<div class="backgroundImageCVR">
+    <div class="background-image"></div>
+    <div class="content">
 
-    <div class="cover-container d-flex h-50 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
+                <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+                  <header class="masthead mb-auto">
+                    <div class="inner">
+                      <h3 class="masthead-brand">Cricky</h3>
+                      <nav class="nav nav-masthead justify-content-center" >
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'players_page'  %}"><h5 style="color: darkred">Player</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'organizers_page'  %}"><h5 style="color:darkred">Organizer</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
 
-          <nav class="nav nav-masthead justify-content-center" >
-            <a class="nav-link "  href="{% url 'home_page' %} "><h5 style="color: #5cb85c; margin-right: 300px">Home</h5></a>
-          </nav>
-        </div>
-      </header>
-<div>
+                      </nav>
+                    </div>
+                  </header>
 
-     <br>   {% if errors %}
+                    {% if messages %}
 
-            {% for error in errors %}
+            <br><br><br><br>
 
-                <p>{{ error }}</p>
+                   {% for message in messages %}
 
-            {% endfor%}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
 
-        {% endif %}
+                          <strong> {{ message }}  </strong>
 
-     <br> <p>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 
-          <div class="card  my-4" style="width:700px">
+                          <span aria-hidden="true">&times;</span>
 
-            <h5 class="card-header text-dark">SignUp Form</h5>
-            <div class="card-body text-dark"></div>
-         <form  method="post">
-
-         {% csrf_token %}
-
-            <div class="container">
-
-                <div class="row">
-
-                    <div class="col-md-4  text-dark">
-
-                        {{ form.username.label }}{{ form.username }}
-
+                          </button>
 
                     </div>
 
-                     <div class="col-md-4 text-dark">
+                   {% endfor %}
 
-                        {{ form.email.label }}  {{ form.email }}
-                    </div>
+             {% endif %}
+
+<br><br>
 
 
-                </div>
-                <div class="row my-4 ">
+            <div class="card  " style="width:700px; margin-left: -15px  ;border: 4px solid  #2B7A78;">
 
-                </div>
-                <div class="row">
+                 <h5 class="card-header ">Signup Form</h5>
+                     <div class="card-body " style="color: #545454">
 
-                     <div class="col-md-4 text-dark">
-                     {{ form.password1.label }}  {{ form.password1}}
+                        {% for error in errors %}
+                             <p style="color:#2c3338"> {{ error}}</p>
+                         {% endfor %}
 
+
+                        <form method="POST">
+                            {% load widget_tweaks %}
+                        {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+                                  <div class="form-group col-md-5">
+
+
+
+                                           {% render_field form.username  placeholder="Enter Username" class="form-control" name="username"  %}
+                                          <p style="color:#2c3338"> {{ form.username.errors}}</p>
+
+
+
+                                  </div>
+
+
+                                  <div class="form-group col-md-5">
+
+
+
+
+
+
+                                           {% render_field form.email  placeholder="Enter Email" class="form-control" name="email"  %}
+                                          <p style="color:#2c3338"> {{ form.email.errors}}</p>
+
+
+
+
+                                   </div>
+                            </div>
+
+                             <div class="row my-2">
+
+                             </div>
+
+                                     <div class="form-group">
+
+                                      <div class="row">
+
+                                              <div class="col-lg-1">
+
+                                              </div>
+
+                                               <div class="col-md-10">
+                                                   {% render_field form.password1 placeholder="Set Password" class="form-control" name="password1"  %}
+
+
+
+                                                   <ul type="none">
+                                                       <li>
+                                                           Your password can't be too similar to your other personal information.
+                                                       </li>
+
+                                                         <li>
+                                                             Your password must contain at least 8 characters.
+                                                         </li>
+                                                       <li>
+                                                           Your password can't be a commonly used password.</li>
+                                                       <li>
+                                                              Your password can't be entirely numeric.
+                                                       </li>
+                                                   </ul>
+
+                                               </div>
+
+                                      </div>
+
+                                     </div>
+
+                                 <div class="row my-2">
+
+                                 </div>
+                                      <div class="form-group">
+
+                                              <div class="row">
+
+                                                      <div class="col-lg-1">
+
+                                                      </div>
+
+                                                       <div class="col-md-10">
+                                                           {% render_field form.password2 placeholder="Confirm Password"  type="password" class="form-control" name="password2"  %}
+                                                           <p style="color:#2c3338">  {{ form.password2.help_text }}</p>
+
+                                                       </div>
+
+                                              </div>
+
+                                      </div>
+
+                                 <div class="row my-2">
+
+                                 </div>
+
+
+
+
+
+                              <main role="main" class="inner-cover">
+                                <h1 class="cover-heading"></h1>
+                                <p class="lead"><button type="submit" class="btn btn-secondary btn-lg  Login_button"><b>Signup</b></button></p>
+                               <div class="row">
+                                  <div class="container col-md-4">
+
+                                  </div>
+
+                              </div>
+                              </main>
+
+                        </form>
                      </div>
-
-                 <div class="col-md-5 text-dark">
-                     {{ form.password2.label }}  {{ form.password2}}
-
-                 </div>
-
-                </div>
-                 <div class="row my-5 text-dark">
-
-                </div>
-
-                </div>
-
-         <input type="submit" class="btn  btn-lg text-dark submit_buttons" value="SignUp" >
-
-         </form>
+            </div>
 
        </div>
 
-       </div>
-    </div>
       <footer class="mastfoot mt-auto">
         <div class="inner">
         </div>
 
       </footer>
     </div>
+    </div>
+
+
 
 
 

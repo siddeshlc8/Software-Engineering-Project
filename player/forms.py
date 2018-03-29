@@ -10,6 +10,7 @@ class PlayerSignUpForm(UserCreationForm):
         model = Player
         fields = [
             'username',
+            'email',
             'password1',
             'password2',
         ]
