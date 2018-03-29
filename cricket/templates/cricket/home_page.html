@@ -21,6 +21,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 .w3-container1 {
     background-image: url("https://media2.mensxp.com/media/section/2015/Feb/cricket13663_1424161361.jpg");
+
     background-repeat: no-repeat;
         background-size: cover;
         width :100%;
@@ -29,6 +30,37 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 
 <body style="height: 100%">
+
+<!------------------  smooth movement  -->
+
+
+    <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $(".move").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+
+              // Store hash
+              var hash = this.hash;
+
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
+<!------------- -->
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -100,8 +132,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
          </div>
             <div class="col-md-5">
 
-                 <a href="#about_organizer"><img class="rounded-circle" src="https://thumbs.dreamstime.com/z/d-small-people-multi-manager-person-businessman-six-hands-image-white-background-40012650.jpg" alt="Generic placeholder image" width="140" height="150"></a>
-                <p><h3><b>Want to Organize?</b></h3></p>
+                 <a href="#about_organizer" class="move"><img class="rounded-circle" src="https://thumbs.dreamstime.com/z/d-small-people-multi-manager-person-businessman-six-hands-image-white-background-40012650.jpg" alt="Generic placeholder image" width="140" height="150"></a>
+                <p><h3><b >Want to Organize?</b></h3></p>
 
             </div>
 
@@ -112,9 +144,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
          </div>
              <div class="col-md-4">
 
-<a href="#about_player"><img class="rounded-circle" src="https://media.gettyimages.com/photos/boy-playing-cricket-picture-id172363874?s=612x612" alt="Generic placeholder image" width="150" height="150"></a>
+<a href="#about_player" class="move"><img class="rounded-circle" src="https://media.gettyimages.com/photos/boy-playing-cricket-picture-id172363874?s=612x612" alt="Generic placeholder image" width="150" height="150"></a>
 
-                 <p><h3><b>Want to Play?</b></h3></p>
+                 <p><h3><b >Want to Play?</b></h3></p>
             </div>
 
         </div>
@@ -133,11 +165,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>Want to ORGANIZE?</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+      <h5 class="w3-padding-32" style="font-size: 25px">Cricky provides a great platform to manage all your cricket tournaments   </h5>
 
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-text-grey" style="font-size: 20px">Cricky degitalizes your tournament management by giving u opportunity to create tournament ,add teams ,add players to the teams . Cricky  also provides a user friendly score entering system for adding the details of each delivery in the tournament . Your tournament will be visible to the public . You can also send alerts about your tournaments  for the audience </p>
+
+
+
     </div>
 
     <div class="w3-third w3-center">
@@ -159,27 +192,39 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
     <div class="w3-twothird">
       <h1>Want to PLAY?</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+      <h5 class="w3-padding-32" style="font-size: 25px">Cricky provides a great platform to manage  your profile </h5>
 
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-text-grey" style="font-size: 20px">Tournament Organizers will be able to select you for their tournaments. Your profifle will also be visible to the audience . After each of your match your perfomace will be updated </p>
     </div>
   </div>
 </div>
 </div>
 
 
-<div class="w3-container w3-light-grey" style="padding:400px 400px; width: 1520px; height: 0px" id="contact">
+<div class="w3-container w3-light-grey " style="padding:400px 400px; width: 1520px; height: 0px" id="contact">
+<div class="w3-container ">
 <h2 class="w3-wide w3-center" style="margin-top: -150px">CONTACT</h2>
     <p class="w3-opacity w3-center"><i>Any Queries? Drop a note!</i></p>
     <div class="w3-row w3-padding-32">
       <div class="w3-col m6 w3-large w3-margin-bottom">
-        <i class="fa fa-map-marker" style="width:30px"></i> Mangalore, India<br>
-        <i class="fa fa-phone" style="width:30px"></i> Phone: +91 7348810539<br>
-        <i class="fa fa-envelope" style="width:30px"> </i> Email: siddeshlc8@gmail.com<br>
+        <i class="fa fa-map-marker my-4" style="width:30px"></i> Mangalore, India<br>
+        <i class="fa fa-phone my-4" style="width:30px"></i> Phone :<div class="row">
+          <div class=" col-md-3">
+
+          </div>
+          <div class=" col-md-9">
+              +91 7348810539
+          </div>
+           <div class=" col-md-3">
+
+          </div>
+           <div class=" col-md-9    ">
+               +91 9901053788
+          </div>
+      </div >
+        <i class="fa fa-envelope my-4" style="width:30px"> </i> Email: &nbsp &nbsp cricky.Web@gmail.com<br>
       </div>
-      <div class="w3-col m6">
+      <div class="w3-col m6 my-4">
         <form action="#" target="_blank">
           <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
             <div class="w3-half">
@@ -194,6 +239,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         </form>
       </div>
     </div>
+
+</div>
 </div>
 
 
