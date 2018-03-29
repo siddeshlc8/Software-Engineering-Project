@@ -1,7 +1,8 @@
 
 
 body {
-    background-color: #fdfffd;
+
+     background-image: url('images/2.png')
 }
 
 .nav-item:hover{
@@ -19,4 +20,8 @@ body {
     background-color: red;
     color:white;
 
+}
+.k{
+      background-image: url("https://www.axisimages.in/wp-content/uploads/Grey-background-for-site11.jpg");
+    background-image:url("https://static.vecteezy.com/system/resources/previews/000/139/911/large_2x/vector-grey-gradient-abstract-background.jpg");"
 }
