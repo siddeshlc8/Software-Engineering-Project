@@ -41,116 +41,125 @@
         });
     </script>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">Cricky</h3>
-          <nav class="nav nav-masthead justify-content-center" >
-            <a class="nav-link "  href="{% url 'home_page' %} "><h5 style="color: #5cb85c">Home</h5></a>
-            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #5cb85c">Player</h5></a>
-            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #5cb85c">Organizer</h5></a>
-            <a class="nav-link" href="{% url 'live' %}"><h5 style="color: #5cb85c">Live Scores</h5></a>
-            <a class="nav-link" href="#"><h5 style="color: #5cb85c">Contact</h5></a>
-          </nav>
-        </div>
-      </header>
+  <div class="backgroundImageCVR">
+    <div class="background-image"></div>
+    <div class="content">
 
-        {% if messages %}
+                <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+                  <header class="masthead mb-auto">
+                    <div class="inner">
+                      <h3 class="masthead-brand">Cricky</h3>
+                      <nav class="nav nav-masthead justify-content-center" >
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'players_page'  %}"><h5 style="color: darkred">Player</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'organizers_page'  %}"><h5 style="color:darkred">Organizer</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
 
-<br><br><br><br>
+                      </nav>
+                    </div>
+                  </header>
 
-       {% for message in messages %}
+                    {% if messages %}
 
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+            <br><br><br><br>
 
-              <strong> {{ message }}  </strong>
+                   {% for message in messages %}
 
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
 
-              <span aria-hidden="true">&times;</span>
+                          <strong> {{ message }}  </strong>
 
-              </button>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 
-        </div>
+                          <span aria-hidden="true">&times;</span>
 
-       {% endfor %}
+                          </button>
 
-{% endif %}
+                    </div>
 
+                   {% endfor %}
 
-        <div class="card  my-4" style="width:700px; margin-left: -15px">
+            {% endif %}
 
-            <h5 class="card-header text-dark">Login Form</h5>
-            <div class="card-body"></div>
+<br><br>
+                    <div class="card  my-4" style="width:700px; margin-left: -15px  ;border: 4px solid  #2B7A78;">
 
-            <form method="POST">
-            {% csrf_token %}
-      <div class="form-group">
+                        <h5 class="card-header ">Login Form</h5>
+                        <div class="card-body"></div>
 
-          <div class="row">
+                        <form method="POST">
+                        {% csrf_token %}
+                  <div class="form-group">
 
-                  <div class="col-lg-1">
+                      <div class="row">
+
+                              <div class="col-lg-1">
+
+                              </div>
+
+                               <div class="col-md-10">
+                                   <input type="text" class="form-control" name="username"  placeholder="Enter Username">
+                               </div>
+                      </div>
 
                   </div>
 
-                   <div class="col-md-10">
-                       <input type="text" class="form-control" name="username"  placeholder="Enter Username">
-                   </div>
-          </div>
+                 <div class="row my-4">
 
-      </div>
-
-     <div class="row my-4">
-
-     </div>
+                 </div>
 
 
-     <div class="form-group">
+                 <div class="form-group">
 
-          <div class="row">
-                   <div class="col-lg-1">
+                      <div class="row">
+                               <div class="col-lg-1">
 
-                   </div>
+                               </div>
 
-                   <div class="col-md-10">
-                      <input type="password" class="form-control" name="password" placeholder="Password">
-                   </div>
-          </div>
-     </div>
+                               <div class="col-md-10">
+                                  <input type="password" class="form-control" name="password" placeholder="Password">
+                               </div>
+                      </div>
+                 </div>
 
-     <div class="row my-4">
-     </div>
+                 <div class="row my-4">
+                 </div>
 
-        </div>
 
-      <main role="main" class="inner-cover">
-        <h1 class="cover-heading"></h1>
-        <p class="lead"><button type="submit" class="btn btn-secondary btn-lg text-dark submit_buttons"><b>LOGIN</b></button></p>
-       <div class="row">
-          <div class="container col-md-4">
 
-          </div>
+                  <main role="main" class="inner-cover">
+                    <h1 class="cover-heading"></h1>
+                    <p class="lead"><button type="submit" class="btn btn-secondary btn-lg  Login_button"><b>LOGIN</b></button></p>
+                   <div class="row">
+                      <div class="container col-md-4">
 
-      </div>
-      </main>
+                      </div>
 
-        </form>
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-        </div>
+                  </div>
+                  </main>
 
-      </footer>
+                    </form>
+                  <footer class="mastfoot mt-auto">
+                    <div class="inner">
+                    </div>
 
+                  </footer>
+
+                </div>
+                </div>
     </div>
-
+  </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
     <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
   </body>
+
+
+
 
 
 </html>

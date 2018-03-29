@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="af2b9177-37c3-4bd6-b9b8-870c73947b61" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/cricket/templates/cricket/home_page.html" afterPath="$PROJECT_DIR$/cricket/templates/cricket/home_page.html" />
+      <change beforePath="$PROJECT_DIR$/cricket/static/cricket/login.css" afterPath="$PROJECT_DIR$/cricket/static/cricket/login.css" />
+      <change beforePath="$PROJECT_DIR$/cricket/templates/cricket/login.html" afterPath="$PROJECT_DIR$/cricket/templates/cricket/login.html" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <ignored path="$PROJECT_DIR$/venv1/" />
@@ -61,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home_page.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home_page.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="68" column="35" lean-forward="false" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+            <state relative-caret-position="483">
+              <caret line="22" column="27" lean-forward="false" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="103" />
               <folding>
                 <element signature="n#style#0;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -79,8 +80,24 @@
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+            <state relative-caret-position="333">
+              <caret line="84" column="16" lean-forward="true" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
+              <folding>
+                <element signature="n#style#0;n#h5#0;n#a#0;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h5#0;n#a#1;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h5#0;n#a#2;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h5#0;n#a#3;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cricket/static/cricket/login.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="159" column="30" lean-forward="true" selection-start-line="159" selection-start-column="30" selection-end-line="159" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -111,16 +128,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1275">
               <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="team_players.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/team_templates/team_players.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1475">
-              <caret line="59" column="100" lean-forward="false" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="100" />
               <folding />
             </state>
           </provider>
@@ -192,6 +199,8 @@
         <option value="$PROJECT_DIR$/tournament/views.py" />
         <option value="$PROJECT_DIR$/cricket/templates/cricket/home.html" />
         <option value="$PROJECT_DIR$/cricket/templates/cricket/home_page.html" />
+        <option value="$PROJECT_DIR$/cricket/templates/cricket/login.html" />
+        <option value="$PROJECT_DIR$/cricket/static/cricket/login.css" />
       </list>
     </option>
   </component>
@@ -234,6 +243,19 @@
             <path>
               <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software_Engineering_Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software_Engineering_Project" type="462c0819:PsiDirectoryNode" />
+              <item name="cricket" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="cricket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -498,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522304205213</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="home page updated">
+      <created>1522304562007</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1522304562007</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -549,13 +578,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/player_signup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="66" column="24" lean-forward="false" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tournament/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -910,24 +932,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="41" column="13" lean-forward="true" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/home_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="68" column="35" lean-forward="false" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+        <state relative-caret-position="483">
+          <caret line="22" column="27" lean-forward="false" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="103" />
           <folding>
             <element signature="n#style#0;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/templates/cricket/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="84" column="16" lean-forward="true" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
+          <folding>
+            <element signature="n#style#0;n#h5#0;n#a#0;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#a#1;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#a#2;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#a#3;n#nav#0;n#div#0;n#header#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cricket/static/cricket/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="159" column="30" lean-forward="true" selection-start-line="159" selection-start-column="30" selection-end-line="159" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>

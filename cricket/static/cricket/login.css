@@ -27,32 +27,21 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #545454;
-    background-image: url("https://qph.fs.quoracdn.net/main-qimg-4190cf78b97254a1c0bed6d6380dbc63");
+
+
+
 
 
     /* Center and scale the image nicely */
 
-    background-repeat: no-repeat;
-    background-size: cover;
+
 }
 
 .bg {
-   height: 10%;
+   height: 100%;
 }
 
 
-body {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  color: #fff;
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-}
 
 .cover-container {
   max-width: 42em;
@@ -82,7 +71,7 @@ body {
 .nav-masthead .nav-link {
   padding: .25rem 0;
   font-weight: 700;
-  color: rgba(255, 255, 255, .5);
+  color: darkred;
   background-color: transparent;
   border-bottom: .25rem solid transparent;
 }
@@ -128,4 +117,54 @@ body {
  */
 .mastfoot {
   color: rgba(255, 255, 255, .5);
+}
+
+.card-header{
+  background-color: #17252A;
+
+  color:#FEFFFF;
+}
+
+.Login_button{
+   background-color: #17252A;
+  color:#FEFFFF;
+}
+
+
+.Login_button:hover
+ {
+
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #2B7A78;
+  color:#FEFFFF;
+  border: .05rem solid #fff;
+}
+.nav-color{
+  color: darkred;
+}
+
+.backgroundImageCVR{
+	position:relative;
+	padding:15px;
+}
+.background-image{
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	background:url('https://media2.mensxp.com/media/section/2015/Feb/cricket13663_1424161361.jpg');
+	background-size:cover;
+  height: 110%;
+	z-index:1;
+	-webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+.content{
+	position:relative;
+	z-index:2;
+	color:#fff;
 }
