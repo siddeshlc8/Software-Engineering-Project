@@ -18,6 +18,7 @@ from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 
 app_name = 'cricket'
@@ -35,7 +36,12 @@ urlpatterns = [
     path('', views.home, name='home_page'),
     path('live-scores/', views.live_scores, name='live'),
     path('tournament/', include('tournament.urls'), name='tournament'),
-    path('home/',views.home,name='home')
+    path('home/',views.home,name='home'),
+    path('password_reset/', auth_views.password_reset, name='password_reset'),
+    path('password_reset/done/', auth_views.password_reset_done, name='password_reset_done'),
+    path('reset/<uidb64>)/<token>)/',
+        auth_views.password_reset_confirm, name='password_reset_confirm'),
+    path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
 ]
 
 if settings.DEBUG:

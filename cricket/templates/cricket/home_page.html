@@ -76,9 +76,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Header -->
 
-<header class="w3-container1 w3-red w3-center" style="padding:150px 16px">
-  <h1 class="w3-margin w3-jumbo">Cricky.com</h1>
-  <p class="w3-xlarge">A way to organize  tournaments</p>
+<header class="w3-container1 w3-red w3-center" style="padding:170px 16px">
+  <h1 class="w3-margin w3-jumbo" style="color: black">Cricky.com</h1>
+  <p class="w3-xlarge" style="color: black;">A way to organize  tournaments</p>
     <p><a href="{% url 'live' %}"><button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Live Scores</button></a></p>
 </header>
 
@@ -105,13 +105,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                         <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNyUJ8ud9fkql7S2jgSw9P_QuUduiMw08vzwh5mUNwo3pscn2" alt="Generic placeholder image" width="140" height="100" >
                         <h2>Are you a member?</h2>
 
-                        <p><a class="btn btn-secondary" href="{% url 'login' %}" role="button"> <b>LogIn </b>  </a></p>
+                        <p><a class="btn btn-secondary" href="{% url 'login' %}" role="button" style="width: 200px"> <b>LogIn </b>  </a></p>
                 </div>
                 <div class="col-md-5">
                      <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwCOxMLdOQCj2sBLDkUnc4Q3POWJIpsbov2NDeCvQm7E7RqMX7" alt="Generic placeholder image" width="150" height="100">
                         <h2>Are you new?</h2>
 
-                        <p><a class="btn btn-secondary" href="#myCarousel" data-slide="next" role="button"><b>SignUp</b></a></p>
+                        <p><a class="btn btn-secondary" href="#myCarousel" data-slide="next" role="button" style="width: 200px"><b>SignUp</b></a></p>
                 </div>
             </div>
 
@@ -160,7 +160,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 
-<div class="w3-container w3-light-grey" style="padding:100px 16px; height: 760px" id="about_organizer">
+<div class="w3-container w3-light-grey" style="padding:100px 16px; height: 795px" id="about_organizer">
   <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
@@ -174,7 +174,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
 
     <div class="w3-third w3-center">
-      <a href="{% url 'organizer_signup' %}"><img class="rounded-circle" src="https://thumbs.dreamstime.com/z/d-small-people-multi-manager-person-businessman-six-hands-image-white-background-40012650.jpg" alt="Generic placeholder image" width="300" height="300"></a>
+      <img class="rounded-circle" src="https://thumbs.dreamstime.com/z/d-small-people-multi-manager-person-businessman-six-hands-image-white-background-40012650.jpg" alt="Generic placeholder image" width="300" height="300">
+        <a href="{% url 'organizer_signup' %}"><button class="btn btn-secondary  w3-padding-large w3-large w3-margin-top" style="width: 300px; background-color: white; color: black">SignUp</button></a>
     </div>
   </div>
 </div>
@@ -187,7 +188,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding  w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-third w3-center">
-      <a href="{% url 'player_signup' %}"><img class="rounded-circle" src="https://media.gettyimages.com/photos/boy-playing-cricket-picture-id172363874?s=612x612" alt="Generic placeholder image" width="300" height="300"></a>
+      <img class="rounded-circle" src="https://media.gettyimages.com/photos/boy-playing-cricket-picture-id172363874?s=612x612" alt="Generic placeholder image" width="300" height="300">
+        <a href="{% url 'player_signup' %}"><button class="btn btn-secondary w3-padding-large w3-large w3-margin-top" style="width: 300px; background-color: lightgrey; color: black">SignUp</button></a>
     </div>
 
     <div class="w3-twothird">
