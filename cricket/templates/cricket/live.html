@@ -42,28 +42,25 @@
     </script>
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">Cricky</h3>
-          <nav class="nav nav-masthead justify-content-center" >
-            <a class="nav-link"  href="{% url 'home_page' %} "><h5 style="color: #5cb85c">Home</h5></a>
-            <a class="nav-link" href="{% url 'players_page'  %}"><h5 style="color: #5cb85c">Player</h5></a>
-            <a class="nav-link" href="{% url 'organizers_page'  %}"><h5 style="color: #5cb85c">Organizer</h5></a>
-            <a class="nav-link active" href="{% url 'live' %}"><h5 style="color: #5cb85c">Live Scores</h5></a>
-            <a class="nav-link" href="#"><h5 style="color: #5cb85c">Contact</h5></a>
+                  <header class="masthead mb-auto">
+                    <div class="inner">
+                      <h3 class="masthead-brand" style="margin-left: 150px">Cricky</h3>
+                      <nav class="nav nav-masthead justify-content-center" >
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred; margin-right: 0px">Home</h5></a>
+
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred; margin-right: 150px">Live Scores</h5></a>
           </nav>
         </div>
       </header>
 
  <div class="row">
 
-<br><br><br><br><br><br>
      <div class="col-md-6">
-         <br><br><br><br><br><br>
 
-           <div class="card   " style="{overflow-y: scroll;height: 30px}">
 
-               <div class="card-header text-dark"> Live Matches</div>
+           <div class="card   " style="{overflow-y: scroll;height: 300px ;margin-top:-300px}">
+
+               <div class="card-header text-dark"><h4 style="color: #FEFFFF">Live Matches</h4></div>
                <div class="card-body text-dark">
                <div class="row livematches " >
 
@@ -92,7 +89,7 @@
 
          <div class="col-md-6">
 
-             <br><br><br><br><br><br>
+
 
            <div class="card  " style="{overflow-y: scroll}">
                <div class="card-header text-dark"> Live Tournaments</div>
