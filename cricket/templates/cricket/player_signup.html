@@ -47,11 +47,11 @@
                 <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
                   <header class="masthead mb-auto">
                     <div class="inner">
-                      <h3 class="masthead-brand" style="margin-left: 150px">Cricky</h3>
+                      <h3 class="masthead-brand">Cricky</h3>
                       <nav class="nav nav-masthead justify-content-center" >
-                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred; margin-right: 0px">Home</h5></a>
-
-                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred; margin-right: 150px">Live Scores</h5></a>
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
+                         <a class="nav-link nav-color" href="{% url 'login' %}"><h5 style="color:darkred">Login</h5></a>
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
 
                       </nav>
                     </div>
@@ -82,7 +82,7 @@
 <br><br>
 
 
-            <div class="card  " style="width:700px; margin-left: -15px  ;border: 4px solid  #2B7A78; height: 490px ">
+            <div class="card  " style="width:700px; margin-left: -15px  ;border: 4px solid  #2B7A78;">
 
                  <h5 class="card-header ">Signup Form</h5>
                      <div class="card-body " style="color: #545454">
@@ -139,31 +139,32 @@
 
                                               </div>
 
-                                               <div class="col-md-10">
+
+                                               <div class="col-md-4">
                                                    {% render_field form.password1 placeholder="Set Password" class="form-control" name="password1"  %}
 
-
-
-                                                   <ul type="none">
-                                                       <li>
+                                               </div>
+                                               <div class="col-md-6" style="font-size: 12px;border: 1px dotted #2B7A78;">
+                                                   <ul >
+                                                       <li style="justify-content: left">
                                                            Your password can't be too similar to your other personal information.
                                                        </li>
 
                                                          <li>
-                                                             Your password must contain at least 8 characters.
+                                                             Must contain at least 8 characters.
                                                          </li>
                                                        <li>
-                                                           Your password can't be a commonly used password.</li>
-                                                       <li>
-                                                              Your password can't be entirely numeric.
+                                                           Cannot  be a commonly used password.</li>
+                                                       <li style="justify-content: left">
+                                                              Cannot  be entirely numeric.
                                                        </li>
                                                    </ul>
-
+                                               </div>
                                                </div>
 
                                       </div>
 
-                                     </div>
+
 
                                  <div class="row my-2">
 
@@ -206,6 +207,7 @@
                               </main>
 
                         </form>
+                     </div>
                      </div>
             </div>
 

@@ -3,3 +3,20 @@
 body {
     background-color: #fdfffd;
 }
+
+.nav-item:hover{
+    border: 1px solid #5cb85c;
+}
+.nav-item:hover{
+    border:1px solid #5cb85c;
+}
+
+.drop_item:hover{
+    background-color: #5cb85c;
+}
+
+.logout:hover{
+    background-color: red;
+    color:white;
+
+}
