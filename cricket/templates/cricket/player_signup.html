@@ -50,8 +50,7 @@
                       <h3 class="masthead-brand">Cricky</h3>
                       <nav class="nav nav-masthead justify-content-center" >
                         <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
-                        <a class="nav-link nav-color" href="{% url 'players_page'  %}"><h5 style="color: darkred">Player</h5></a>
-                        <a class="nav-link nav-color" href="{% url 'organizers_page'  %}"><h5 style="color:darkred">Organizer</h5></a>
+                         <a class="nav-link nav-color" href="{% url 'login' %}"><h5 style="color:darkred">Login</h5></a>
                         <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
 
                       </nav>
@@ -140,31 +139,32 @@
 
                                               </div>
 
-                                               <div class="col-md-10">
+
+                                               <div class="col-md-4">
                                                    {% render_field form.password1 placeholder="Set Password" class="form-control" name="password1"  %}
 
-
-
-                                                   <ul type="none">
-                                                       <li>
+                                               </div>
+                                               <div class="col-md-6" style="font-size: 12px;border: 1px dotted #2B7A78;">
+                                                   <ul >
+                                                       <li style="justify-content: left">
                                                            Your password can't be too similar to your other personal information.
                                                        </li>
 
                                                          <li>
-                                                             Your password must contain at least 8 characters.
+                                                             Must contain at least 8 characters.
                                                          </li>
                                                        <li>
-                                                           Your password can't be a commonly used password.</li>
-                                                       <li>
-                                                              Your password can't be entirely numeric.
+                                                           Cannot  be a commonly used password.</li>
+                                                       <li style="justify-content: left">
+                                                              Cannot  be entirely numeric.
                                                        </li>
                                                    </ul>
-
+                                               </div>
                                                </div>
 
                                       </div>
 
-                                     </div>
+
 
                                  <div class="row my-2">
 
@@ -207,6 +207,7 @@
                               </main>
 
                         </form>
+                     </div>
                      </div>
             </div>
 
