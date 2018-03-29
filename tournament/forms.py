@@ -23,7 +23,7 @@ class TeamCreationForm(forms.ModelForm):
 
 
 class TournamentCreationForm(forms.ModelForm):
-    place = forms.CharField(widget=forms.Textarea, max_length=100)
+    #place = forms.CharField(widget=forms.Textarea, max_length=100)
 
     class Meta:
         model = Tournament
