@@ -39,10 +39,12 @@
             <div class="card my-5" >
                         <div class="card-header "><h2 class="center">Your Profile</h2></div>
                         <div class="card-body">
-                         <img src="{{ P.image.url }}" class="rounded-circle img-fluid d-block mx-auto">
-                          <div class="row">
+                        <div class="center my-4">
+                         <img src="{{ P.image.url }}" alt=" NO image" class="rounded-circle img-fluid d-block mx-auto">
+                        </div>  <div class="row">
 
                                 {% for field_name, field in player.items %}
+                                    {% if field_name != "Profile Picture" %}
                                     <div class=" col-md-2">
 
 
@@ -64,6 +66,7 @@
 
 
                                     </div>
+                                    {% endif %}
 
                                 {% endfor %}
 
