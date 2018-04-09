@@ -9,7 +9,7 @@ class Player(User):
         ('Bowler', 'Bowler'),
         ('All_Rounder', 'All_Rounder')
     ]
-    image = models.ImageField(blank=True, upload_to='players')
+    image = models.ImageField( upload_to='players' ,default='players/no.png')
     player_type = models.CharField(max_length=11, choices=PLAYER_TYPE_CHOICES)
     phone_no = models.CharField(max_length=10, null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, blank=True)

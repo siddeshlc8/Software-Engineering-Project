@@ -15,19 +15,27 @@
            <form  method="POST">
 
             {% csrf_token %}
+                {% load widget_tweaks %}
+
+
                  {% for field in form %}
 
                      <div class="form-group">
 
+
+
+                     <p>  {{ field.label_tag }}  &nbsp &nbsp &nbsp
+                    {{ field }}
+                     </p>
                      {{ field.errors }}
-                     <b>{{ field.label_tag }}</b>
-                     <p> {{ field }}</p>
 
                      </div>
 
                  {% endfor %}
 
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+             <div class="row">
+            <button type="submit" class="btn  btn-lg btn-secondary mx-auto">Save Changes</button>
+             </div>
 
           </form>
         </div>

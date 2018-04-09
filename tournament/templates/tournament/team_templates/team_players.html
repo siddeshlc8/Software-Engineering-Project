@@ -4,14 +4,16 @@
 
 {% block body %}
 
+    <div class="backgroundImageCVR">
+    <div class="background-image"></div>
+    <div class="content">
 
 
     {% load staticfiles %}
     <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
 <br>
     <br>
-    <br>
-    <br>
+
 
      {% if messages %}
 
@@ -108,10 +110,12 @@
 <!--------- ---->
 
 
-    <p><h2><a href="{% url 'tournament:add_players' team.id %}">Add Players</a></h2></p>
+    <p><h2><a href="{% url 'tournament:add_players' team.id %}" class="btn-lg btn-secondary">Add Players</a></h2></p>
 
 
 
-</div>
+     </div>
+    </div>
+
 
 {% endblock %}

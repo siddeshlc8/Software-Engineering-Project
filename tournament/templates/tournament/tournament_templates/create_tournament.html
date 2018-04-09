@@ -5,7 +5,7 @@
 
     {% load staticfiles %}
     <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
-    <br><br><br>
+    <br><br>
     {% if messages %}
 
        {% for message in messages %}
@@ -29,9 +29,13 @@
     {% endif %}
        <div class="container">
 
-        <p><h1>Fill the Details:</h1></p>
+        <p><h3>Fill the Details:</h3></p>
+
+
+       <div class="container col-md-6 " style="border: 3px double #17252A;padding-top: 20px">
 
            <form  method="POST">
+            {% load widget_tweaks %}
 
             {% csrf_token %}
                  {% for field in form %}
@@ -39,16 +43,19 @@
                      <div class="form-group">
 
                      {{ field.errors }}
-                     <b>{{ field.label_tag }}</b>
-                     <p> {{ field }}</p>
+
+                     <p>  {{ field.label_tag }}  &nbsp &nbsp &nbsp
+                    {{ field }}</p>
 
                      </div>
 
                  {% endfor %}
-
-            <button type="submit" class="btn btn-primary">Save</button>
+             <div class="row">
+            <button type="submit" class="btn  btn-lg btn-secondary mx-auto">Save</button>
+             </div>
 
           </form>
+       </div>
         </div>
 
 {% endblock %}

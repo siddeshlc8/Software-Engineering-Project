@@ -25,3 +25,30 @@ body {
       background-image: url("https://www.axisimages.in/wp-content/uploads/Grey-background-for-site11.jpg");
     background-image:url("https://static.vecteezy.com/system/resources/previews/000/139/911/large_2x/vector-grey-gradient-abstract-background.jpg");"
 }
+
+
+.backgroundImageCVR{
+	position:relative;
+	padding:15px;
+}
+.background-image{
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	background-image: url("images/2.png");
+	background-size:cover;
+
+	z-index:1;
+	-webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+.content{
+	position:relative;
+	z-index:2;
+
+}
