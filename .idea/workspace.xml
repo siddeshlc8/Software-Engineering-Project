@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af2b9177-37c3-4bd6-b9b8-870c73947b61" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/media/tournaments/no.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/player/models.py" afterPath="$PROJECT_DIR$/player/models.py" />
-      <change beforePath="$PROJECT_DIR$/player/templates/player/view_profile.html" afterPath="$PROJECT_DIR$/player/templates/player/view_profile.html" />
-      <change beforePath="$PROJECT_DIR$/search/templates/search/tournaments_details.html" afterPath="$PROJECT_DIR$/search/templates/search/tournaments_details.html" />
-      <change beforePath="$PROJECT_DIR$/tournament/models.py" afterPath="$PROJECT_DIR$/tournament/models.py" />
-      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/current_tournaments.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/current_tournaments.html" />
-      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/tournaments.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/tournament_templates/tournaments.html" />
-      <change beforePath="$PROJECT_DIR$/tournament/views.py" afterPath="$PROJECT_DIR$/tournament/views.py" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <ignored path="$PROJECT_DIR$/venv1/" />
@@ -110,8 +101,8 @@
       <file leaf-file-name="nav_search_tournaments.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/search/templates/search/nav_search_tournaments.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-727">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="523">
+              <caret line="50" column="12" lean-forward="true" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -596,7 +587,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522342387056</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="icons updated">
+      <created>1523267865452</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1523267865452</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -640,7 +638,8 @@
     <MESSAGE value="login page updated" />
     <MESSAGE value="signup page updated both organizer and player" />
     <MESSAGE value="Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated" />
+    <MESSAGE value="icons updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="icons updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1037,8 +1036,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/search/templates/search/nav_search_tournaments.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-727">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="523">
+          <caret line="50" column="12" lean-forward="true" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
           <folding />
         </state>
       </provider>
