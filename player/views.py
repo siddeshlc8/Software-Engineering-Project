@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from performance.models import BattingInnings, BowlingInnings, PerformanceTotal
+from tournament.models import Team, Match, Tournament
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
@@ -98,7 +99,33 @@ def player_change_password_done(request):
 def my_tournaments(request):
     try:
         player = Player.objects.get(pk=request.user.id)
-        return render(request, 'player/my_tournaments.html')
+        player = Player.objects.get(pk=request.user.id)
+        match = Match.objects.all()
+        team = Team.objects.all()
+        tournament = Tournament.objects.all()
+        teams = []
+        for t in team:
+            players = t.players.all()
+            for p in players:
+                if p == player:
+                    teams.append(t)
+
+        matches = []
+        for m in match:
+            for t in teams:
+                if m.team_1 == t:
+                    matches.append(m)
+                elif m.team_2 == t:
+                    matches.append(m)
+
+        tournaments = []
+        for t in tournament:
+            for m in matches:
+                if m.tournament == t:
+                    tournaments.append(t)
+
+        context = {'tournaments': tournaments}
+        return render(request, 'player/my_tournaments.html', context)
     except Exception:
         return redirect('login')
 
@@ -106,8 +133,27 @@ def my_tournaments(request):
 def my_matches(request):
     try:
         player = Player.objects.get(pk=request.user.id)
-        return render(request, 'player/my_matches.html')
+        match = Match.objects.all()
+        team = Team.objects.all()
+        teams = []
+        for t in team:
+            players = t.players.all()
+            for p in players:
+                if p == player:
+                    teams.append(t)
+
+        matches = []
+        for m in match:
+            for t in teams:
+                if m.team_1 == t:
+                    matches.append(m)
+                elif m.team_2 == t:
+                    matches.append(m)
+
+        context = {'matches': matches}
+        return render(request, 'player/my_matches.html', context)
     except Exception:
         return redirect('login')
+
 
 

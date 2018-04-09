@@ -13,96 +13,69 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-            <h2><b>Your Matches</b></h2><br>
+            <h2><b>Your Recent Matches</b></h2><br>
 
       <div class="album py-5 bg-light">
 
 
           <div class="row">
 
+              {% for match in matches %}
+
+              {% if match.match_status == 2 %}
+
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">Match Name</p>
+                  <p class="card-text">{{ match.name }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#" class="btn btn-primary my-2">View</a>
+                      <a href="{% url 'search:match_details' match.id %}" class="btn btn-primary my-2">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-              <div class="col-md-4">
+              {% endif %}
+
+              {% endfor %}
+
+
+          </div>
+        </div>
+
+
+    <h2><b>Your Upcoming Matches</b></h2><br>
+
+    <div class="album py-5 bg-light">
+
+
+          <div class="row">
+
+              {% for match in matches %}
+
+              {% if match.match_status == 0 %}
+
+            <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                 <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
                 <div class="card-body">
-                  <p class="card-text">Match Name</p>
+                  <p class="card-text">{{ match.name }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#" class="btn btn-primary my-2">View</a>
+                      <a href="{% url 'search:match_details' match.id %}" class="btn btn-primary my-2">View</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-              <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Match Name</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="#" class="btn btn-primary my-2">View</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              {% endif %}
 
-              <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Match Name</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="#" class="btn btn-primary my-2">View</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              {% endfor %}
 
-              <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Match Name</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                     <a href="#" class="btn btn-primary my-2">View</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-              <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">Match Name</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                     <a href="#" class="btn btn-primary my-2">View</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
           </div>
         </div>

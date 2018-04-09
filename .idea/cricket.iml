@@ -16,18 +16,11 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv1" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="fusioncharts" level="application" />
-    <orderEntry type="library" name="fusioncharts.theme.fint" level="application" />
-    <orderEntry type="library" name="frameworks-ea8cfb713b12" level="application" />
-    <orderEntry type="library" name="github-4ac5048db1ab" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
-    <orderEntry type="library" name="popper" level="application" />
-    <orderEntry type="library" name="bootstrap" level="application" />
-    <orderEntry type="library" name="holder" level="application" />
     <orderEntry type="library" name="Chart" level="application" />
+    <orderEntry type="library" name="common" level="application" />
+    <orderEntry type="library" name="main" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

@@ -652,7 +652,7 @@ def enter_score(request, match_id):
                 current_innings.current_over = over_number
                 current_innings.save()
                 if extra_run:
-                    q.bowling_runs += extra_run
+                    q.bowling_runs += (extra_run + run)
                 if is_wicket:
                     q.wickets += 1
                     out_batsman = Player.objects.get(id=out_batsman)
