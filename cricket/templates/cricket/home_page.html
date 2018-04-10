@@ -71,6 +71,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
             <a class="nav-link" href="{% url 'live' %}"><h5 style="color: white">Live Scores</h5></a>
              <a class="nav-link active"  href="{% url 'login' %}"><h5 style="color: white">Login</h5></a>
             <a class="nav-link move" href="#contact"><h5 style="color: white">Contact</h5></a>
+                <form class="nav navbar-nav navbar-right form-inline" method="GET"action="{% url 'search:nav_search_matches' %}" >
+                 <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" style="height: 30px;margin-top: 8px">
+                </form>
+
           </nav>
 </div>
 

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
+    <title>Live</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,90 +41,202 @@
         });
     </script>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <div class="backgroundImageCVR">
+    <div class="background-image"></div>
+    <div class="content">
+
+                <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
                   <header class="masthead mb-auto">
                     <div class="inner">
-                      <h3 class="masthead-brand" style="margin-left: 150px">Cricky</h3>
+                      <h3 class="masthead-brand">Cricky</h3>
                       <nav class="nav nav-masthead justify-content-center" >
-                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred; margin-right: 0px">Home</h5></a>
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
 
-                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred; margin-right: 150px">Live Scores</h5></a>
-          </nav>
-        </div>
-      </header>
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
 
- <div class="row">
+                      </nav>
+                    </div>
+                  </header>
 
-     <div class="col-md-6">
+                    {% if messages %}
 
+            <br><br><br><br>
 
-           <div class="card   " style="{overflow-y: scroll;height: 300px ;margin-top:-300px}">
+                   {% for message in messages %}
 
-               <div class="card-header text-dark"><h4 style="color: #FEFFFF">Live Matches</h4></div>
-               <div class="card-body text-dark">
-               <div class="row livematches " >
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
 
-                   {% for match in matches %}
+                          <strong> {{ message }}  </strong>
 
-                   <div class="col-md-6 my-1">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 
-                       <div class="card">
+                          <span aria-hidden="true">&times;</span>
 
-                             <a href="{% url 'tournament:live_scores' match.id %}" style="color: black">{{ match }}</a>
+                          </button>
 
-                       </div>
-
-                   </div>
+                    </div>
 
                    {% endfor %}
 
-               </div>
+            {% endif %}
+
+<br><br>
+                   <div class="col-lg-20" style="margin-left: 100px">
+
+    <div class="row">
+
+
+
+
+                                  </div>
+                              </div>
+
+                      </div>
+
+
+    <div class="col-md-6" style="margin-left: 350px">  <br><br>
+        <div class="card h-90">
+           <h2 class="card-header"><b>LIVE</h4></b></h2>
+
+            <div class="card-body">
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Live Matches</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for match in matches %}
+                  {% if match.match_status == 1 %}
+                <tr>
+                <td><a href="{% url 'tournament:live_scores' match.id %}" style="color: black">{{ match }}</a></td>
+                </tr>
+                  {% endif %}
+              </tbody>
+                 {% endfor %}
+
+
+            <table class="table table-bordered" align="center" >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Live Tournaments</th>
+                </tr>
+              </thead>
+            <tbody >
+            {% for tournament in tournaments %}
+                {% if tournament.tournament_status == 1 %}
+            <tr >
+                  <td ><a href="{% url 'search:tournaments_details' tournament.id %}"><h5 style="color: black">{{ tournament.name }}</h5></a></td>
+            </tr>
+                {% endif %}
+             {% endfor %}
+            </tbody>
+            </table>
 
             </div>
-
-     </div>
-     </div>
-
-         <!------- Start of tournament ------->
-
-         <div class="col-md-6">
-
-
-
-           <div class="card  " style="{overflow-y: scroll}">
-               <div class="card-header text-dark"> Live Tournaments</div>
-               <div class="card-body text-dark">
-               <div class="row livetournaments">
-
-
-                   <div class="col-md-6 my-1">
-                       {% for tournament in tournaments %}
-
-                       <div class="card">
-
-                          <a href="{% url 'search:tournaments_details' tournament.id %}">{{ tournament.name }}</a>
-
-                       </div>
-
-                   </div>
-                  {% endfor %}
-
-               </div>
-
-            </div>
-
-          </div>
-
+        </div>
     </div>
 
-   <div>
+    <div class="col-md-6" style="margin-left: 350px">  <br><br>
+        <div class="card h-90">
+           <h2 class="card-header"><b>PAST</h4></b></h2>
+
+            <div class="card-body">
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Past Matches</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for match in matches %}
+                  {% if match.match_status == 2 %}
+                <tr>
+                <td><a href="{% url 'search:match_details' match.id %}" style="color: black">{{ match }}</a></td>
+                </tr>
+                  {% endif %}
+              </tbody>
+                 {% endfor %}
 
 
-   </div>
+            <table class="table table-bordered" align="center" >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Past Tournaments</th>
+                </tr>
+              </thead>
+            <tbody >
+            {% for tournament in tournaments %}
+                {% if tournament.tournament_status == 2 %}
+            <tr >
+                  <td ><a href="{% url 'search:tournaments_details' tournament.id %}"><h5 style="color: black">{{ tournament.name }}</h5></a></td>
+            </tr>
+                {% endif %}
+             {% endfor %}
+            </tbody>
+            </table>
 
- </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-md-6" style="margin-left: 350px">  <br><br>
+        <div class="card h-90">
+           <h2 class="card-header"><b>UPCOMING</h4></b></h2>
+
+            <div class="card-body">
+            <table class="table table-bordered" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Upcoming Matches</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for match in matches %}
+                  {% if match.match_status == 0 %}
+                <tr>
+                <td><a href="{% url 'tournament:live_scores' match.id %}" style="color: black">{{ match }}</a></td>
+                </tr>
+                  {% endif %}
+              </tbody>
+                 {% endfor %}
+
+
+            <table class="table table-bordered" align="center" >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Upcomming Tournaments</th>
+                </tr>
+              </thead>
+            <tbody >
+            {% for tournament in tournaments %}
+                {% if tournament.tournament_status == 0 %}
+            <tr >
+                  <td ><a href="{% url 'search:tournaments_details' tournament.id %}"><h5 style="color: black">{{ tournament.name }}</h5></a></td>
+            </tr>
+                {% endif %}
+             {% endfor %}
+            </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+       </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
   </body>
+
+
+
+
+
+</html>
 
 
 

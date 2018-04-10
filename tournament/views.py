@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from search.filters import PlayerFilter
 from .models import Team, Tournament, Match, ScoreCard, Score, FirstInningss, SecondInnings, MatchAdditional
 from player.models import Player
-from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreUpdateForm, TossForm,OverForm, SelectBatsmanForm, OpenerForm, SelectBowlerForm
+from .forms import TournamentCreationForm, TeamCreationForm, MatchCreationForm, ScoreUpdateForm, TossForm,OverForm, SelectBatsmanForm, OpenerForm, SelectBowlerForm, WinnerForm
 from django.contrib import messages
 from organizer.models import Organizer
 from .utils import rr_schedule
@@ -72,7 +72,9 @@ def current_tournament(request, tournament_id):
         Organizer.objects.get(pk=request.user.id)
         current_tournament = Tournament.objects.get(pk=tournament_id)
         teams = current_tournament.team_set.all()
-        context = {'current_tournament': current_tournament, 'teams': teams}
+        matches = Match.objects.filter(tournament=current_tournament)
+        matches = matches.__len__()
+        context = {'current_tournament': current_tournament, 'teams': teams, 'matches':matches}
         return render(request, 'tournament/tournament_templates/current_tournaments.html', context)
     #except Exception:
         #return redirect('login')
@@ -274,6 +276,8 @@ def match(request, match_id):
         innings1_fallofwicket = Score.objects.filter(match=match).filter(innings='First').filter(wicket=True)
         innings2_fallofwicket = Score.objects.filter(match=match).filter(innings='Second').filter(wicket=True)
 
+        winner_form = WinnerForm(batting_team,bowling_team)
+
         context = {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': batting_team,
                    'bowling_team': bowling_team, 'toss_form': toss_form, 'overs_form': overs_form,
                    'innings1_batting': innings1_batting, 'innings1_bowling': innings1_bowling,
@@ -282,11 +286,12 @@ def match(request, match_id):
                    'commentary_second_innings': commentary_second_innings,
                    'innings1_fallofwicket': innings1_fallofwicket, 'innings2_fallofwicket':
                        innings2_fallofwicket, 'match_additional': match_additional, 'current_innings':
-                       current_innings }
+                       current_innings, 'winner_form': winner_form}
         return render(request, 'tournament/match_templates/current_match.html', context)
     else:
         toss_form = TossForm(match)
         overs_form = OverForm()
+
         context = {'all_scores': None, 'match': match, 'tournament': tournament, 'batting_team': None,
                    'bowling_team': None, 'toss_form': toss_form, 'overs_form': overs_form,
                    'innings1_batting': None, 'innings1_bowling': None,
@@ -295,7 +300,7 @@ def match(request, match_id):
                    'commentary_second_innings': None,
                    'innings1_fallofwicket': None, 'innings2_fallofwicket': None, 'match_additional':
                        match_additional, 'current_innings':
-                       current_innings }
+                       current_innings}
         return render(request, 'tournament/match_templates/current_match.html', context)
 
 
@@ -420,61 +425,69 @@ def match_openers(request, match_id):
 def submit_match(request, match_id):
     match = Match.objects.get(pk=match_id)
     tournament = Tournament.objects.get(pk=match.tournament.id)
+
     if match.match_status == 1:
-        team_1 = Team.objects.get(pk=match.team_1.id)
-        team_2 = Team.objects.get(pk=match.team_2.id)
+        if request.method == 'POST':
+            team_1 = Team.objects.get(pk=match.team_1.id)
+            team_2 = Team.objects.get(pk=match.team_2.id)
 
-        team_1_players_batting = BattingInnings.objects.filter(team=team_1)
-        team_1_players_bowling = BattingInnings.objects.filter(team=team_1)
-        team_2_players_batting = BattingInnings.objects.filter(team=team_2)
-        team_2_players_bowling = BattingInnings.objects.filter(team=team_2)
-        for player in team_1_players_batting:
-            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
-            performance.matches += 1
-            performance.save()
-
-            if player.played:
-                performance.batting_innings += 1
-            if player.status == 'batting':
-                player.status = 'not out'
-                player.save()
-            elif player.status is None:
-                player.status = 'not played'
-                player.save()
-            player.save()
-
-        for player in team_1_players_bowling:
-            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
-            if player.played:
-                performance.bowling_innings += 1
+            team_1_players_batting = BattingInnings.objects.filter(team=team_1)
+            team_1_players_bowling = BattingInnings.objects.filter(team=team_1)
+            team_2_players_batting = BattingInnings.objects.filter(team=team_2)
+            team_2_players_bowling = BattingInnings.objects.filter(team=team_2)
+            for player in team_1_players_batting:
+                performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+                performance.matches += 1
                 performance.save()
 
-        for player in team_2_players_batting:
-            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
-            performance.matches += 1
-            performance.save()
-
-            if player.played:
-                performance.batting_innings += 1
-            if player.status == 'batting':
-                player.status = 'not out'
+                if player.played:
+                    performance.batting_innings += 1
+                if player.status == 'batting':
+                    player.status = 'not out'
+                    player.save()
+                elif player.status is None:
+                    player.status = 'not played'
+                    player.save()
                 player.save()
-            elif player.status is None:
-                player.status = 'not played'
-                player.save()
-            player.save()
 
-        for player in team_2_players_bowling:
-            performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
-            if player.played:
-                performance.bowling_innings += 1
+            for player in team_1_players_bowling:
+                performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+                if player.played:
+                    performance.bowling_innings += 1
+                    performance.save()
+
+            for player in team_2_players_batting:
+                performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+                performance.matches += 1
                 performance.save()
 
-        match.match_status = 2
-        match.save()
-        match.save()
-        messages.success(request, 'Successfully Submitted')
-        return redirect('tournament:match', match_id)
+                if player.played:
+                    performance.batting_innings += 1
+                if player.status == 'batting':
+                    player.status = 'not out'
+                    player.save()
+                elif player.status is None:
+                    player.status = 'not played'
+                    player.save()
+                player.save()
+
+            for player in team_2_players_bowling:
+                performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+                if player.played:
+                    performance.bowling_innings += 1
+                    performance.save()
+
+            match.match_status = 2
+            match.save()
+            match.save()
+            messages.success(request, 'Successfully Submitted')
+            form = WinnerForm(match.team_1, match.team_2, request.POST)
+            if form.is_valid():
+                winner = form.cleaned_data['winner']
+                winner = Team.objects.get(id=winner)
+                match.match_winner = winner
+                match.save()
+            return redirect('tournament:match', match_id)
     else:
         messages.success(request, 'Already Submitted')
         return redirect('tournament:match', match_id)
@@ -538,7 +551,7 @@ def submit_tournament(request, tournament_id):
 
 
 def tournament_info_edit(request,tournament_id):
-    #try:
+    try:
         Organizer.objects.get(pk=request.user.id)
         tournament = Tournament.objects.get(pk=tournament_id)
         if request.method == 'POST':
@@ -551,8 +564,8 @@ def tournament_info_edit(request,tournament_id):
             form = TournamentCreationForm(instance=tournament)
             context = {'form': form }
             return render(request, 'tournament/tournament_templates/tournament_details_edit.html', context)
-    #except Exception:
-        #   return redirect('login')
+    except Exception:
+           return redirect('login')
 
 
 def submit_innings(request, match_id):
@@ -562,11 +575,53 @@ def submit_innings(request, match_id):
 
     if innings == 'First':
         match_additional.current_innings = 'Second'
+        if match.toss_winner_choice == 'Batting':
+            if match.toss_winner == match.team_1:
+                batting_team = match.team_1
+                bowling_team = match.team_2
+            else:
+                batting_team = match.team_2
+                bowling_team = match.team_1
+        else:
+            if match.toss_winner == match.team_1:
+                batting_team = match.team_2
+                bowling_team = match.team_1
+            else:
+                batting_team = match.team_1
+                bowling_team = match.team_2
+        batting_players = BattingInnings.objects.filter(match=match).filter(team=batting_team)
+        bowling_players = BattingInnings.objects.filter(match=match).filter(team=bowling_team)
         match_additional.save()
     else:
         match_additional.current_innings = 'Over'
+        if match.toss_winner_choice == 'Bowling':
+            if match.toss_winner == match.team_1:
+                batting_team = match.team_1
+                bowling_team = match.team_2
+            else:
+                batting_team = match.team_2
+                bowling_team = match.team_1
+        else:
+            if match.toss_winner == match.team_1:
+                batting_team = match.team_2
+                bowling_team = match.team_1
+            else:
+                batting_team = match.team_1
+                bowling_team = match.team_2
+        batting_players = BattingInnings.objects.filter(match=match).filter(team=batting_team)
+        bowling_players = BattingInnings.objects.filter(match=match).filter(team=bowling_team)
         match_additional.save()
     match.save()
+
+    for player in batting_players:
+        performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+        if player.played is True:
+            performance.batting_innings += 1
+
+    for player in bowling_players:
+        performance = PerformanceTotal.objects.get(player=Player.objects.get(id=player.player.id))
+        if player.played is True:
+            performance.bowling_innings += 1
 
     return redirect('tournament:match', match_id)
 

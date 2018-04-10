@@ -1,0 +1,153 @@
+{% extends 'search/base.html' %}
+
+{% block title %} Performance{% endblock %}
+
+{% block body %}
+
+
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+     <h2><b>Batting Performance</b></h2><br>
+
+
+         <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Tournaments</th>
+            <th>Matches</th>
+            <th>Innings</th>
+            <th>Runs</th>
+            <th>High Score</th>
+            <th>Average</th>
+            <th>Strike Rate</th>
+            <th>100s</th>
+            <th>50s</th>
+            <th>6s</th>
+            <th>4s</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+              <td>{{ total_data.tournaments }}</td>
+              <td>{{ total_data.matches }}</td>
+              <td>{{ total_data.batting_innings }}</td>
+              <td>{{ total_data.batting_runs }}</td>
+              <td>{{ total_data.high_score }}</td>
+              <td>{{ total_data.batting_avg }}</td>
+              <td>{{ total_data.strike_rate }}</td>
+              <td>{{ total_data.hundreds }}</td>
+              <td>{{ total_data.fifties }}</td>
+              <td>{{ total_data.sixes }}</td>
+              <td>{{ total_data.fours }}</td>
+            </tr>
+        </tbody>
+      </table>
+
+
+     <h5>Batting Performance in last 10 matches</h5>
+     <canvas class="my-4" id="myChart1" width="900" height="380"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+      var ctx = document.getElementById("myChart1");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{ labels }},
+          datasets: [{
+            data: {{ values }},
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+
+
+     <h2><b>Bowling Performance</b></h2><br>
+
+
+         <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Tournaments</th>
+            <th>Matches</th>
+            <th>Innings</th>
+            <th>Runs</th>
+            <th>wickets</th>
+            <th>Average</th>
+            <th>Best</th>
+            <th>Economy</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+              <td>{{ total_data.tournaments }}</td>
+              <td>{{ total_data.matches }}</td>
+              <td>{{ total_data.bowling_innings }}</td>
+              <td>{{ total_data.bowling_runs }}</td>
+              <td>{{ total_data.wickets }}</td>
+              <td>{{ total_data.bowling_avg }}</td>
+              <td>{{ total_data.bowling_best }}</td>
+              <td>{{ total_data.economy }}</td>
+            </tr>
+        </tbody>
+      </table>
+
+         <h5>Bowling Performance in last 10 matches</h5>
+     <canvas class="my-4" id="myChart2" width="900" height="380"></canvas>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+      var ctx = document.getElementById("myChart2");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{ labels1 }},
+          datasets: [{
+            data: {{ values1 }},
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+
+      </main>
+
+
+
+
+{% endblock %}

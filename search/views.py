@@ -1,9 +1,41 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from player.models import Player
 from tournament.models import Team, Tournament, Match, Score, FirstInningss, SecondInnings, MatchAdditional
 from .filters import PlayerFilter, TournamentFilter, TeamFilter, OrganizerFilter
 from organizer.models import Organizer
 from performance.models import BattingInnings, BowlingInnings
+from performance.models import PerformanceTotal
+
+
+def player(request, id):
+    try:
+        P = Player.objects.get(pk=request.user.id)
+        context = {'P': P}
+    except Exception:
+        try:
+            o = Organizer.objects.get(pk=request.user.id)
+            context = { 'O': o}
+        except Exception:
+            context = {'O': None}
+    try:
+        player = Player.objects.get(pk=id)
+        data1 = BattingInnings.objects.filter(player=player)
+        data2 = BowlingInnings.objects.filter(player=player)
+        labels = []
+        values = []
+        labels1 = []
+        values1 = []
+        for key in data1:
+            labels.append(key.id)
+            values.append(key.batting_runs)
+        for key in data2:
+            labels1.append(key.id)
+            values1.append(key.wickets)
+        total_data = PerformanceTotal.objects.get(player=player)
+        context.update({'labels': labels, 'values': values, 'labels1': labels1, 'values1': values1, 'total_data': total_data})
+        return render(request, 'search/performance_matches.html', context)
+    except Exception:
+        return redirect('login')
 
 
 def nav_search_matches(request):
@@ -18,7 +50,7 @@ def nav_search_matches(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        matches = Match.objects.filter(name__icontains=query)
+        matches = Match.objects.filter(name__icontains=query).order_by('name')
         context.update({'matches': matches})
         return render(request, 'search/nav_search_matches.html', context)
 
@@ -35,7 +67,7 @@ def nav_search_players(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        players = Player.objects.filter(first_name__contains=query)
+        players = Player.objects.filter(first_name__contains=query).order_by('first_name')
         context.update({'players': players})
         return render(request, 'search/nav_search_players.html', context)
 
@@ -69,7 +101,7 @@ def nav_search_teams(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        teams = Team.objects.filter(name__contains= query)
+        teams = Team.objects.filter(name__contains= query).order_by('name')
         context.update({'teams': teams})
         return render(request, 'search/nav_search_teams.html', context)
 
@@ -86,7 +118,7 @@ def nav_search_tournaments(request):
             except Exception:
                 context = {'P': None}
         query = request.GET.get("q")
-        tournaments = Tournament.objects.filter(name__contains= query)
+        tournaments = Tournament.objects.filter(name__contains= query).order_by('name')
         context.update({'tournaments': tournaments})
         return render(request, 'search/nav_search_tournaments.html', context)
 
@@ -209,7 +241,6 @@ def teams_details(request, team_id):
     return render(request, 'search/teams_details.html', context)
 
 
-
 def match_details(request, match_id):
     match = Match.objects.get(pk=match_id)
     try:
@@ -285,16 +316,3 @@ def tournaments_matches(request, tournament_id):
 
 
 
-def player_performance(request,player_id):
-    player=Player.objects.get(pk=player_id)
-
-    try:
-        P = Player.objects.get(pk=request.user.id)
-        context = { 'player':player,'P': P}
-    except Exception:
-        try:
-            o = Organizer.objects.get(pk=request.user.id)
-            context = {'player':player, 'O': o}
-        except Exception:
-            context = {'player':player, 'O': None}
-    return render(request, 'search/player_performance.html', context)

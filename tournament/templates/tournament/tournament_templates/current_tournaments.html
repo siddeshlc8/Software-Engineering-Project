@@ -174,7 +174,7 @@
 
                         <div class="card-body">
 
-                         <p>   name of winning team </p>
+
 
                         </div>
 
@@ -191,7 +191,7 @@
 
                         <div class="card-body">
 
-                        <p> total matches in tournament</p>
+                            <p> {{ matches }}</p>
 
                       </div>
 
@@ -213,18 +213,6 @@
 
                  </div>
 
-                <div class="col-md-6 mb-4">
-
-
-                     <div class="card h-25">
-
-                        <h5 class="card-header">Alerts</h5>
-                        <div class="card-body">
-                            <p><a href="{% url 'tournament:alerts:tournament_alerts' current_tournament.id %}">All Alerts</a> </p>
-                      </div>
-                      </div>
-
-                </div>
 
              </div>
 

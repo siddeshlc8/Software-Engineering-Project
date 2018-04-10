@@ -41,6 +41,7 @@ class Match(models.Model):
     toss_winner = models.ForeignKey('Team', related_name='toss_winner', on_delete=models.DO_NOTHING,
                                     blank=True, null=True)
     toss_winner_choice = models.CharField(max_length=10, default='Select')
+    match_winner = models.ForeignKey('Team', related_name='match_winner', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return self.name

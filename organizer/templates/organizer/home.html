@@ -1,18 +1,14 @@
 {% extends 'organizer/base.html' %}
 
-{% block title %}{{ request.user.get_full_name }} | Home{% endblock %}
+{% block title %}{{ P.get_full_name }} | Home{% endblock %}
 
 {% block body %}
-
-{% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
-
-<br><br><br><br>
+<br><br><br>
     {% if messages %}
 
        {% for message in messages %}
 
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
 
               <strong> {{ message }}  </strong>
 
@@ -30,10 +26,100 @@
 
     {% endif %}
 
-    <br><br>
+    <style>
 
-        <br> <h1 > Hi, {{ request.user.username}} </h1>
 
+.jumbotron {
+    background-image: url("https://media2.mensxp.com/media/section/2015/Feb/cricket13663_1424161361.jpg");
+
+    background-repeat: no-repeat;
+        background-size: cover;
+
+}
+
+    </style>
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4" >
+        <h1 class="display-3">A Warm Welcome!</h1>
+        <p class="lead"><b>{{ request.user.get_full_name }}</b></p>
+
+      </header>
+
+      <!-- Page Features -->
+      <div class="row text-center">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="http://moziru.com/images/unknown-clipart-avatar-16.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Profile</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'organizer:view_profile' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwQIpdQ9lz8hn9la9_3v3FCSFroqbcfi_vdEcKW2pW4exjuCPIEg" alt="">
+            <div class="card-body">
+                <h4 class="card-title">My <br> Tournaments</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'tournament:tournament' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="http://www.cityam.com/assets/uploads/main-image/cam_standard_article_main_image/cricket-aus-rsa-625462046-5994694d1c121.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">My Matches</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'player:my_matches' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="http://courseplay.co/wp-content/uploads/2017/10/performance.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Performance</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'player:player_view_performance' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
 
 
 

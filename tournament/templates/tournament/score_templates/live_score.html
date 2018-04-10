@@ -1,47 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% extends 'search/base.html' %}
+    <title>{{ batting_team }} vs {{ bowling_team }}</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+      {% load staticfiles %}
+    <link  rel="stylesheet" type="text/css" href="{% static 'cricket/login.css' %}">
+  </head>
 
-{% block title %}{{ organizer.get_full_name }} | Enter Score{% endblock %}
+  <body class="text-center">
 
-{% block body %}
+  <script >
+        $(document).ready(function(){
+          // Add smooth scrolling to all links
+          $("a").on('click', function(event) {
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+              // Store hash
+              var hash = this.hash;
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+              $('html, body').animate({
+                scrollTop: $(hash).offset().top
+              }, 800, function(){
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+              });
+            } // End if
+          });
+        });
+    </script>
 
-    {% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}">
-    <br><br><br><br>
+  <div class="backgroundImageCVR">
+    <div class="background-image"></div>
+    <div class="content">
 
+                <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+                  <header class="masthead mb-auto">
+                    <div class="inner">
+                      <h3 class="masthead-brand">Cricky</h3>
+                      <nav class="nav nav-masthead justify-content-center" >
+                        <a class="nav-link  nav-color"  href="{% url 'home_page' %} "><h5 style="color: darkred">Home</h5></a>
 
-             <div class="col-lg-20" style="margin-left: 100px">
+                        <a class="nav-link nav-color" href="{% url 'live' %}"><h5 style="color:darkred">Live Scores</h5></a>
+
+                      </nav>
+                    </div>
+                  </header>
+
+                    {% if messages %}
+
+            <br><br><br><br>
+
+                   {% for message in messages %}
+
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show center" role="alert">
+
+                          <strong> {{ message }}  </strong>
+
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                          <span aria-hidden="true">&times;</span>
+
+                          </button>
+
+                    </div>
+
+                   {% endfor %}
+
+            {% endif %}
+
+<br><br>
+                   <div class="col-lg-20" style="margin-left: 100px">
 
     <div class="row">
-
-
-                                      <div class="col-sm-3" >
-
-                                          <h3><b>Match : {{ match.name }}</b></h3>
-
-                                      </div>
-
-                                      <div class="col-sm-3 ">
-
-                                         <h3><b> Batting Team : {{ batting_team.name }}</b></h3>
-                                      </div>
-
-
-                                      <div class="col-sm-3 ">
-
-                                        <h3><b>Bowling Team : {{ bowling_team.name }}</b></h3>
-
-                                      </div>
-
-
-
-                                        <div class="col-sm-3">
-
-                                         <h3><b> Innings : {{ match_additional.current_innings }}</b></h3>
-
-                                      </div>
 
 
 
@@ -54,7 +96,7 @@
 
     <div class="col-md-6" style="margin-left: 350px">  <br><br>
         <div class="card h-90">
-           <h2 class="card-header"><b>LIVE SCORES:</b></h2>
+           <h2 class="card-header"><b>LIVE SCORES:<h4>{{ batting_team }} vs {{ bowling_team }}</h4></b></h2>
 
             <div class="card-body">
             <table class="table table-bordered" align="center">
@@ -71,22 +113,22 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>{{ player1.player.get_full_name }}</td>
-                  <td>{{ player1.status }}</td>
-                  <td>{{ player1.batting_runs }}</td>
-                  <td>{{ player1.batting_balls }}</td>
-                  <td>{{ player1.sixes }}</td>
-                  <td>{{ player1.fours }}</td>
-                  <td>{{ player1.strike_rate }}</td>
+                  <td><h6 style="color: black">{{ player1.player.get_full_name }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.status }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.batting_runs }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.batting_balls }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.sixes }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.fours }}</h6></td>
+                  <td><h6 style="color: black">{{ player1.strike_rate }}</h6></td>
                 </tr>
                  <tr>
-                  <td>{{ player2.player.get_full_name }}</td>
-                  <td>{{ player2.status }}</td>
-                  <td>{{ player2.batting_runs }}</td>
-                  <td>{{ player2.batting_balls }}</td>
-                  <td>{{ player2.sixes }}</td>
-                  <td>{{ player2.fours }}</td>
-                  <td>{{ player2.strike_rate }}</td>
+                  <td><h6 style="color: black">{{ player2.player.get_full_name }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.status }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.batting_runs }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.batting_balls }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.sixes }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.fours }}</h6></td>
+                  <td><h6 style="color: black">{{ player2.strike_rate }}</h6></td>
                 </tr>
               </tbody>
             </table>
@@ -111,13 +153,13 @@
               {% for player in bowling_team_players %}
               <tbody>
                 <tr>
-                  <td>{{ player.player.get_full_name }}</td>
-                  <td>{{ player.bowling_runs }}</td>
-                  <td>{{ player.bowling_overs }}</td>
-                  <td>0</td>
-                  <td>{{ player.wickets }}</td>
-                  <td>{{ player.bowling_avg }}</td>
-                  <td>0</td>
+                  <td><h6 style="color: black">{{ player.player.get_full_name }}</h6></td>
+                  <td><h6 style="color: black">{{ player.bowling_runs }}</h6></td>
+                  <td><h6 style="color: black">{{ player.bowling_overs }}</h6></td>
+                  <td><h6 style="color: black">0</h6></td>
+                  <td><h6 style="color: black">{{ player.wickets }}</h6></td>
+                  <td><h6 style="color: black">{{ player.bowling_avg }}</h6></td>
+                  <td><h6 style="color: black">{{ player.economy }}</h6></td>
                 </tr>
               </tbody>
                             {% endfor %}
@@ -133,7 +175,7 @@
             <tbody>
              {% for recent in recent %}
             <tr>
-                  <td>{{ recent.over_number }}.{{ recent.ball_number }} : {{ recent.description }}</td>
+                <td><h6 style="color: black">{{ recent.over_number }}.{{ recent.ball_number }} : {{ recent.description }}</h6></td>
             </tr>
              {% endfor %}
             </tbody>
@@ -143,6 +185,20 @@
         </div>
     </div>
        </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+  </body>
 
 
-{% endblock %}
+
+
+
+</html>
+
+
+

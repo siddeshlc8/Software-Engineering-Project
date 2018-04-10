@@ -161,3 +161,13 @@ class OpenerForm(forms.Form):
     non_striker = forms.CharField(required=False)
 
 
+class WinnerForm(forms.Form):
+    def __init__(self, team1, team2, *args, **kwargs):
+        super(WinnerForm, self).__init__(*args, **kwargs)
+        self.fields['winner'] = forms.ChoiceField(
+            choices=[(team1.id, str(team1)), (team2.id, str(team2))]
+        )
+
+    winner = forms.CharField(required=False)
+
+

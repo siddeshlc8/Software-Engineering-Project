@@ -4,17 +4,67 @@
 
 {% block body %}
 
-{% load staticfiles %}
-    <link  rel="stylesheet" type="text/css" href="{% static 'organizer/base.css' %}"><br><br><br>
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-       <div class="container">
+    <br><br><br>
 
-           <p><a href="{% url 'search:search_tournaments' %}">Tournaments</a></p>
-           <p><a href="{% url 'search:search_teams' %}">Teams</a></p>
-           <p><a href="{% url 'search:search_players' %}">Players</a></p>
-           <p><a href="{% url 'search:search_organizers' %}">Organizers</a></p>
+      <!-- Page Features -->
+      <div class="row text-center">
 
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="https://media.gettyimages.com/photos/boy-playing-cricket-picture-id172363874?s=612x612" alt=""  style="height: 200px">
+            <div class="card-body">
+              <h4 class="card-title">Search Player</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'search:search_players' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
         </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwQIpdQ9lz8hn9la9_3v3FCSFroqbcfi_vdEcKW2pW4exjuCPIEg" alt=""  style="height: 175px">
+            <div class="card-body">
+                <h4 class="card-title">Search  <br>Tournaments</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'search:search_tournaments' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card" style="">
+            <img class="card-img-top" src="https://thumbs.dreamstime.com/z/d-small-people-multi-manager-person-businessman-six-hands-image-white-background-40012650.jpg" alt="" style="height: 200px">
+            <div class="card-body">
+              <h4 class="card-title">Search Organizers</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'search:search_organizers' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="http://media-cdn.list.ly/production/83402/headline?ver=4193898758" alt=""  style="height: 200px">
+            <div class="card-body">
+              <h4 class="card-title">Search Teams</h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'search:search_teams' %}" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.row -->
 
     </main>
 {% endblock %}

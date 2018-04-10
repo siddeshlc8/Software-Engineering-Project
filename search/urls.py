@@ -5,6 +5,7 @@ app_name = 'search'
 urlpatterns = [
 
     path('', views.search, name='search'),
+    path('<int:id>/', views.player, name='player'),
     path('nav-search-players/', views.nav_search_players, name='nav_search_players'),
     path('nav-search-matches/', views.nav_search_matches, name='nav_search_matches'),
     path('nav-search-organizers/', views.nav_search_organizers, name='nav_search_organizers'),
@@ -19,5 +20,5 @@ urlpatterns = [
     path('players/', views.search_players, name='search_players'),
     path('players/details/<int:player_id>/', views.player_details, name='player_details'),
     path('organizers/', views.search_organizers, name='search_organizers'),
-    path('players/details/<int:player_id>/performance', views.player_performance, name='player_performance'),
+
 ]
