@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'performance',
     'search',
     'alerts',
+    'widget_tweaks',
     'tournament',
     'player',
     'cricket',
